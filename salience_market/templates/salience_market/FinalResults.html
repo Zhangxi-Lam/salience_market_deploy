@@ -1,0 +1,17 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% block title %}
+Your final results
+{% endblock %}
+{% block content %}
+<style>
+    .info {
+        padding: 20px;
+        background-color: rgb(202, 186, 15);
+        color: white;
+    }
+</style>
+
+<h4 class="info">Congratulations! You have complete the experiment.</h4>
+Your final payment is {{payoff}} from round {{ selected_round }}.
+{% endblock %}

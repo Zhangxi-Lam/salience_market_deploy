@@ -1,0 +1,44 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+{% block title %}
+Your results for this round
+{% endblock %}
+{% block content %}
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+<table>
+    <tr>
+        <th>State</th>
+        <td colspan="3">{{state}}</td>
+    </tr>
+    <tr>
+        <th>Remaining cash</th>
+        <td colspan="3">{{settled_cash}}</td>
+    </tr>
+    <tr>
+        <th>Asset</th>
+        <th>Unit you own</th>
+        <th>Per-unit return</th>
+        <th>Total return</th>
+    </tr>
+    <tr>
+        <td>A</td>
+        <td>{{asset_a_unit}}</td>
+        <td>{{asset_a_return}}</td>
+        <td>{{asset_a_total_return}}</td>
+    </tr>
+    <tr>
+        <td>B</td>
+        <td>{{asset_b_unit}}</td>
+        <td>{{asset_b_return}}</td>
+        <td>{{asset_b_total_return}}</td>
+    </tr>
+</table>
+Your round payoff is {{asset_a_total_return}} + {{asset_b_total_return}} + {{settled_cash}} = {{payoff}}
+{%next_button%}
+{% endblock %}

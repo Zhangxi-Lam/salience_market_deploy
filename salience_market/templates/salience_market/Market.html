@@ -1,0 +1,83 @@
+{% extends "otree_markets/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+Market
+{% endblock %}
+
+{% block scripts %}
+<script type="module" src="/static/salience_market/multiple_asset_text_interface.js"></script>
+<script type="module" src="/static/otree_markets/disable_interface_overlay.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+
+    .flex-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .info {
+        padding: 20px;
+        background-color: rgb(15, 171, 202);
+        color: white;
+    }
+</style>
+
+{% if is_practice %}
+<div class="info">
+    <strong>Info:</strong> this is a practice round
+</div>
+{% endif %}
+
+<div class="flex-container">
+    <div>
+        <div>
+            Round: {{round_number}}
+        </div>
+        <div>
+            Number of traders: {{number_of_player}}
+        </div>
+    </div>
+    <div>
+        <table>
+            Market Info
+            <tr>
+                <th>State</th>
+                <th>Probability</th>
+                <th>Asset A Return</th>
+                <th>Asset B Return</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>{{p1}}%</td>
+                <td>{{asset_a_return_1}}</td>
+                <td>{{asset_b_return_1}}</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>{{p2}}%</td>
+                <td>{{asset_a_return_2}}</td>
+                <td>{{asset_b_return_2}}</td>
+            </tr>
+            {% if num_states >= 3 %}
+            <tr>
+                <td>3</td>
+                <td>{{p3}}%</td>
+                <td>{{asset_a_return_3}}</td>
+                <td>{{asset_b_return_3}}</td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>
+<multiple-asset-text-interface></multiple-asset-text-interface>
+
+{% endblock %}
