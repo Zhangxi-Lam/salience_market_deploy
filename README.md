@@ -23,7 +23,7 @@ If you have installed other versions of otree on your computer before, you can r
 
 `source venv/bin/activate`
 
-## Running the program
+## Running the program on your local machine
 ### 1. Activate the virtual enviroment
 
 Go to the project's root directory and run:
@@ -34,3 +34,31 @@ Go to the project's root directory and run:
 
 `otree devserver`
 
+## Running the program on Google Cloud
+
+### 1. Logging in to the Google Cloud machine
+
+### 2. Git clone the repository
+
+### 3. Setting up the enviroment check the ["First time setting up the enviroment"](#first-time-setting-up-the-enviroment) section above
+
+### 4. Activate the virtual enviroment
+
+Go to the project's root directory and run:
+
+`source venv/bin/activate`
+
+### 5. Start Otree
+
+`otree prodserver 80`
+
+## Debug
+If the program doesn't work for some reasons, you can try two things:
+
+1. Reactivate the virtuanl enviroment
+
+`source venv/bin/activate`
+
+2. Reset the otree database
+
+`otree resetdb`
