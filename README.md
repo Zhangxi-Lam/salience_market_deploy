@@ -38,17 +38,28 @@ Go to the project's root directory and run:
 
 ### 1. Logging in to the Google Cloud machine
 
-### 2. Git clone the repository
+### 2. Switch to the Super User
+The password is `1234`
+```console
+YOUR_NAME@instance-2:/path$ su
+```
+You should see:
+```console
+root@instance-2:/path#
+```
 
-### 3. Setting up the enviroment check the ["First time setting up the enviroment"](#first-time-setting-up-the-enviroment) section above
 
-### 4. Activate the virtual enviroment
+### 3. Git clone the repository
+
+### 4. Setting up the enviroment check the ["First time setting up the enviroment"](#first-time-setting-up-the-enviroment) section above
+
+### 5. Activate the virtual enviroment
 
 Go to the project's root directory and run:
 
 `source venv/bin/activate`
 
-### 5. Start Otree
+### 6. Start Otree
 
 `otree prodserver 80`
 
