@@ -1,6 +1,6 @@
 from salience_market.models import Constants
 from otree_markets.pages import BaseMarketPage
-from ._builtin import Page
+from ._builtin import Page, WaitPage
 
 
 class WelcomePage(Page):
