@@ -1,0 +1,34 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Welcome to IAER Online Laboratory!
+{% endblock %}
+
+{% block content %}
+
+<p>
+Welcome, and thank you for participating!
+</p>
+
+<p>
+From now until the end of the experiment, please stay focused on the task at hand, as your payment highly depends on your performance in the experiment.
+To respect other participants, please do not eat, play, chat, or leave the room during the experiment.
+If you need to drink water or use your cellphone, please only do so when necessary.
+If you have any questions, please send the host a private message and the host will answer your question.
+Please also remember to open the session link with Chrome because other browsers may cause problems. The experiment lasts about an hour.
+</p>
+
+<p>
+During the experiment, you will earn points in each trading period.
+At the end of the experiment, one trading period will be randomly chosen, from which your points will be converted to US dollars at the rate specified in the Zoom chat.
+You are guaranteed a show-up fee of $4.00 but can earn considerably more.
+</p>
+
+<p>
+Please press next to read the experimental instruction.
+</p>
+
+    {% next_button %}
+
+{% endblock %}

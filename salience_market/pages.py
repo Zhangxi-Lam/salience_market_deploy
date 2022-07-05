@@ -3,6 +3,24 @@ from otree_markets.pages import BaseMarketPage
 from ._builtin import Page
 
 
+class WelcomePage(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+
+class Instruction(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+
+class WaitStart(WaitPage):
+    body_text = 'Waiting for all players to be ready'
+    wait_for_all_groups = True
+
+    def is_displayed(self):
+        return self.round_number <= Constants.num_rounds
+
+
 class Market(BaseMarketPage):
     def get_timeout_seconds(self):
         return self.group.period_length()
@@ -59,4 +77,4 @@ class FinalResults(Page):
         }
 
 
-page_sequence = [Market, RoundResults, FinalResults]
+page_sequence = [WelcomePage, Instruction, WaitStart, Market, RoundResults, FinalResults]
