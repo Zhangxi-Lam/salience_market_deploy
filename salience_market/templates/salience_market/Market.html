@@ -61,15 +61,22 @@ Market
                 <td>{{asset_a_return_1}}</td>
                 <td>{{asset_b_return_1}}</td>
             </tr>
+            {% if num_states >= 3 %}
             <tr>
                 <td>2</td>
                 <td>{{p2}}%</td>
                 <td>{{asset_a_return_2}}</td>
                 <td>{{asset_b_return_2}}</td>
             </tr>
-            {% if num_states >= 3 %}
             <tr>
                 <td>3</td>
+                <td>{{p3}}%</td>
+                <td>{{asset_a_return_3}}</td>
+                <td>{{asset_b_return_3}}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td>2</td>
                 <td>{{p3}}%</td>
                 <td>{{asset_a_return_3}}</td>
                 <td>{{asset_b_return_3}}</td>
