@@ -12,7 +12,7 @@ class Constants(BaseConstants):
     name_in_url = 'salience_market'
     config_addr = 'salience_market/configs/demo.csv'
     config_manager = ConfigManager(config_addr)
-    players_per_group = 2
+    players_per_group = 4
     num_rounds = config_manager.num_rounds
     random_seed = time.time()
 
