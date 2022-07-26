@@ -61,6 +61,7 @@ class Subsession(markets_models.Subsession):
     def creating_session(self):
         if self.round_number > Constants.num_rounds:
             return
+        self.group_randomly()
         self.set_properties()
         return super().creating_session()
 

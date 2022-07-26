@@ -59,6 +59,10 @@ Go to the project's root directory and run:
 
 `source venv/bin/activate`
 
+### (Optional) Set OTREE_PRODUCTION=1 to enter production mode
+
+`OTREE_PRODUCTION=1`
+
 ### 6. Start Otree
 
 `otree prodserver 80`
