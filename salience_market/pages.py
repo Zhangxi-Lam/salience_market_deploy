@@ -18,7 +18,7 @@ class WaitStart(WaitPage):
     wait_for_all_groups = True
 
     def is_displayed(self):
-        return self.round_number <= Constants.num_rounds
+        return self.round_number <= self.subsession.num_rounds
 
 
 class Market(BaseMarketPage):
@@ -26,7 +26,7 @@ class Market(BaseMarketPage):
         return self.group.period_length()
 
     def is_displayed(self):
-        return self.round_number <= Constants.num_rounds
+        return self.round_number <= self.subsession.num_rounds
 
     def vars_for_template(self):
         return {
@@ -47,6 +47,9 @@ class Market(BaseMarketPage):
 
 
 class RoundResults(Page):
+    def is_displayed(self):
+        return self.round_number <= self.subsession.num_rounds
+
     def get_timeout_seconds(self):
         return 20
 
@@ -66,7 +69,7 @@ class RoundResults(Page):
 
 class FinalResults(Page):
     def is_displayed(self):
-        return self.round_number == Constants.num_rounds
+        return self.round_number == self.subsession.num_rounds
 
     def vars_for_template(self):
         r = self.subsession.get_selected_round()
@@ -77,4 +80,5 @@ class FinalResults(Page):
         }
 
 
-page_sequence = [WelcomePage, Instruction, WaitStart, Market, RoundResults, FinalResults]
+page_sequence = [WelcomePage, Instruction,
+                 WaitStart, Market, RoundResults, FinalResults]

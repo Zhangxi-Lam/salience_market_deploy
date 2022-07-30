@@ -6,6 +6,7 @@ SESSION_CONFIGS = [
         display_name='Salience Market',
         num_demo_participants=4,
         app_sequence=['salience_market'],
+        config_file='demo.csv'
     ),
 ]
 
@@ -37,7 +38,7 @@ ROOMS = [
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
-ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+ADMIN_PASSWORD = 'admin'
 
 DEMO_PAGE_INTRO_HTML = """ """
 

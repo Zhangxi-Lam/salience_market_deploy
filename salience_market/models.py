@@ -10,10 +10,8 @@ import time
 
 class Constants(BaseConstants):
     name_in_url = 'salience_market'
-    config_addr = 'salience_market/configs/demo.csv'
-    config_manager = ConfigManager(config_addr)
     players_per_group = 4
-    num_rounds = config_manager.num_rounds
+    num_rounds = 100    # placeholder, not used
     random_seed = time.time()
 
     # list of capital letters A..Z
@@ -54,20 +52,24 @@ class Subsession(markets_models.Subsession):
     p3 = models.FloatField()
     state = models.IntegerField()
     final_selected_round = models.IntegerField(initial=-1)
+    num_rounds = models.IntegerField()
 
     def asset_names(self):
         return Constants.asset_names[:self.num_assets]
 
     def creating_session(self):
-        if self.round_number > Constants.num_rounds:
+        config_addr = 'salience_market/configs/' + \
+            self.session.config['config_file']
+        config_manager = ConfigManager(config_addr)
+        self.num_rounds = config_manager.num_rounds
+        if self.round_number > self.num_rounds:
             return
         self.group_randomly()
-        self.set_properties()
+        self.set_properties(config_manager.get_round_dict(
+            self.round_number, Constants.config_fields))
         return super().creating_session()
 
-    def set_properties(self):
-        round_dict = Constants.config_manager.get_round_dict(
-            self.round_number, Constants.config_fields)
+    def set_properties(self, round_dict):
         self.period_length = round_dict['period_length']
         self.num_assets = round_dict['num_assets']
         self.num_states = round_dict['num_states']
@@ -137,6 +139,10 @@ class Group(markets_models.Group):
 
     def _on_enter_event(self, event):
         enter_msg = event.value
+        if enter_msg['price'] < 0:
+            self._send_error(enter_msg['pcode'],
+                             'Cannot enter negative bid/ask')
+            return
         asset_name = enter_msg['asset_name']
 
         exchange = self.exchanges.get(asset_name=asset_name)
