@@ -10,7 +10,7 @@ import time
 
 class Constants(BaseConstants):
     name_in_url = 'salience_market'
-    players_per_group = 4
+    players_per_group = 8
     num_rounds = 100    # placeholder, not used
     random_seed = time.time()
 
