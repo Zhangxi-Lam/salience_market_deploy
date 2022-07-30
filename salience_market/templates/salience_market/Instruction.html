@@ -10,15 +10,22 @@
 <h4>Basic Idea</h4>
 
 <p>
-In this experiment, you will interact with other traders in multiple (12-18) trading periods, each lasting approximately 3 minutes.
+In this experiment, you will interact with other traders in 8 trading periods, each lasting approximately 5 minutes.
 The traders remain the same in each trading period, but are randomly regrouped between trading periods.
 In each trading period, you will trade two risky assets (labelled as Asset A and B) with other traders, using computerized trading screens.
 The return of the assets depends on the state of the world. There are multiple (2 or 3) possible states.
-In each trading period, traders are informed publicly of the number of assets, the number of states,
+In each trading period, traders are informed publicly of the number of assets, the number of all possible states,
 the probability of each state, and the return of the assets at each state.
-Before each trading period, the computer tosses a 10-sided dice, and assigns the state of the world depending on the probability of each state.
-All traders trade under the same state of the world, but no one knows the true state of the world until the end of the trading period.
+</p>
+
+<p>
+During each trading period, the traders trade under the same state of the world but do NOT know the true state.
+At the end of the trading period, the computer tosses a 10-sided dice, and randomly assigns the true state of the world depending on the probability of each state.
 Your payoff in each trading period depends on the number of each type of assets you own and the true state of the world.
+For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
+You do NOT know which state will become the true state during the trading period.
+At the end of the trading period, the true state will be randomly determined based on the probabilities of the two states.
+Since the computer uses a 10-sided fair dice, then throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
 </p>
 
 
@@ -72,14 +79,16 @@ and the boxes for Asset B on the right. In each trading box,
 <p>
 You can submit a bid (buy offer) by typing in your price in the “Bids” box and clicking the "Buy" button.
 Likewise, to offer to sell a unit, you type in the price in the “Asks” box and click Enter "Sell".
-You can place at most 1 bid and 1 ask at the same time. If you enter a new bid or ask, it will replace your old offer.
+You can place multiple bids asks at the same time.
 If your bid is higher than the best ask, then you will immediately buy a unit at that best ask.
 Similarly, entering an ask below the best bid held by someone else amounts to accepting that best bid.
 You can also directly accept someone else’s bid or ask by double clicking on it, and then clicking Accept in the pop-up window.
 </p>
 
 <p>
-It is more profitable to buy low and sell high.
+To conclude, you can buy a unit of asset by submitting your bid or accepting others' ask.
+You can sell a unit of asset by submitting your ask or accepting others' bid.
+In general, it is more profitable to buy low and sell high.
 Check the trading window and see whether your buy price seem low, and your sell price seem high compared to the other prices (in white) this period.
 </p>
 
@@ -88,7 +97,7 @@ The trader information box on the bottom left tells you your current cash holdin
 The box will update whenever your make an action.
 You will start with some units of assets and some cash at the beginning of each trading period.
 The settled cash refers to the cash you own at hand,
-the available cash refers to the cash available to buy (Settled - Total Bids).
+the available cash refers to the cash available to buy (Settled Cash - Your Total Bids).
 For each asset row,
 
 <ul>
@@ -116,6 +125,9 @@ The page also shows the total payoff for this trading period. After the result p
 <p>
 The payoff from trading in each period will be your remaining cash, plus your earning from your final asset holding.
 The figure below shows an example of the result page, and you can clearly see the payoff you get in this trading period.
+From the figure, you can see that the true state of the world is "state 1", your remaining cash is 1120,
+and you own 1 unit of Asset A which pays 180 per unit under state 1. You also own 10 units of Asset B that pays 20 per unit under state 1.
+So your final payoff is 1120 + 180*1 + 20*10 = 1500.
 </p>
 
 <img src="{% static 'salience_market/ui_result.png' %}" width="80%" height="auto"/>
@@ -126,9 +138,8 @@ and your final payoff from this experiment is your payoff at that trading period
 </p>
 
 <p>
-If you are ready for the experiment, please press next. The experiment starts when everyone is ready.
+If you are ready for the experiment, please raise your hand in the chat room or inform the experimenter. The experiment starts when everyone is ready.
 </p>
 
-    {% next_button %}
 
 {% endblock %}
