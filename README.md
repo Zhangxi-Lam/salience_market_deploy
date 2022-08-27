@@ -62,6 +62,7 @@ Go to the project's root directory and run:
 ### (Optional) Set OTREE_PRODUCTION=1 to enter production mode
 
 `OTREE_PRODUCTION=1`
+`export OTREE_PRODUCTION`
 
 ### 6. Start Otree
 
