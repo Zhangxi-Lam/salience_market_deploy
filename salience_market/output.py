@@ -2,8 +2,14 @@ from otree_markets.output import DefaultJSONMarketOutputGenerator
 
 
 class SalienceMarketJSONMarketOutputGenerator(DefaultJSONMarketOutputGenerator):
+    """
+    Class to output the market data in JSON.
+    """
 
     def trade_to_output_dict(self, trade, start_time):
+        '''
+        Returns the data of a trade (transaction)
+        '''
         return {
             'timestamp': (trade.timestamp - start_time).total_seconds(),
             'taking_order_id': trade.taking_order.id,
@@ -13,6 +19,9 @@ class SalienceMarketJSONMarketOutputGenerator(DefaultJSONMarketOutputGenerator):
         }
 
     def get_group_data(self, group):
+        '''
+        Returns all transactions of the group.
+        '''
         start_time = group.get_start_time()
 
         exchange_data = []

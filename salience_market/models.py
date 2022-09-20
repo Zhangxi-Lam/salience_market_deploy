@@ -11,7 +11,9 @@ import time
 class Constants(BaseConstants):
     name_in_url = 'salience_market'
     players_per_group = 8
-    num_rounds = 100    # placeholder, not used
+    # Otree requires this to be set. But it is not used.
+    num_rounds = 100
+    # Seed for the state random selection.
     random_seed = time.time()
 
     # list of capital letters A..Z
@@ -70,6 +72,9 @@ class Subsession(markets_models.Subsession):
         return super().creating_session()
 
     def set_properties(self, round_dict):
+        '''
+        Set params for the round using round_dict
+        '''
         self.period_length = round_dict['period_length']
         self.num_assets = round_dict['num_assets']
         self.num_states = round_dict['num_states']
@@ -110,6 +115,9 @@ class Subsession(markets_models.Subsession):
                 return self.x + self.L
 
     def get_selected_round(self):
+        '''
+        Randomly select one non-practice round to compute the final payoff.
+        '''
         if self.final_selected_round >= 0:
             return self.final_selected_round
 
@@ -138,6 +146,9 @@ class Group(markets_models.Group):
         return self.subsession.period_length
 
     def _on_enter_event(self, event):
+        '''
+        Triggered when the user enter an order. Checks if the order is valid.
+        '''
         enter_msg = event.value
         if enter_msg['price'] < 0:
             self._send_error(enter_msg['pcode'],
