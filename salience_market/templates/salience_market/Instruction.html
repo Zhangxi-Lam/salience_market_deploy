@@ -35,6 +35,8 @@ Since the computer uses a 10-sided fair dice, then throwing 1-4 means state 1 is
 <p>
 When you enter a trading period, you will start to interact with the user interface.
 The figure below shows an example.
+<b>Please be aware that the example figures (this one and the other one below) only show you what the user interface looks like,
+and does NOT indicate what game strategy you should use.</b>
 </p>
 
 <img src="{% static 'salience_market/ui_decision.png' %}" width="100%" height="auto"/>
@@ -89,7 +91,8 @@ You can also directly accept someone else’s bid or ask by double clicking on i
 To conclude, you can buy a unit of asset by submitting your bid or accepting others' ask.
 You can sell a unit of asset by submitting your ask or accepting others' bid.
 In general, it is more profitable to buy low and sell high.
-You should also NOT pay for an asset when its price exceeds its maximum possible return.
+You should also NOT buy an asset when its price exceeds its maximum possible return,
+or sell an asset when its price is below its minimum possible return.
 Check the trading window and see whether your buy price seem low, and your sell price seem high compared to the other prices (in white) this period.
 </p>
 
@@ -136,6 +139,7 @@ So your final payoff is 1120 + 180*1 + 20*10 = 1500 points.
 <p>
 At the end of the experiment, one non-practice trading period will be randomly chosen by the computer,
 and your final payoff from this experiment is your payoff at that trading period (after converted to US dollar), plus your show-up fee.
+So your objective is to try to maximize your payoff at every non-practice trading period.
 </p>
 
 <p>
