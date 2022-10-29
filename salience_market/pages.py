@@ -28,6 +28,19 @@ class Market(BaseMarketPage):
     def is_displayed(self):
         return self.round_number <= self.subsession.num_rounds
 
+    def salient_highlight(self, asset):
+        if not self.subsession.salient_payoff:
+            return 0
+        x, G, L = self.subsession.x, self.subsession.G, self.subsession.L
+        if asset == 'A':
+            s1 = abs(x + G - x) / (x + G + x)
+            s3 = abs(x - L - x) / (x - L + x)
+            return 1 if s1 > s3 else 3
+        else:
+            s1 = abs(x - G - x) / (x - G + x)
+            s3 = abs(x + L - x) / (x + L + x)
+            return 1 if s1 > s3 else 3
+
     def vars_for_template(self):
         return {
             'round_number': self.round_number,
@@ -43,7 +56,9 @@ class Market(BaseMarketPage):
             'asset_b_return_3': self.subsession.x + self.subsession.L,
             'num_states': self.subsession.num_states,
             'is_practice': self.subsession.practice,
-            'state_independent': self.subsession.state_independent
+            'state_independent': self.subsession.state_independent,
+            'asset_a_highlight': self.salient_highlight('A'),
+            'asset_b_highlight': self.salient_highlight('B'),
         }
 
 

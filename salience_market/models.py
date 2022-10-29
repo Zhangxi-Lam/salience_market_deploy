@@ -36,6 +36,7 @@ class Constants(BaseConstants):
         'p2': float,
         'p3': float,
         'state_independent': bool,
+        'salient_payoff': bool,
     }
 
 
@@ -56,6 +57,7 @@ class Subsession(markets_models.Subsession):
     state_independent = models.BooleanField()
     state_a = models.IntegerField()
     state_b = models.IntegerField()
+    salient_payoff = models.BooleanField()
     final_selected_round = models.IntegerField(initial=-1)
     num_rounds = models.IntegerField()
 
@@ -91,6 +93,7 @@ class Subsession(markets_models.Subsession):
         self.p2 = round_dict['p2']
         self.p3 = round_dict['p3']
         self.state_independent = round_dict['state_independent']
+        self.salient_payoff = round_dict['salient_payoff']
 
         # Use the current system time as the seed
         random.seed()

@@ -64,8 +64,16 @@ Market
             <tr>
                 <td>1</td>
                 <td>{{p1}}%</td>
+                {% if asset_a_highlight == 1 %}
+                <td bgcolor="yellow"><b>{{asset_a_return_1}}</b></td>
+                {% else %}
                 <td>{{asset_a_return_1}}</td>
+                {% endif %}
+                {% if asset_b_highlight == 1 %}
+                <td bgcolor="yellow"><b>{{asset_b_return_1}}</b></td>
+                {% else %}
                 <td>{{asset_b_return_1}}</td>
+                {% endif %}
             </tr>
             {% if num_states >= 3 %}
             <tr>
@@ -78,8 +86,16 @@ Market
             <tr>
                 <td>3</td>
                 <td>{{p3}}%</td>
+                {% if asset_a_highlight == 3 %}
+                <td bgcolor="yellow"><b>{{asset_a_return_3}}</b></td>
+                {% else %}
                 <td>{{asset_a_return_3}}</td>
+                {% endif %}
+                {% if asset_b_highlight == 3 %}
+                <td bgcolor="yellow"><b>{{asset_b_return_3}}</b></td>
+                {% else %}
                 <td>{{asset_b_return_3}}</td>
+                {% endif %}
             </tr>
         </table>
     </div>
