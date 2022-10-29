@@ -65,6 +65,7 @@ class RoundResults(Page):
             'asset_b_return': self.subsession.get_asset_return('B'),
             'asset_b_total_return': self.player.settled_assets['B'] * self.subsession.get_asset_return('B'),
             'settled_cash': self.player.settled_cash,
+            'cash_endowment': self.player.cash_endowment(),
             'payoff': self.player.compute_payoff()
         }
 

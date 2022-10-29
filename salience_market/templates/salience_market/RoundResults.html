@@ -23,6 +23,10 @@ Your results for this round
         <td colspan="3">{{settled_cash}}</td>
     </tr>
     <tr>
+        <th>Cash endowment</th>
+        <td colspan="3">{{cash_endowment}}</td>
+    </tr>
+    <tr>
         <th>Asset</th>
         <th>Unit you own</th>
         <th>Per-unit return</th>
@@ -41,7 +45,8 @@ Your results for this round
         <td>{{asset_b_total_return}}</td>
     </tr>
 </table>
-Your payoff in this trading period is {{asset_a_total_return}} + {{asset_b_total_return}} + {{settled_cash}} =
+Your payoff in this trading period is {{asset_a_total_return}} + {{asset_b_total_return}} + {{settled_cash}} -
+{{cash_endowment}} =
 {{payoff}}
 {%next_button%}
 {% endblock %}

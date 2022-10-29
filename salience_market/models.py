@@ -196,5 +196,5 @@ class Player(markets_models.Player):
 
     def compute_payoff(self):
         self.payoff = self.settled_assets['A'] * self.subsession.get_asset_return(
-            'A') + self.settled_assets['B'] * self.subsession.get_asset_return('B') + self.settled_cash
+            'A') + self.settled_assets['B'] * self.subsession.get_asset_return('B') + self.settled_cash - self.cash_endowment()
         return self.payoff
