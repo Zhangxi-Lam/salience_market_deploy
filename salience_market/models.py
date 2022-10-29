@@ -10,7 +10,7 @@ import time
 
 class Constants(BaseConstants):
     name_in_url = 'salience_market'
-    players_per_group = 8
+    players_per_group = 4
     # Otree requires this to be set. But it is not used.
     num_rounds = 100
     # Seed for the state random selection.
@@ -35,6 +35,7 @@ class Constants(BaseConstants):
         'p1': float,
         'p2': float,
         'p3': float,
+        'state_independent': bool,
     }
 
 
@@ -52,7 +53,9 @@ class Subsession(markets_models.Subsession):
     p1 = models.FloatField()
     p2 = models.FloatField()
     p3 = models.FloatField()
-    state = models.IntegerField()
+    state_independent = models.BooleanField()
+    state_a = models.IntegerField()
+    state_b = models.IntegerField()
     final_selected_round = models.IntegerField(initial=-1)
     num_rounds = models.IntegerField()
 
@@ -87,29 +90,35 @@ class Subsession(markets_models.Subsession):
         self.p1 = round_dict['p1']
         self.p2 = round_dict['p2']
         self.p3 = round_dict['p3']
+        self.state_independent = round_dict['state_independent']
 
         # Use the current system time as the seed
         random.seed()
-        r = random.random()
+        r1 = random.random()
+        r2 = random.random() if self.state_independent else r1
+        self.state_a = self.get_state(r1)
+        self.state_b = self.get_state(r2)
+
+    def get_state(self, r):
         if r < self.p1:
-            self.state = 1
+            return 1
         elif r - self.p1 < self.p2:
-            self.state = 2
+            return 2
         else:
-            self.state = 3
+            return 3
 
     def get_asset_return(self, asset):
         if asset == 'A':
-            if self.state == 1:
+            if self.state_a == 1:
                 return self.x + self.G
-            elif self.state == 2:
+            elif self.state_a == 2:
                 return self.x
             else:
                 return self.x - self.L
         else:
-            if self.state == 1:
+            if self.state_b == 1:
                 return self.x - self.G
-            elif self.state == 2:
+            elif self.state_b == 2:
                 return self.x
             else:
                 return self.x + self.L

@@ -13,8 +13,10 @@ Your results for this round
 </style>
 <table>
     <tr>
-        <th>State</th>
-        <td colspan="3">{{state}}</td>
+        <th>Asset A's State</th>
+        <td>{{state_a}}</td>
+        <th>Asset B's State</th>
+        <td>{{state_b}}</td>
     </tr>
     <tr>
         <th>Remaining cash</th>
@@ -39,6 +41,7 @@ Your results for this round
         <td>{{asset_b_total_return}}</td>
     </tr>
 </table>
-Your payoff in this trading period is {{asset_a_total_return}} + {{asset_b_total_return}} + {{settled_cash}} = {{payoff}}
+Your payoff in this trading period is {{asset_a_total_return}} + {{asset_b_total_return}} + {{settled_cash}} =
+{{payoff}}
 {%next_button%}
 {% endblock %}

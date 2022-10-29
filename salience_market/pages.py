@@ -42,7 +42,8 @@ class Market(BaseMarketPage):
             'asset_b_return_2': self.subsession.x,
             'asset_b_return_3': self.subsession.x + self.subsession.L,
             'num_states': self.subsession.num_states,
-            'is_practice': self.subsession.practice
+            'is_practice': self.subsession.practice,
+            'state_independent': self.subsession.state_independent
         }
 
 
@@ -55,7 +56,8 @@ class RoundResults(Page):
 
     def vars_for_template(self):
         return {
-            'state': self.subsession.state,
+            'state_a': self.subsession.state_a,
+            'state_b': self.subsession.state_b,
             'asset_a_unit': self.player.settled_assets['A'],
             'asset_a_return': self.subsession.get_asset_return('A'),
             'asset_a_total_return': self.player.settled_assets['A'] * self.subsession.get_asset_return('A'),
