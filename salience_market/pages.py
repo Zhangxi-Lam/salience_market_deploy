@@ -12,6 +12,11 @@ class Instruction(Page):
     def is_displayed(self):
         return self.round_number == 1
 
+    def vars_for_template(self):
+        return {
+            'state_independent': self.subsession.state_independent
+        }
+
 
 class WaitStart(WaitPage):
     body_text = 'Waiting for all players to be ready'
@@ -81,7 +86,8 @@ class RoundResults(Page):
             'asset_b_total_return': self.player.settled_assets['B'] * self.subsession.get_asset_return('B'),
             'settled_cash': self.player.settled_cash,
             'cash_endowment': self.player.cash_endowment(),
-            'payoff': self.player.compute_payoff()
+            'payoff': self.player.compute_payoff(),
+            'state_independent': self.subsession.state_independent
         }
 
 

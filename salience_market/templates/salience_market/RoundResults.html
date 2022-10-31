@@ -12,12 +12,19 @@ Your results for this round
     }
 </style>
 <table>
+    {% if state_independent %}
     <tr>
         <th>Asset A's State</th>
         <td>{{state_a}}</td>
         <th>Asset B's State</th>
         <td>{{state_b}}</td>
     </tr>
+    {% else %}
+    <tr>
+        <th>Assets' State</th>
+        <td>{{state_a}}</td>
+    </tr>
+    {% endif %}
     <tr>
         <th>Remaining cash</th>
         <td colspan="3">{{settled_cash}}</td>

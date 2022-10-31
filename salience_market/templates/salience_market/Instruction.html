@@ -29,7 +29,6 @@ Since the computer uses a 10-sided fair dice, then throwing 1-4 means state 1 is
 </p>
 
 
-
 <h4>How to Trade</h4>
 
 <p>
@@ -141,6 +140,13 @@ At the end of the experiment, one non-practice trading period will be randomly c
 and your final payoff from this experiment is your payoff at that trading period (after converted to US dollar), plus your show-up fee.
 So your objective is to try to maximize your payoff at every non-practice trading period.
 </p>
+
+{% if state_independent %}
+<p>
+<b>As an additional rule for today's experiment, the state of the world for each asset is drawn independently. That is, it is possible that the assets have different states.
+For example, Asset A may be at state 1 while Asset B may be at state 3.</b>
+</p>
+{% endif %}
 
 <p>
 If you are ready for the experiment, please raise your hand in the chat room or inform the experimenter. The experiment starts when everyone is ready.
