@@ -1,7 +1,7 @@
 {% extends "global/Page.html" %}
 {% load otree %}
 {% block title %}
-Your results for this round
+Your results for this trading period
 {% endblock %}
 {% block content %}
 <style>
@@ -22,7 +22,7 @@ Your results for this round
     {% else %}
     <tr>
         <th>Assets' State</th>
-        <td>{{state_a}}</td>
+        <td colspan="3">{{state_a}}</td>
     </tr>
     {% endif %}
     <tr>
