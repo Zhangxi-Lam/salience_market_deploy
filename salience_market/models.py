@@ -10,7 +10,7 @@ import time
 
 class Constants(BaseConstants):
     name_in_url = 'salience_market'
-    players_per_group = 8
+    players_per_group = 4
     # Otree requires this to be set. But it is not used.
     num_rounds = 100
     # Seed for the state random selection.
@@ -185,6 +185,32 @@ class Group(markets_models.Group):
 
 
 class Player(markets_models.Player):
+    question_1 = models.IntegerField(
+        label="What is the highest price at which you are willing to buy a unit of Asset A?")
+    question_2 = models.IntegerField(
+        label="What is the lowest price at which you are willing to sell a unit of Asset A?")
+    question_3 = models.IntegerField(
+        label="What is the highest price at which you are willing to buy a unit of Asset B?")
+    question_4 = models.IntegerField(
+        label="What is the lowest price at which you are willing to sell a unit of Asset B?")
+
+    first_name = models.StringField(label='What is your first name?')
+    last_name = models.StringField(label='What is your last name?')
+    gender = models.StringField(
+        choices=[['Male', 'Male'], ['Female', 'Female'], ['Other', 'Other']],
+        label='What is your gender?',
+        # widget=widgets.RadioSelect,
+    )
+    email = models.StringField(label='What is your university email address?')
+    student_id = models.IntegerField(
+        label='What is your university student ID number', min=0000000, max=9999999)
+    part_id = models.StringField(
+        label='What is your participant ID (Zoom Username)?')
+    venmo_id = models.StringField(label='What is your Venmo account ID?')
+    comments = models.LongStringField(
+        label='Is there any part of the experiment that makes you confusing? Please give us some comments.')
+    strategy = models.LongStringField(
+        label='How do you play this game? Please describe your strategy.')
 
     def asset_endowment(self):
         asset_names = self.subsession.asset_names()

@@ -104,5 +104,22 @@ class FinalResults(Page):
         }
 
 
+class Questionnaire(Page):
+    form_model = 'player'
+    form_fields = ['question_1', 'question_2', 'question_3', 'question_4']
+
+    def is_displayed(self):
+        return self.round_number == self.subsession.num_rounds
+
+
+class Demographic(Page):
+    form_model = 'player'
+    form_fields = ['first_name', 'last_name', 'gender', 'email', 'student_id', 'part_id',
+                   'venmo_id', 'comments', 'strategy']
+
+    def is_displayed(self):
+        return self.round_number == self.subsession.num_rounds
+
+
 page_sequence = [WelcomePage, Instruction,
-                 WaitStart, Market, RoundResults, FinalResults]
+                 WaitStart, Market, RoundResults, Questionnaire, Demographic, FinalResults]
