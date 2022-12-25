@@ -5,7 +5,7 @@ SESSION_CONFIGS = [
         name='salience_market',
         display_name='Salience Market',
         num_demo_participants=4,
-        app_sequence=['salience_market'],
+        app_sequence=['mpl', 'salience_market'],
         config_file='demo.csv'
     ),
 ]
@@ -25,7 +25,7 @@ LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'USD'
-USE_POINTS = True
+USE_POINTS = False
 
 ROOMS = [
     dict(

@@ -1,0 +1,245 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+{% load i18n %}
+
+{% block styles %}
+<link href="{% static 'mpl/css/custom.css' %}" rel="stylesheet">
+{% endblock %}
+
+{# ****************************************************************************************************************** #}
+{# *** TITLE *** #}
+{# ****************************************************************************************************************** #}
+{% block title %}
+Instruction - MPL
+{% endblock %}
+
+
+{# ****************************************************************************************************************** #}
+{# *** CONTENT *** #}
+{# ****************************************************************************************************************** #}
+{% block content %}
+<p>
+    In the following, you will be making ten decisions between two lotteries, such as those represented as "Option A"
+    and "Option B" below.
+    The point prizes are determined by the computer equivalent of throwing a ten-sided die.
+    Each outcome, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, is equally likely.
+    The figure below shows an example of one decision.
+    If you choose Option A, you will for sure get {{ lottery_a_hi }} points.
+    However, Option B offers a 1 in 10 chance of getting {{ lottery_b_hi }} points and a 9 in 10 chance of getting {{
+    lottery_b_lo }} points.
+
+</p>
+<div class="wrapper">
+    <div class="card">
+        <table class="table table-striped">
+            <thead>
+                <tr class="header">
+                    <th class="formfield"></th>
+                    <th class="lottery-a">{% trans "Option A" %}</th>
+                    <th class="formfield"></th>
+                    <th class="lottery-b">{% trans "Option B" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!-- radio select form fields -->
+                    <td class="formfield">
+                        <input type="radio" name="choice_1" value="A">
+                    </td>
+                    <!-- A lotteries -->
+                    <td class="lottery-a">
+                        9/10 of ${{ lottery_a_hi }}, 1/10 of ${{ lottery_a_lo }}
+                    </td>
+                    <!-- radio select form fields -->
+                    <td class="formfield">
+                        <input type="radio" name="choice_1" value="B">
+                    </td>
+                    <!-- B lotteries -->
+                    <td class="lottery-b">
+                        9/10 of ${{ lottery_b_hi }}, 1/10 of ${{ lottery_b_lo }}
+                    </td>
+                </tr>
+                <tr>
+                    <!-- radio select form fields -->
+                    <td class="formfield">
+                        <!-- <input type="radio" name="choice_2" value="A"> -->
+                    </td>
+                    <!-- A lotteries -->
+                    <td class="lottery-a">
+                        {% trans "..." %}
+                    </td>
+                    <!-- radio select form fields -->
+                    <td class="formfield">
+                        <!-- <input type="radio" name="choice_2" value="A"> -->
+                    </td>
+                    <!-- B lotteries -->
+                    <td class="lottery-b">
+                        {% trans "..." %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<ul>
+    <li>
+        Each row of the decision table contains a pair of choices between Option A and Option B.
+    </li>
+    <li>
+        You make your choice by clicking on one of the radio buttons to the left of both options.
+        Only one option in each row can be selected, and you may change your decision as you wish.
+    </li>
+    <li>
+        While the payoffs of the two options are fixed for all decisions, the chance of getting the two outcomes for
+        Option B varies among the 10 decisions.
+    </li>
+    <li>
+        <font color="red">Note: </font>try clicking on one of the radio buttons, then change by clicking on the other
+        one.
+    </li>
+</ul>
+<p>
+    Even though you will make 10 decisions, only one of these will end up being used. The selection of the one
+    to be used depends on the "throw of the die" that is the determined by the computer's random number generator.
+    No decision is any more likely to be used than any other, and you will <font color="red">not</font> know in advance
+    which one will be selected,
+    so please think about each decision carefully.
+    This random selection of a decision fixes the row (i.e. the decision) that will be used.
+</p>
+<p>
+    The figure below shows you another example. Suppose that you make all ten decisions and the throw of the die is 9,
+    then your choice, A or B, for decision 9 below would be used
+    and the other decisions would not be used.
+</p>
+<p>
+    After the random die throw fixes the Decision row that will be used, we need to obtain a second random number that
+    determines the earnings for the
+    Option you chose for that row. If you chose Option A, the random die throw will not be needed since the amount of
+    points is always fixed: {{ lottery_a_hi }}
+    points for Option A.
+    In Decision 9, for example, you will for sure get {{ lottery_a_hi }} points if you chose Option A; otherwise,
+    a throw of 1, 2, 3, 4, 5, 6, 7, 8, or 9 will result in the higher payoff if you chose Option B, and a throw of 10
+    will result in the lower payoff.
+</p>
+<div class="wrapper">
+    <div class="card">
+        <table class="table table-striped">
+            <thead>
+                <tr class="header">
+                    <th class="formfield"></th>
+                    <th class="lottery-a">{% trans "Option A" %}</th>
+                    <th class="formfield"></th>
+                    <th class="lottery-b">{% trans "Option B" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!-- radio select form fields -->
+                    <td class="formfield">
+                    </td>
+                    <!-- A lotteries -->
+                    <td class="lottery-a">
+                        {% trans "..." %}
+                    </td>
+                    <!-- radio select form fields -->
+                    <td class="formfield">
+                    </td>
+                    <!-- B lotteries -->
+                    <td class="lottery-b">
+                        {% trans "..." %}
+                    </td>
+                </tr>
+                <tr>
+                    <!-- radio select form fields -->
+                    <td class="formfield">
+                        <input type="radio" name="choice_9" value="A">
+                    </td>
+                    <!-- A lotteries -->
+                    <td class="lottery-a">
+                        9/10 of ${{ lottery_a_hi }}, 1/10 of ${{ lottery_a_lo }}
+                    </td>
+                    <!-- radio select form fields -->
+                    <td class="formfield">
+                        <input type="radio" name="choice_9" value="B">
+                    </td>
+                    <!-- B lotteries -->
+                    <td class="lottery-b">
+                        9/10 of ${{ lottery_b_hi }}, 1/10 of ${{ lottery_b_lo }}
+                    </td>
+                </tr>
+                <tr>
+                    <!-- radio select form fields -->
+                    <td class="formfield">
+                        <input type="radio" name="choice_10" value="A">
+                    </td>
+                    <!-- A lotteries -->
+                    <td class="lottery-a">
+                        10/10 of ${{ lottery_a_hi }}, 0/10 of ${{ lottery_a_lo }}
+                    </td>
+                    <!-- radio select form fields -->
+                    <td class="formfield">
+                        <input type="radio" name="choice_10" value="B">
+                    </td>
+                    <!-- B lotteries -->
+                    <td class="lottery-b">
+                        10/10 of ${{ lottery_b_hi }}, 0/10 of ${{ lottery_b_lo }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<p>
+    For decision 10, the random die throw will not be needed, since the choice is between amounts of points that are
+    fixed: {{ lottery_a_hi }} points for Option A
+    and {{ lottery_b_hi }} points for Option B.
+</p>
+<ul>
+    <li>
+        <b>Making Ten Decisions:</b> After you finish these instructions, you will see a table with 10 decisions in 10
+        separate rows, and you choose by
+        clicking on the radio buttons on the left of option A or option B for each of the 10 rows. You may make these
+        choices in any order and change them
+        as much as you wish until you press the Next button at the bottom.
+    </li>
+    <li>
+        <b>The Relevant Decision:</b> One of the rows is then selected at random, and the Option (A or B) that you chose
+        in that row will be used to determine
+        your earnings. <font color="red">Note:</font> Please think about each decision carefully, since each row is
+        equally likely to end up being the one
+        that is used to determine payoffs.
+    </li>
+    <li>
+        <b>Determining the Payoff:</b> After one of the decisions has been randomly selected, the computer will generate
+        another random number that corresponds
+        to the throw of a ten sided die depending on the Option previously selected for the decision being used. The
+        number is equally likely to be 1, 2, 3, ... 10.
+        This random number determines your earnings if you chose Option B for that decision.
+    </li>
+</ul>
+<!-- <p>
+    To summarize: You will make 10 choices; for each decision you will have to choose between "Option A" and "Option B".
+    You may choose "Option A" for some decision rows and "Option B" for other rows. When you are finished, one of the
+    10 decisions will be randomly picked for your payoff. Then a random pick will determine your payment for the option
+    you chose in that decision.
+</p> -->
+
+<p>
+    To summarize, you will indicate an option, A or B, for each of the rows by clicking on the "radio buttons"
+    on the left side of the options.
+    Then a random number fixes which row of the table (i.e. which decision) is relevant for your earnings.
+    In that row, your decision fixed the choice for that row, Option A or Option B. If you chose Option A,
+    then you get a sure payoff; if you chose Option B, then a final random number will determine the money
+    payoff for the decision you made.
+</p>
+
+<p>
+    Please raise your hand in the Zoom call if you finish reading the instruction and are ready to play the game.
+</p>
+<p>
+    Please click on <b>Next</b> button to start your second task.
+</p>
+
+{% next_button %}
+
+{% endblock %}
