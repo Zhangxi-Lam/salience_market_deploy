@@ -10,7 +10,7 @@
 {# *** TITLE *** #}
 {# ****************************************************************************************************************** #}
 {% block title %}
-Welcome to LEEPS-IAER Laboratory!
+Welcome to IAER Online Laboratory!
 {% endblock %}
 
 
@@ -19,15 +19,14 @@ Welcome to LEEPS-IAER Laboratory!
 {# ****************************************************************************************************************** #}
 {% block content %}
 <p>
+    Welcome to our experiment! First, let us complete a quick task.
     In the following, you will be making ten decisions between two lotteries, such as those represented as "Option A"
     and "Option B" below.
     The point prizes are determined by the computer equivalent of throwing a ten-sided die.
     Each outcome, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, is equally likely.
     The figure below shows an example of one decision.
-    Option A offers a 9 in 10 chance of getting {{ lottery_a_hi }} points and a 1 in 10 chance of getting {{
-    lottery_a_lo }} points.
-    Option B offers a 9 in 10 chance of getting {{ lottery_b_hi }} points and a 1 in 10 chance of getting {{
-    lottery_b_lo }} points.
+    Option A offers a 9 in 10 chance of getting {{ lottery_a_hi }} points and a 1 in 10 chance of getting {{ lottery_a_lo }} points.
+    Option B offers a 9 in 10 chance of getting {{ lottery_b_hi }} points and a 1 in 10 chance of getting {{ lottery_b_lo }} points.
 
 </p>
 <div class="wrapper">

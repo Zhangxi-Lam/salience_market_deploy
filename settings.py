@@ -25,7 +25,7 @@ LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'USD'
-USE_POINTS = False
+USE_POINTS = True
 
 ROOMS = [
     dict(
