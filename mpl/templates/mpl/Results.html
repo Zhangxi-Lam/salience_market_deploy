@@ -90,12 +90,13 @@
         <p>
             {% blocktrans trimmed with option_to_pay=option_to_pay %}
             As is indicated above, you decided to opt for <b>option {{ option_to_pay }}</b> in this decision.
-            For the chosen option, the sure outcome has been realized.
+            For the chosen option, one of the two possible outcomes has been randomly realized based
+            on the corresponding probabilities.
             {% endblocktrans %}
         </p>
         <p>
             {% blocktrans trimmed with payoff=payoff %}
-            Your payoff in this task equals <b>{{ payoff }}</b>.
+            Your payoff in this task equals <b>{{ payoff }}</b>. The payoff will be added 1:1 to your final experimental payoff.
             {% endblocktrans %}
         </p>
         {% else %}
@@ -108,7 +109,7 @@
         </p>
         <p>
             {% blocktrans trimmed with payoff=payoff %}
-            Your payoff in this task equals <b>{{ payoff }}</b>.
+            Your payoff in this task equals <b>{{ payoff }}</b>. The payoff will be added 1:1 to your final experimental payoff.
             {% endblocktrans %}
         </p>
         {% endif %}

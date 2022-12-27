@@ -10,7 +10,7 @@
 {# *** TITLE *** #}
 {# ****************************************************************************************************************** #}
 {% block title %}
-Instruction - MPL
+Welcome to LEEPS-IAER Laboratory!
 {% endblock %}
 
 
@@ -24,8 +24,9 @@ Instruction - MPL
     The point prizes are determined by the computer equivalent of throwing a ten-sided die.
     Each outcome, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, is equally likely.
     The figure below shows an example of one decision.
-    If you choose Option A, you will for sure get {{ lottery_a_hi }} points.
-    However, Option B offers a 1 in 10 chance of getting {{ lottery_b_hi }} points and a 9 in 10 chance of getting {{
+    Option A offers a 9 in 10 chance of getting {{ lottery_a_hi }} points and a 1 in 10 chance of getting {{
+    lottery_a_lo }} points.
+    Option B offers a 9 in 10 chance of getting {{ lottery_b_hi }} points and a 1 in 10 chance of getting {{
     lottery_b_lo }} points.
 
 </p>
@@ -90,8 +91,7 @@ Instruction - MPL
         Only one option in each row can be selected, and you may change your decision as you wish.
     </li>
     <li>
-        While the payoffs of the two options are fixed for all decisions, the chance of getting the two outcomes for
-        Option B varies among the 10 decisions.
+        While the payoffs of the two options are fixed for all decisions, the chance of getting the two outcomes varies among the 10 decisions.
     </li>
     <li>
         <font color="red">Note: </font>try clicking on one of the radio buttons, then change by clicking on the other
@@ -113,12 +113,8 @@ Instruction - MPL
 </p>
 <p>
     After the random die throw fixes the Decision row that will be used, we need to obtain a second random number that
-    determines the earnings for the
-    Option you chose for that row. If you chose Option A, the random die throw will not be needed since the amount of
-    points is always fixed: {{ lottery_a_hi }}
-    points for Option A.
-    In Decision 9, for example, you will for sure get {{ lottery_a_hi }} points if you chose Option A; otherwise,
-    a throw of 1, 2, 3, 4, 5, 6, 7, 8, or 9 will result in the higher payoff if you chose Option B, and a throw of 10
+    determines the earnings for the option you chose for that row.
+    In Decision 9, for example, a throw of 1, 2, 3, 4, 5, 6, 7, 8, or 9 will result in the higher payoff for Option A or B, and a throw of 10
     will result in the lower payoff.
 </p>
 <div class="wrapper">
@@ -217,25 +213,14 @@ Instruction - MPL
         This random number determines your earnings if you chose Option B for that decision.
     </li>
 </ul>
-<!-- <p>
+
+<p>
     To summarize: You will make 10 choices; for each decision you will have to choose between "Option A" and "Option B".
     You may choose "Option A" for some decision rows and "Option B" for other rows. When you are finished, one of the
     10 decisions will be randomly picked for your payoff. Then a random pick will determine your payment for the option
     you chose in that decision.
-</p> -->
-
-<p>
-    To summarize, you will indicate an option, A or B, for each of the rows by clicking on the "radio buttons"
-    on the left side of the options.
-    Then a random number fixes which row of the table (i.e. which decision) is relevant for your earnings.
-    In that row, your decision fixed the choice for that row, Option A or Option B. If you chose Option A,
-    then you get a sure payoff; if you chose Option B, then a final random number will determine the money
-    payoff for the decision you made.
 </p>
 
-<p>
-    Please raise your hand in the Zoom call if you finish reading the instruction and are ready to play the game.
-</p>
 <p>
     Please click on <b>Next</b> button to start your second task.
 </p>
