@@ -5,7 +5,7 @@ SESSION_CONFIGS = [
         name='salience_market',
         display_name='Salience Market',
         num_demo_participants=4,
-        app_sequence=['salience_market'],
+        app_sequence=['mpl','salience_market'],
         config_file='demo.csv'
     ),
 ]
