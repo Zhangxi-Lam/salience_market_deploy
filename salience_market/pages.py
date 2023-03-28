@@ -14,7 +14,9 @@ class Instruction(Page):
 
     def vars_for_template(self):
         return {
-            'state_independent': self.subsession.state_independent
+            'state_independent': self.subsession.state_independent，
+            'num_states': self.subsession.num_states,
+            'num_assets': self.subsession.num_assets
         }
 
 
@@ -60,6 +62,7 @@ class Market(BaseMarketPage):
             'asset_b_return_2': self.subsession.x,
             'asset_b_return_3': self.subsession.x + self.subsession.L,
             'num_states': self.subsession.num_states,
+            'num_assets': self.subsession.num_assets,
             'is_practice': self.subsession.practice,
             'state_independent': self.subsession.state_independent,
             'asset_a_highlight': self.salient_highlight('A'),
@@ -75,20 +78,35 @@ class RoundResults(Page):
         return 20
 
     def vars_for_template(self):
-        return {
-            'state_a': self.subsession.state_a,
-            'state_b': self.subsession.state_b,
-            'asset_a_unit': self.player.settled_assets['A'],
-            'asset_a_return': self.subsession.get_asset_return('A'),
-            'asset_a_total_return': self.player.settled_assets['A'] * self.subsession.get_asset_return('A'),
-            'asset_b_unit': self.player.settled_assets['B'],
-            'asset_b_return': self.subsession.get_asset_return('B'),
-            'asset_b_total_return': self.player.settled_assets['B'] * self.subsession.get_asset_return('B'),
-            'settled_cash': self.player.settled_cash,
-            'cash_endowment': self.player.cash_endowment(),
-            'payoff': self.player.compute_payoff(),
-            'state_independent': self.subsession.state_independent
-        }
+        if self.subsession.num_assets > 1:
+            return {
+                'state_a': self.subsession.state_a,
+                'state_b': self.subsession.state_b,
+                'asset_a_unit': self.player.settled_assets['A'],
+                'asset_a_return': self.subsession.get_asset_return('A'),
+                'asset_a_total_return': self.player.settled_assets['A'] * self.subsession.get_asset_return('A'),
+                'asset_b_unit': self.player.settled_assets['B'],
+                'asset_b_return': self.subsession.get_asset_return('B'),
+                'asset_b_total_return': self.player.settled_assets['B'] * self.subsession.get_asset_return('B'),
+                'settled_cash': self.player.settled_cash,
+                'cash_endowment': self.player.cash_endowment(),
+                'payoff': self.player.compute_payoff(),
+                'state_independent': self.subsession.state_independent,
+                'num_assets': self.subsession.num_assets
+            }
+        else:
+            return {
+                'state_a': self.subsession.state_a,
+                'state_b': self.subsession.state_b,
+                'asset_a_unit': self.player.settled_assets['A'],
+                'asset_a_return': self.subsession.get_asset_return('A'),
+                'asset_a_total_return': self.player.settled_assets['A'] * self.subsession.get_asset_return('A'),
+                'settled_cash': self.player.settled_cash,
+                'cash_endowment': self.player.cash_endowment(),
+                'payoff': self.player.compute_payoff(),
+                'state_independent': self.subsession.state_independent,
+                'num_assets': self.subsession.num_assets
+            }
 
 
 class FinalResults(Page):

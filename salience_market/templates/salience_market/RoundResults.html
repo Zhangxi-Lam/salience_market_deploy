@@ -13,6 +13,7 @@ Your results for this trading period
 </style>
 <table>
     {% if state_independent %}
+    {% if num_assets > 1 %}
     <tr>
         <th>Asset A's State</th>
         <td>{{state_a}}</td>
@@ -21,18 +22,25 @@ Your results for this trading period
     </tr>
     {% else %}
     <tr>
+        <th>Asset A's State</th>
+        <td colspan="3">{{state_a}}</td>
+    </tr>
+    {% endif %}
+    {% else %}
+    <tr>
         <th>Assets' State</th>
         <td colspan="3">{{state_a}}</td>
     </tr>
     {% endif %}
+
     <tr>
         <th>Remaining cash</th>
         <td colspan="3">{{settled_cash}}</td>
     </tr>
-    <tr>
+    <!-- <tr>
         <th>Cash endowment</th>
         <td colspan="3">{{cash_endowment}}</td>
-    </tr>
+    </tr> -->
     <tr>
         <th>Asset</th>
         <th>Unit you own</th>
@@ -45,15 +53,22 @@ Your results for this trading period
         <td>{{asset_a_return}}</td>
         <td>{{asset_a_total_return}}</td>
     </tr>
+    {% if num_assets > 1 %}
     <tr>
         <td>B</td>
         <td>{{asset_b_unit}}</td>
         <td>{{asset_b_return}}</td>
         <td>{{asset_b_total_return}}</td>
     </tr>
+    {% endif %}
 </table>
-Your payoff in this trading period is {{asset_a_total_return}} + {{asset_b_total_return}} + {{settled_cash}} -
-{{cash_endowment}} =
-{{payoff}}
+{% if num_assets > 1 %}
+Your payoff in this trading period is {{asset_a_total_return}} + {{asset_b_total_return}}
++ {{settled_cash}} = {{payoff}}
+{% else %}
+Your payoff in this trading period is {{asset_a_total_return}}
++ {{settled_cash}} = {{payoff}}
+{% endif %}
+
 {%next_button%}
 {% endblock %}

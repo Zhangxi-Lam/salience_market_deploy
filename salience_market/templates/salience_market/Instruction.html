@@ -10,30 +10,46 @@
 <h4>Basic Idea</h4>
 
 <p>
-In the main part of the experiment, you will interact with other traders in 8 trading periods, each lasting approximately 4 minutes.
+In the main part of the experiment, you will interact with other traders in 12 trading periods, each lasting approximately 3 minutes.
 The traders remain the same in each trading period, but are randomly regrouped between trading periods.
-In each trading period, you will simultanously trade two risky assets (labelled as Asset A and B) with other traders, using computerized trading screens.
-The return of the assets depends on the state of the world. There are multiple (2 or 3) possible states.
+In each trading period, you will simultanously trade {{ num_assets }} risky asset(s) (labelled from A to Z, depending on the number of assets) with other traders,
+using computerized trading screens.
+The return of the assets depends on the state of the assets. There are {{ num_states }} possible states.
 In each trading period, traders are informed publicly of the number of assets, the number of all possible states,
 the probability of each state, and the return of the assets at each state.
 </p>
 
+{% if state_independent %}
 <p>
-During each trading period, the traders trade under the same state of the world but do NOT know the true state.
-At the end of the trading period, the computer tosses a 10-sided dice, and randomly assigns the true state of the world depending on the probability of each state.
-Your payoff in each trading period depends on the number of each type of assets you own and the true state of the world.
+During each trading period, the traders trade assets in the market but do NOT know the true state of the assets.
+<b>The state of each asset is drawn independently. That is, it is possible that the assets have different states.</b>
+At the end of the trading period, the computer tosses a 10-sided dice FOR EACH ASSET, and randomly assigns the true states of the assets depending on the probability of each state.
+Your payoff in each trading period depends on the number of each type of assets you own and the true state of the assets.
+For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
+You do NOT know which state will become the true state during the trading period.
+At the end of the trading period, the true state of each asset will be randomly determined based on the probabilities of the two states.
+Since the computer uses a 10-sided fair dice, then throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
+If there are two assets, it is possible that Asset A is in state 1 and Asset B is in state 2.
+</p>
+{% else %}
+<p>
+During each trading period, the traders trade assets in the market but do NOT know the true state of the assets.
+<b>The assets share the same state.</b>
+At the end of the trading period, the computer tosses a 10-sided dice, and randomly assigns the true state of the assets depending on the probability of each state.
+Your payoff in each trading period depends on the number of each type of assets you own and the true state of the assets.
 For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
 You do NOT know which state will become the true state during the trading period.
 At the end of the trading period, the true state will be randomly determined based on the probabilities of the two states.
 Since the computer uses a 10-sided fair dice, then throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
 </p>
+{% endif %}
 
 
 <h4>How to Trade</h4>
 
 <p>
 When you enter a trading period, you will start to interact with the user interface.
-The figure below shows an example.
+The figure below shows an example of the user interface with 3 states and 2 assets.
 <b>Please be aware that the example figures (this one and the other one below) only show you what the user interface looks like,
 and does NOT indicate what game strategy you should use.</b>
 </p>
@@ -47,7 +63,7 @@ The user interface can be divided into multiple boxes:
 <p>
 There is a timer on the top counting down the time left.
 Below the timer, you can see the information about the trading period, including the current trading period number,
-the total number of traders, the number of possible state of the world, the probability of each state,
+the total number of traders, the number of possible state of the assets, the probability of each state,
 and the return for each asset as each state. Please read the information carefully before you start to trade.
 You will also see a notice if the current trading period is a pracice period.
 Your final payoff will NOT be selected from a practice period.
@@ -120,18 +136,24 @@ such as trying to sell an asset when your currently hold zero units of that asse
 
 <h4>Payment</h4>
 <p>
-After each trading period, you will see a result page that summarize your actions and performance in the previous trading period.
-The result page reveals the true state of the world and remind you of your final asset holding.
-The page also shows the total payoff for this trading period. After the result page, all traders go on together to the next trading period.
+At the beginning of the trading period, you are endowed with some cash and some assets.
+At the end of the trading period, you will see a result page that summarizes your actions and performance.
+The result page reveals the true state of the assets and remind you of your final asset holding.
+The page also shows the total payoff for this trading period.
+Your total payoff will be your remaining cash + your earning from your final asset holding.
+You can think of the cash as a risk-free asset which provides you a guaranteed 1:1 return, while the tradable assets are risky.
 </p>
 
 <p>
-The payoff from trading in each period will be your remaining cash + your earning from your final asset holding - your initial cash endowment.
+After the result page, all traders go on together to the next trading period.
+</p>
+
+<p>
 The figure below shows an example of the result page, and you can clearly see the payoff you get in this trading period.
 From the figure, you can see that the true state of the world is "state 3" for both assets, your remaining cash is 1000 points,
 the cash endowment is 1000 points,
 and you own 5 unit of Asset A which pays 80 points per unit under state 3. You also own 5 units of Asset B that pays 120 per unit under state 3.
-So your final payoff is 1000 + 80*5 + 120*5 - 1000 = 1000 points.
+So your final payoff is 80*5 + 120*5 + 1000 = 2000 points.
 </p>
 
 <img src="{% static 'salience_market/ui_result.png' %}" width="80%" height="auto"/>
@@ -142,15 +164,8 @@ and your final payoff from this experiment is your payoff at that trading period
 So your objective is to try to maximize your payoff at every non-practice trading period.
 </p>
 
-{% if state_independent %}
 <p>
-<b>As an additional rule for today's experiment, the state of the world for each asset is drawn independently. That is, it is possible that the assets have different states.
-For example, Asset A may be at state 1 while Asset B may be at state 3.</b>
-</p>
-{% endif %}
-
-<p>
-If you are ready for the experiment, please raise your hand in the chat room or inform the experimenter. The experiment starts when everyone is ready.
+If you are ready for the experiment, please raise your hand. The experiment starts when everyone is ready.
 </p>
 
 

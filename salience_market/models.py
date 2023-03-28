@@ -26,7 +26,8 @@ class Constants(BaseConstants):
         'period_length': int,
         'num_assets': int,
         'num_states': int,
-        'asset_endowments': str,
+        'asseta_endowments': str,
+        'assetb_endowments': str,
         'cash_endowment': int,
         'practice': bool,
         'x': int,
@@ -45,7 +46,8 @@ class Subsession(markets_models.Subsession):
     period_length = models.IntegerField()
     num_assets = models.IntegerField()
     num_states = models.IntegerField()
-    asset_endowments = models.StringField()
+    asseta_endowments = models.StringField()
+    assetb_endowments = models.StringField()
     cash_endowment = models.IntegerField()
     practice = models.BooleanField()
     x = models.IntegerField()
@@ -83,7 +85,8 @@ class Subsession(markets_models.Subsession):
         self.period_length = round_dict['period_length']
         self.num_assets = round_dict['num_assets']
         self.num_states = round_dict['num_states']
-        self.asset_endowments = round_dict['asset_endowments']
+        self.asseta_endowments = round_dict['asseta_endowments']
+        self.assetb_endowments = round_dict['assetb_endowments']
         self.cash_endowment = round_dict['cash_endowment']
         self.practice = round_dict['practice']
         self.x = round_dict['x']
@@ -214,8 +217,19 @@ class Player(markets_models.Player):
 
     def asset_endowment(self):
         asset_names = self.subsession.asset_names()
-        endowments = [
-            int(e) for e in self.subsession.asset_endowments.split(' ') if e]
+        pid = self.id_in_group
+        endowments_a = [
+            int(e) for e in self.subsession.asseta_endowments.split(' ') if e]
+        endowments_b = [
+            int(e) for e in self.subsession.assetb_endowments.split(' ') if e]
+        assert Constants.players_per_group == len(
+            endowments_a), 'invalid config. number of players and asset length must match'
+        if len(asset_names) == 2:
+            endowments = [endowments_a[pid-1], endowments_b[pid-1]]
+        elif asset_names[0] == 'A':
+            endowments = [endowments_a[pid-1]]
+        else:
+            endowments = [endowments_b[pid-1]]
         assert len(asset_names) == len(
             endowments), 'invalid config. num_assets and asset_endowments must match'
         return dict(zip(asset_names, endowments))
@@ -224,6 +238,10 @@ class Player(markets_models.Player):
         return self.subsession.cash_endowment
 
     def compute_payoff(self):
-        self.payoff = self.settled_assets['A'] * self.subsession.get_asset_return(
-            'A') + self.settled_assets['B'] * self.subsession.get_asset_return('B') + self.settled_cash - self.cash_endowment()
+        if self.subsession.num_assets > 1:
+            self.payoff = self.settled_assets['A'] * self.subsession.get_asset_return(
+                'A') + self.settled_assets['B'] * self.subsession.get_asset_return('B') + self.settled_cash
+        else:
+            self.payoff = self.settled_assets['A'] * self.subsession.get_asset_return(
+                'A') + self.settled_cash
         return self.payoff
