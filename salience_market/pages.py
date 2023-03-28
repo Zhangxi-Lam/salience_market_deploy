@@ -14,7 +14,7 @@ class Instruction(Page):
 
     def vars_for_template(self):
         return {
-            'state_independent': self.subsession.state_independent，
+            'state_independent': self.subsession.state_independent,
             'num_states': self.subsession.num_states,
             'num_assets': self.subsession.num_assets
         }

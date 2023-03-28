@@ -10,7 +10,7 @@ import time
 
 class Constants(BaseConstants):
     name_in_url = 'salience_market'
-    players_per_group = 4
+    players_per_group = 8
     # Otree requires this to be set. But it is not used.
     num_rounds = 100
     # Seed for the state random selection.
@@ -218,18 +218,14 @@ class Player(markets_models.Player):
     def asset_endowment(self):
         asset_names = self.subsession.asset_names()
         pid = self.id_in_group
-        endowments_a = [
-            int(e) for e in self.subsession.asseta_endowments.split(' ') if e]
-        endowments_b = [
-            int(e) for e in self.subsession.assetb_endowments.split(' ') if e]
+        endowments_a = [int(e) for e in self.subsession.asseta_endowments.split(' ') if e]
+        endowments_b = [int(e) for e in self.subsession.assetb_endowments.split(' ') if e]
         assert Constants.players_per_group == len(
             endowments_a), 'invalid config. number of players and asset length must match'
-        if len(asset_names) == 2:
+        if len(asset_names) > 1:
             endowments = [endowments_a[pid-1], endowments_b[pid-1]]
-        elif asset_names[0] == 'A':
-            endowments = [endowments_a[pid-1]]
         else:
-            endowments = [endowments_b[pid-1]]
+            endowments = [endowments_a[pid-1]]
         assert len(asset_names) == len(
             endowments), 'invalid config. num_assets and asset_endowments must match'
         return dict(zip(asset_names, endowments))

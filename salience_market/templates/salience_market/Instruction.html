@@ -64,7 +64,7 @@ The user interface can be divided into multiple boxes:
 There is a timer on the top counting down the time left.
 Below the timer, you can see the information about the trading period, including the current trading period number,
 the total number of traders, the number of possible state of the assets, the probability of each state,
-and the return for each asset as each state. Please read the information carefully before you start to trade.
+and the return for each asset at each state. Please read the information carefully before you start to trade.
 You will also see a notice if the current trading period is a pracice period.
 Your final payoff will NOT be selected from a practice period.
 </p>
@@ -95,7 +95,7 @@ and the boxes for Asset B on the right. In each trading box,
 
 <p>
 You can submit a bid (buy offer) by typing in your price in the “Bids” box and clicking the "Buy" button.
-Likewise, to offer to sell a unit, you type in the price in the “Asks” box and click Enter "Sell".
+Likewise, to offer to sell a unit, you type in the price in the “Asks” box and click the "Sell" button.
 You can place multiple bids and asks at the same time.
 If your bid is higher than the best ask, then you will immediately buy a unit at that best ask.
 Similarly, entering an ask below the best bid held by someone else amounts to accepting that best bid.
@@ -150,10 +150,9 @@ After the result page, all traders go on together to the next trading period.
 
 <p>
 The figure below shows an example of the result page, and you can clearly see the payoff you get in this trading period.
-From the figure, you can see that the true state of the world is "state 3" for both assets, your remaining cash is 1000 points,
-the cash endowment is 1000 points,
-and you own 5 unit of Asset A which pays 80 points per unit under state 3. You also own 5 units of Asset B that pays 120 per unit under state 3.
-So your final payoff is 80*5 + 120*5 + 1000 = 2000 points.
+From the figure, you can see that the true state of the world is "state 3" for both assets, your remaining cash is 1029 points,
+and you own 2 units of Asset A which pays 80 points per unit under state 3. You also own 3 units of Asset B that pays 120 per unit under state 3.
+So your final payoff is 80*2 + 120*3 + 1029 = 1549 points.
 </p>
 
 <img src="{% static 'salience_market/ui_result.png' %}" width="80%" height="auto"/>
