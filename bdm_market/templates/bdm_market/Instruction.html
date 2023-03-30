@@ -1,0 +1,93 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Experimental Instruction
+{% endblock %}
+
+{% block content %}
+
+<h4>Basic Idea</h4>
+<p>
+In the main part of the experiment, you will play 40 trading periods of an investment game.
+In each trading period, you will simultanously trade {{ num_assets }} risky asset(s) (labelled from A to Z, depending on the number of assets) with a computer investor.
+The return of the assets depends on the state of the assets. There are {{ num_states }} possible states.
+At the beginning each trading period, you are informed of the number of assets, the number of all possible states,
+the probability of each state, and the return of the assets at each state.
+</p>
+
+{% if state_independent %}
+<p>
+During each trading period, you trade assets in the game but do NOT know the true state of the assets.
+<b>The state of each asset is drawn independently. That is, it is possible that the assets have different states.</b>
+At the end of the trading period, the system tosses a 10-sided dice FOR EACH ASSET, and randomly assigns the true states of the assets depending on the probability of each state.
+Your payoff in each trading period depends on the number of each type of assets you own and the true state of the assets.
+</p>
+<p>
+For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
+You do NOT know which state will become the true state during the trading period.
+At the end of the trading period, the true state of each asset will be randomly determined based on the probabilities of the two states.
+Since the computer uses a 10-sided fair dice, then throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
+If there are two assets, it is possible that Asset A is in state 1 and Asset B is in state 2.
+</p>
+{% else %}
+<p>
+During each trading period, you trade assets in the market but do NOT know the true state of the assets.
+<b>The assets share the same state.</b>
+At the end of the trading period, the system tosses a 10-sided dice, and randomly assigns the true state of the assets depending on the probability of each state.
+Your payoff in each trading period depends on the number of each type of assets you own and the true state of the assets.
+</p>
+<p>
+For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
+You do NOT know which state will become the true state during the trading period.
+At the end of the trading period, the true state will be randomly determined based on the probabilities of the two states.
+Since the computer uses a 10-sided fair dice, then throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
+</p>
+{% endif %}
+
+
+<h4>How to Trade</h4>
+<p>
+At the beginning of the trading period, you are endowed with some cash and some assets.
+FOR EACH ASSET, you need to set up a bid (the price you are willing to buy) and an ask (the price you are willing to sell).
+Your bid should not be higher than your ask, since you do not want to buy with a high price but sell with a low price.
+The computer investor then comes to the market with a random price for each asset you trade.
+The random price is a random integer between the maximum possible and the minimum possible return of the assets.
+The actual trade depends on the investor's random price, and your bid and ask.
+</p>
+
+<p>
+For example, the investor comes with a price X for Asset A.
+<ul>
+  <li>If X is not higher than your bid, then you will buy 1 unit of Asset A from the investor.</li>
+  <li>If X is not lower than your ask, then you will sell 1 unit of your Asset A</li>
+  <li>If X is between your bid and ask, no trade will happen.</li>
+</ul>
+The trade for other assets work in the same manner.
+</p>
+
+
+<h4>Payment</h4>
+<p>
+At the end of the trading period, you will see a result page that summarizes your actions and performance.
+The result page reveals the true state of the assets, your final asset holding, your choices, and your payoff.
+Your total payoff will be your remaining cash + your earning from your final asset holding.
+You can think of the cash as a risk-free asset which provides you a guaranteed 1:1 return, while the tradable assets are risky.
+</p>
+
+<p>
+After the result page, all traders go on together to the next trading period.
+</p>
+
+<p>
+At the end of the experiment, one non-practice trading period will be randomly chosen by the system,
+and your final payoff from this experiment is your payoff at that trading period (after converted to US dollar), plus your show-up fee.
+So your objective is to try to maximize your payoff at every non-practice trading period.
+</p>
+
+<p>
+If you are ready for the experiment, please raise your hand. The experiment starts when everyone is ready.
+</p>
+
+
+{% endblock %}

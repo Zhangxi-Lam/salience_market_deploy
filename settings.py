@@ -8,6 +8,13 @@ SESSION_CONFIGS = [
         app_sequence=['mpl','salience_market'],
         config_file='demo.csv'
     ),
+    dict(
+        name='bdm_market',
+        display_name='BDM Market',
+        num_demo_participants=1,
+        app_sequence=['bdm_market'],
+        config_file='demo.csv'
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
