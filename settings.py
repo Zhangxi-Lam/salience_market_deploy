@@ -4,7 +4,7 @@ SESSION_CONFIGS = [
     dict(
         name='salience_market',
         display_name='Salience Market',
-        num_demo_participants=4,
+        num_demo_participants=8,
         app_sequence=['mpl','salience_market'],
         config_file='demo.csv'
     ),
@@ -12,7 +12,7 @@ SESSION_CONFIGS = [
         name='bdm_market',
         display_name='BDM Market',
         num_demo_participants=1,
-        app_sequence=['bdm_market'],
+        app_sequence=['mpl','bdm_market'],
         config_file='demo.csv'
     ),
 ]
