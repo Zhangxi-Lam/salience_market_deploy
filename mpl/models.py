@@ -80,7 +80,7 @@ class Player(BasePlayer):
                 self.total_pay = Constants.lottery_b_hi
             else:
                 self.payoff = Constants.lottery_b_lo
-                self.total_pay = Constants.lottery_b_hi
+                self.total_pay = Constants.lottery_b_lo
 
         # set payoff as global variable
         self.participant.vars['mpl_payoff'] = self.total_pay
