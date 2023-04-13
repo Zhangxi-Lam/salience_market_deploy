@@ -11,7 +11,7 @@
 <p>
 In the main part of the experiment, you will interact with other traders in 15 trading periods, each lasting approximately 150 seconds.
 The traders remain the same in each trading period, but are randomly regrouped between trading periods.
-In each trading period, you will simultanously trade {{ num_assets }} risky asset(s) (labelled from A to Z, depending on the number of assets) with other traders,
+In each trading period, you will simultaneously trade {{ num_assets }} risky asset(s) (labelled from A to Z, depending on the number of assets) with other traders,
 using computerized trading screens.
 The return of the assets depends on the state of the assets. There are {{ num_states }} possible states.
 In each trading period, traders are informed publicly of the number of assets, the number of all possible states,
@@ -59,7 +59,7 @@ The figure below shows an example of the user interface with 3 states and 2 asse
 and does NOT indicate what game strategy you should use.</b>
 </p>
 
-<img src="{% static 'salience_market/ui_decision.png' %}" width="100%" height="auto"/>
+<img src="{% static 'salience_market/ui_decision2.PNG' %}" width="100%" height="auto"/>
 
 <p>
 The user interface can be divided into multiple boxes:
@@ -113,7 +113,7 @@ You can sell a unit of asset by submitting your ask or accepting others' bid.
 In general, it is more profitable to buy low and sell high.
 You should also NOT buy an asset when its price exceeds its maximum possible return,
 or sell an asset when its price is below its minimum possible return.
-Check the trading window and see whether your buy price seem low, and your sell price seem high compared to the other prices this period.
+Check the trading window and see whether your buy price seems low, and your sell price seems high compared to the other prices this period.
 </p>
 
 <p>
@@ -126,7 +126,7 @@ For each asset row,
 
 <ul>
   <li>the Available column refers to the number of assets available to trade (Settled - Offered);</li>
-  <li>the Settled column refers to the number of assets you currently own.</li>
+  <li>the Settled column refers to the number of assets you currently own;</li>
   <li>the Requested column refers to the total number of bids;</li>
   <li>the Offered column refers to the total number of asks.</li>
 </ul>
@@ -143,10 +143,10 @@ such as trying to sell an asset when you currently hold zero units of that asset
 <p>
 At the beginning of the trading period, you are endowed with some cash and some assets.
 At the end of the trading period, you will see a result page that summarizes your actions and performance.
-The result page reveals the true state of the assets and remind you of your final asset holding.
+The result page reveals the true state of the assets and reminds you of your final asset holding.
 The page also shows the total payoff for this trading period.
-Your total payoff will be your remaining cash + your earning from your final asset holding.
-You can think of the cash as a risk-free asset which provides you a guaranteed 1:1 return, while the tradable assets are risky.
+Your total payoff will be your remaining cash + your earnings from your final asset holding.
+You can think of cash as a risk-free asset which provides you a guaranteed 1:1 return, while the tradable assets are risky.
 </p>
 
 <p>
