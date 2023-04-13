@@ -49,52 +49,72 @@ Market
         <div>
             Your Asset A endowment: {{asseta_endowments}}
         </div>
+        {% if num_assets > 1 %}
         <div>
             Your Asset B endowment: {{assetb_endowments}}
         </div>
+        {% endif %}
         <div>
             Your cash endowment: {{cash_endowments}}
         </div>
     </div>
     <div>
         <table>
-            Market Info
+            Asset A Info
             <tr>
                 <th>State</th>
                 <th>Probability</th>
                 <th>Asset A Return</th>
-                {% if num_assets > 1 %}
-                <th>Asset B Return</th>
-                {% endif %}
             </tr>
             <tr>
                 <td>1</td>
                 <td>{{p1}}%</td>
                 <td>{{asset_a_return_1}}</td>
-                {% if num_assets > 1 %}
-                <td>{{asset_b_return_1}}</td>
-                {% endif %}
             </tr>
             {% if num_states >= 3 %}
             <tr>
                 <td>2</td>
                 <td>{{p2}}%</td>
                 <td>{{asset_a_return_2}}</td>
-                {% if num_assets > 1 %}
-                <td>{{asset_b_return_2}}</td>
-                {% endif %}
             </tr>
             {% endif %}
             <tr>
                 <td>3</td>
                 <td>{{p3}}%</td>
                 <td>{{asset_a_return_3}}</td>
-                {% if num_assets > 1 %}
-                <td>{{asset_b_return_3}}</td>
-                {% endif %}
             </tr>
         </table>
     </div>
+
+    {% if num_assets > 1 %}
+    <div>
+        <table>
+            Asset B Info
+            <tr>
+                <th>State</th>
+                <th>Probability</th>
+                <th>Asset B Return</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>{{p1}}%</td>
+                <td>{{asset_b_return_1}}</td>
+            </tr>
+            {% if num_states >= 3 %}
+            <tr>
+                <td>2</td>
+                <td>{{p2}}%</td>
+                <td>{{asset_b_return_2}}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>3</td>
+                <td>{{p3}}%</td>
+                <td>{{asset_b_return_3}}</td>
+            </tr>
+        </table>
+    </div>
+    {% endif %}
 </div>
 
 {% formfields %}

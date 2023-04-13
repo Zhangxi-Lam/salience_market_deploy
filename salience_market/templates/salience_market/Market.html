@@ -54,14 +54,11 @@ Market
     </div>
     <div>
         <table>
-            Market Info
+            Asset A Info
             <tr>
                 <th>State</th>
                 <th>Probability</th>
                 <th>Asset A Return</th>
-                {% if num_assets > 1 %}
-                <th>Asset B Return</th>
-                {% endif %}
             </tr>
             <tr>
                 <td>1</td>
@@ -71,22 +68,12 @@ Market
                 {% else %}
                 <td>{{asset_a_return_1}}</td>
                 {% endif %}
-                {% if num_assets > 1 %}
-                {% if asset_b_highlight == 1 %}
-                <td bgcolor="yellow"><b>{{asset_b_return_1}}</b></td>
-                {% else %}
-                <td>{{asset_b_return_1}}</td>
-                {% endif %}
-                {% endif %}
             </tr>
             {% if num_states >= 3 %}
             <tr>
                 <td>2</td>
                 <td>{{p2}}%</td>
                 <td>{{asset_a_return_2}}</td>
-                {% if num_assets > 1 %}
-                <td>{{asset_b_return_2}}</td>
-                {% endif %}
             </tr>
             {% endif %}
             <tr>
@@ -97,16 +84,47 @@ Market
                 {% else %}
                 <td>{{asset_a_return_3}}</td>
                 {% endif %}
-                {% if num_assets > 1 %}
+            </tr>
+        </table>
+    </div>
+
+    {% if num_assets > 1 %}
+    <div>
+        <table>
+            Asset B Info
+            <tr>
+                <th>State</th>
+                <th>Probability</th>
+                <th>Asset B Return</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>{{p1}}%</td>
+                {% if asset_b_highlight == 1 %}
+                <td bgcolor="yellow"><b>{{asset_b_return_1}}</b></td>
+                {% else %}
+                <td>{{asset_b_return_1}}</td>
+                {% endif %}
+            </tr>
+            {% if num_states >= 3 %}
+            <tr>
+                <td>2</td>
+                <td>{{p2}}%</td>
+                <td>{{asset_b_return_2}}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>3</td>
+                <td>{{p3}}%</td>
                 {% if asset_b_highlight == 3 %}
                 <td bgcolor="yellow"><b>{{asset_b_return_3}}</b></td>
                 {% else %}
                 <td>{{asset_b_return_3}}</td>
                 {% endif %}
-                {% endif %}
             </tr>
         </table>
     </div>
+    {% endif %}
 </div>
 <multiple-asset-text-interface></multiple-asset-text-interface>
 

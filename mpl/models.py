@@ -5,6 +5,7 @@ from otree.api import (
     BaseGroup,
     BasePlayer,
 )
+from otree.api import Currency as c, currency_range
 import random
 
 
@@ -54,7 +55,7 @@ class Player(BasePlayer):
         locals()['choice_' + str(j)] = models.StringField()
     del j
     random_draw = models.IntegerField()
-    # total_pay = models.CurrencyField()
+    total_pay = models.FloatField()
     choice_to_pay = models.StringField()
     option_to_pay = models.StringField()
 
@@ -69,13 +70,17 @@ class Player(BasePlayer):
         if self.option_to_pay == 'A':
             if self.random_draw <= self.participant.vars['mpl_index_to_pay']:
                 self.payoff = Constants.lottery_a_hi
+                self.total_pay = Constants.lottery_a_hi
             else:
                 self.payoff = Constants.lottery_a_lo
+                self.total_pay = Constants.lottery_a_lo
         else:
             if self.random_draw <= self.participant.vars['mpl_index_to_pay']:
                 self.payoff = Constants.lottery_b_hi
+                self.total_pay = Constants.lottery_b_hi
             else:
                 self.payoff = Constants.lottery_b_lo
+                self.total_pay = Constants.lottery_b_hi
 
         # set payoff as global variable
-        self.participant.vars['mpl_payoff'] = self.payoff
+        self.participant.vars['mpl_payoff'] = self.total_pay

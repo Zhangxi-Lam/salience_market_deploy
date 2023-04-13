@@ -73,7 +73,7 @@ class Results(Page):
             'lottery_b_lo': "{:.2f}".format(Constants.lottery_b_lo),
             'choice_to_pay':  [choice_to_pay],
             'option_to_pay':  player.option_to_pay,
-            'payoff':         player.payoff
+            'payoff':         player.total_pay
         }
 
 

@@ -12,7 +12,9 @@ Results
         border: 1px solid black;
     }
 </style>
+
 <table>
+    States of the assets
     {% if state_independent %}
     {% if num_assets > 1 %}
     <tr>
@@ -33,33 +35,38 @@ Results
         <td colspan="3">{{state_a}}</td>
     </tr>
     {% endif %}
+</table>
 
-    <tr>
-        <th>Remaining cash</th>
-        <td colspan="3">{{settled_cash}}</td>
-    </tr>
 
+<table>
+    Trade Info
     <tr>
         <th>Your Asset A bid</th>
         <td>{{player.asset_a_bid}}</td>
         <th>Your Asset B bid</th>
         <td>{{player.asset_b_bid}}</td>
     </tr>
-
     <tr>
       <th>Your Asset A ask</th>
       <td>{{player.asset_a_ask}}</td>
       <th>Your Asset B ask</th>
       <td>{{player.asset_b_ask}}</td>
     </tr>
-
     <tr>
         <th>Investor Asset A price</th>
         <td>{{investor_a}}</td>
         <th>Investor Asset B price</th>
         <td>{{investor_b}}</td>
     </tr>
+</table>
 
+
+<table>
+    Your final assets and cash holding
+    <tr>
+        <th>Your remaining cash</th>
+        <td colspan="3">{{settled_cash}}</td>
+    </tr>
     <tr>
         <th>Asset</th>
         <th>Unit you own</th>
@@ -81,10 +88,13 @@ Results
     </tr>
     {% endif %}
 </table>
+
 {% if num_assets > 1 %}
-Your payoff in this trading period is {{asset_a_total_return}} + {{asset_b_total_return}} + {{settled_cash}} = {{payoff}}
+Your payoff in this trading period is {{asset_a_total_return}} (Asset A total return) +
+{{asset_b_total_return}} (Asset B total return) + {{settled_cash}} (remaining cash) = {{payoff}}
 {% else %}
-Your payoff in this trading period is {{asset_a_total_return}} + {{settled_cash}} = {{payoff}}
+Your payoff in this trading period is {{asset_a_total_return}} (Asset A total return)
++ {{settled_cash}} (remaining cash) = {{payoff}}
 {% endif %}
 
 {%next_button%}

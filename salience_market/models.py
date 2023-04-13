@@ -208,7 +208,7 @@ class Player(markets_models.Player):
     student_id = models.IntegerField(
         label='What is your university student ID number', min=0000000, max=9999999)
     part_id = models.StringField(
-        label='What is your participant ID (Zoom Username)?')
+        label='What is your participant ID?')
     venmo_id = models.StringField(label='What is your Venmo account ID?')
     comments = models.LongStringField(
         label='Is there any part of the experiment that makes you confusing? Please give us some comments.')

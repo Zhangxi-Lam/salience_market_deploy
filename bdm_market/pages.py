@@ -28,7 +28,7 @@ class WaitStart(WaitPage):
 
 
 class Market(Page):
-    timeout_seconds = 60
+    timeout_seconds = 80
     form_model = 'player'
     form_fields = ['asset_a_bid','asset_a_ask','asset_b_bid','asset_b_ask']
 
@@ -66,7 +66,7 @@ class Market(Page):
 
 
 class RoundResults(Page):
-    timeout_seconds = 30
+    timeout_seconds = 40
 
     def is_displayed(self):
         return self.round_number <= self.subsession.num_rounds

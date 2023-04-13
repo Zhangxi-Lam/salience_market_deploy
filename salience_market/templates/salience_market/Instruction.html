@@ -8,9 +8,8 @@
 {% block content %}
 
 <h4>Basic Idea</h4>
-
 <p>
-In the main part of the experiment, you will interact with other traders in 12 trading periods, each lasting approximately 3 minutes.
+In the main part of the experiment, you will interact with other traders in 15 trading periods, each lasting approximately 150 seconds.
 The traders remain the same in each trading period, but are randomly regrouped between trading periods.
 In each trading period, you will simultanously trade {{ num_assets }} risky asset(s) (labelled from A to Z, depending on the number of assets) with other traders,
 using computerized trading screens.
@@ -25,6 +24,9 @@ During each trading period, the traders trade assets in the market but do NOT kn
 <b>The state of each asset is drawn independently. That is, it is possible that the assets have different states.</b>
 At the end of the trading period, the computer tosses a 10-sided dice FOR EACH ASSET, and randomly assigns the true states of the assets depending on the probability of each state.
 Your payoff in each trading period depends on the number of each type of assets you own and the true state of the assets.
+</p>
+
+<p>
 For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
 You do NOT know which state will become the true state during the trading period.
 At the end of the trading period, the true state of each asset will be randomly determined based on the probabilities of the two states.
@@ -37,6 +39,9 @@ During each trading period, the traders trade assets in the market but do NOT kn
 <b>The assets share the same state.</b>
 At the end of the trading period, the computer tosses a 10-sided dice, and randomly assigns the true state of the assets depending on the probability of each state.
 Your payoff in each trading period depends on the number of each type of assets you own and the true state of the assets.
+</p>
+
+<p>
 For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
 You do NOT know which state will become the true state during the trading period.
 At the end of the trading period, the true state will be randomly determined based on the probabilities of the two states.
@@ -45,8 +50,8 @@ Since the computer uses a 10-sided fair dice, then throwing 1-4 means state 1 is
 {% endif %}
 
 
-<h4>How to Trade</h4>
 
+<h4>How to Trade</h4>
 <p>
 When you enter a trading period, you will start to interact with the user interface.
 The figure below shows an example of the user interface with 3 states and 2 assets.
@@ -108,12 +113,12 @@ You can sell a unit of asset by submitting your ask or accepting others' bid.
 In general, it is more profitable to buy low and sell high.
 You should also NOT buy an asset when its price exceeds its maximum possible return,
 or sell an asset when its price is below its minimum possible return.
-Check the trading window and see whether your buy price seem low, and your sell price seem high compared to the other prices (in white) this period.
+Check the trading window and see whether your buy price seem low, and your sell price seem high compared to the other prices this period.
 </p>
 
 <p>
 The trader information box on the bottom left tells you your current cash holding and asset holding.
-The box will update whenever your make an action.
+The box will update whenever you make an action.
 You will start with some units of assets and some cash at the beginning of each trading period.
 The settled cash refers to the cash you own at hand,
 the available cash refers to the cash available to buy (Settled Cash - Your Total Bids).
@@ -129,7 +134,7 @@ For each asset row,
 
 <p>
 The log box on the bottom right records all your actions and will tell you if you made mistakes,
-such as trying to sell an asset when your currently hold zero units of that asset.
+such as trying to sell an asset when you currently hold zero units of that asset.
 </p>
 
 
