@@ -17,7 +17,7 @@ the probability of each state, and the return of the asset at each state.
 </p>
 
 <p>
-During each trading period, you trade asset with the computer investor but do NOT know the true state of the asset.
+During each trading period, you trade asset with the computer investor but you do NOT know the true state of the asset.
 At the end of the trading period, the system tosses a 10-sided dice, and randomly assigns the true state of the asset depending on the probability of each state.
 Your payoff in each trading period depends on the number of assets you own and the true state of the asset.
 </p>
@@ -25,7 +25,7 @@ Your payoff in each trading period depends on the number of assets you own and t
 For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
 You do NOT know which state will become the true state during the trading period.
 At the end of the trading period, the true state of each asset will be randomly determined based on the probabilities of the two states.
-Since the system uses a 10-sided fair dice, then throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
+Since the system uses a 10-sided fair dice, throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
 </p>
 
 
@@ -35,17 +35,17 @@ Since the system uses a 10-sided fair dice, then throwing 1-4 means state 1 is c
 <p>
 At the beginning of the trading period, you are endowed with some cash and some assets.
 You need to set up a bid (the price you are willing to buy) and an ask (the price you are willing to sell).
-Your bid should not be higher than your ask, since you do not want to buy with a high price but sell with a low price.
+Your bid should not be higher than your ask, because you do not want to buy with a high price but sell with a low price.
 The computer investor then comes to the market with a random price for the asset you trade.
 The random price is a random integer between the maximum possible and the minimum possible return of the asset.
-The actual trade depends on the investor's random price, and your bid and ask.
+The actual trade depends on the investor's random price, your bid and your ask.
 </p>
 
 <p>
 For example, the investor comes with a price X for Asset A.
 <ul>
-  <li>If X is not higher than your bid, then you will buy 1 unit of Asset A from the investor and lose X cash.</li>
-  <li>If X is not lower than your ask, then you will sell 1 unit of your Asset A to the investor and gain X cash.</li>
+  <li>If X is not higher than your bid, then you will buy 1 unit of Asset A from the investor and lose X amount of cash.</li>
+  <li>If X is not lower than your ask, then you will sell 1 unit of your Asset A to the investor and gain X amount of cash.</li>
   <li>If X is between your bid and ask, no trade will happen.</li>
 </ul>
 </p>
@@ -57,12 +57,12 @@ In this case,
 <ul>
   <li>The investor's random price X is an interger between 0 and 200.</li>
   <li>You should not bid below 0 since 0 is your minimum possible return.</li>
-  <li>You should not ask above 200 since 200 is your maximum possible return.</li>
+  <li>You should neither ask above 200 since 200 is your maximum possible return.</li>
 </ul>
 </p>
 
 <p>
-<b>When you enter your bid and ask, be sure to manually press next.
+<b>When you enter your bid and ask, be sure to manually press the "next" button.
 Otherwise the system will not record your inputs.</b>
 </p>
 
@@ -91,12 +91,12 @@ The figure below shows an example of the result page.
 <img src="{% static 'bdm_single/ui_result.PNG' %}" width="80%" height="auto"/>
 
 <p>
-After the result page, all traders go on together to the next trading period.
+After the result page, all traders will move on together to the next trading period.
 </p>
 
 <p>
-At the end of the experiment, one non-practice trading period will be randomly chosen by the system,
-and your final payoff from this experiment is your payoff at that trading period (after converted to US dollar), plus your show-up fee.
+At the end of the experiment, the system will randomly choose a nonpractice trading period,
+and your final payoff from this experiment is your payoff of that trading period (converted to US dollar), plus your show-up fee.
 So your objective is to try to maximize your payoff at every non-practice trading period.
 </p>
 

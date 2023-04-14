@@ -20,22 +20,22 @@ the probability of each state, and the return of the assets at each state.
 
 {% if state_independent %}
 <p>
-During each trading period, the traders trade assets in the market but do NOT know the true state of the assets.
+During each trading period, the traders trade assets in the market but you do NOT know the true state of the assets.
 <b>The state of each asset is drawn independently. That is, it is possible that the assets have different states.</b>
-At the end of the trading period, the computer tosses a 10-sided dice FOR EACH ASSET, and randomly assigns the true states of the assets depending on the probability of each state.
-Your payoff in each trading period depends on the number of each type of assets you own and the true state of the assets.
+At the end of the trading period, the computer tosses a 10-sided dice FOR EACH ASSET, and randomly assigns the true states of the assets based on the probability of each state.
+Your payoff in each trading period depends on the number of each type of assets you own and the true state of each assets.
 </p>
 
 <p>
 For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
 You do NOT know which state will become the true state during the trading period.
 At the end of the trading period, the true state of each asset will be randomly determined based on the probabilities of the two states.
-Since the computer uses a 10-sided fair dice, then throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
+Since the computer uses a 10-sided fair dice, throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
 If there are two assets, it is possible that Asset A is in state 1 and Asset B is in state 2.
 </p>
 {% else %}
 <p>
-During each trading period, the traders trade assets in the market but do NOT know the true state of the assets.
+During each trading period, the traders trade assets in the market but you do NOT know the true state of the assets.
 <b>The assets share the same state.</b>
 At the end of the trading period, the computer tosses a 10-sided dice, and randomly assigns the true state of the assets depending on the probability of each state.
 Your payoff in each trading period depends on the number of each type of assets you own and the true state of the assets.
@@ -45,7 +45,7 @@ Your payoff in each trading period depends on the number of each type of assets 
 For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
 You do NOT know which state will become the true state during the trading period.
 At the end of the trading period, the true state will be randomly determined based on the probabilities of the two states.
-Since the computer uses a 10-sided fair dice, then throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
+Since the computer uses a 10-sided fair dice, throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
 </p>
 {% endif %}
 
@@ -59,7 +59,7 @@ The figure below shows an example of the user interface with 3 states and 2 asse
 and does NOT indicate what game strategy you should use.</b>
 </p>
 
-<img src="{% static 'salience_market/ui_decision2.PNG' %}" width="100%" height="auto"/>
+<img src="{% static 'salience_market/ui_decision.png' %}" width="100%" height="auto"/>
 
 <p>
 The user interface can be divided into multiple boxes:
@@ -69,9 +69,9 @@ The user interface can be divided into multiple boxes:
 There is a timer on the top counting down the time left.
 Below the timer, you can see the information about the trading period, including the current trading period number,
 the total number of traders, the number of possible state of the assets, the probability of each state,
-and the return for each asset at each state. Please read the information carefully before you start to trade.
+and the return of each asset at each state. Please read the information carefully before you start to trade.
 You will also see a notice if the current trading period is a practice period.
-Your final payoff will NOT be selected from a practice period.
+The practice period will not be considered for determining your final payoff.
 </p>
 
 <p>
@@ -81,11 +81,11 @@ and the boxes for Asset B on the right. In each trading box,
 
 <ul>
   <li>
-    "Bids" box shows the prices at which traders are offering to buy units of the assets.
+    The "Bids" box shows the prices at which traders are offering to buy units of the assets.
     Bids are ordered from high to low since the highest bids are the most attractive offers to other traders.
   </li>
   <li>
-    "Asks" box shows the prices at which sellers are offering to sell units.
+    The "Asks" box shows the prices at which sellers are offering to sell units.
     Likewise, asks are ordered from low to high since the lowest is the most attractive offer to other traders.
   </li>
   <li>
@@ -93,18 +93,18 @@ and the boxes for Asset B on the right. In each trading box,
     A bid/ask with a red "X" button on the right indicates your own offer, and you can cancel your offer by pressing the "X" button.
   </li>
   <li>
-    "Trades" box in the middle shows the successful trading history in the market with the most recent trades on the top.
+    The "Trades" box in the middle shows the successful trading history in the market with the most recent trades on the top.
   </li>
 </ul>
 </p>
 
 <p>
-You can submit a bid (buy offer) by typing in your price in the “Bids” box and clicking the "Buy" button.
+You can submit a bid (buy offer) by typing in your price in the “Bids” box and then click the "Buy" button.
 Likewise, to offer to sell a unit, you type in the price in the “Asks” box and click the "Sell" button.
 You can place multiple bids and asks at the same time.
-If your bid is higher than the best ask, then you will immediately buy a unit at that best ask.
+If your bid is higher than the best ask in the market, you will immediately buy a unit at that best ask.
 Similarly, entering an ask below the best bid held by someone else amounts to accepting that best bid.
-You can also directly accept someone else’s bid or ask by double clicking on it, and then clicking Accept in the pop-up window.
+You can also directly accept someone else’s bid or ask by double clicking on it, and then click Accept in the pop-up window.
 </p>
 
 <p>
@@ -113,7 +113,7 @@ You can sell a unit of asset by submitting your ask or accepting others' bid.
 In general, it is more profitable to buy low and sell high.
 You should also NOT buy an asset when its price exceeds its maximum possible return,
 or sell an asset when its price is below its minimum possible return.
-Check the trading window and see whether your buy price seems low, and your sell price seems high compared to the other prices this period.
+Check the trading window and see whether your buy price seems low, and your sell price seems high compared to the other prices in this period.
 </p>
 
 <p>
@@ -150,7 +150,7 @@ You can think of cash as a risk-free asset which provides you a guaranteed 1:1 r
 </p>
 
 <p>
-After the result page, all traders go on together to the next trading period.
+After the result page, all traders will move on together to the next trading period.
 </p>
 
 <p>
@@ -163,8 +163,8 @@ So your final payoff is 80*2 + 120*3 + 1029 = 1549 points.
 <img src="{% static 'salience_market/ui_result.png' %}" width="80%" height="auto"/>
 
 <p>
-At the end of the experiment, one non-practice trading period will be randomly chosen by the computer,
-and your final payoff from this experiment is your payoff at that trading period (after converted to US dollar), plus your show-up fee.
+At the end of the experiment, the system will randomly choose a nonpractice trading period,
+and your final payoff from this experiment is your payoff of that trading period (converted to US dollar), plus your show-up fee.
 So your objective is to try to maximize your payoff at every non-practice trading period.
 </p>
 

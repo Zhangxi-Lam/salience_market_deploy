@@ -18,7 +18,7 @@ the probability of each state, and the return of the assets at each state.
 
 {% if state_independent %}
 <p>
-During each trading period, you trade assets with the computer investor but do NOT know the true state of the assets.
+During each trading period, you trade assets with the computer investor but you do NOT know the true state of the assets.
 <b>The state of each asset is drawn independently. That is, it is possible that the assets have different states.</b>
 At the end of the trading period, the system tosses a 10-sided dice FOR EACH ASSET, and randomly assigns the true states of the assets depending on the probability of each state.
 Your payoff in each trading period depends on the number of each type of assets you own and the true state of the assets.
@@ -27,12 +27,12 @@ Your payoff in each trading period depends on the number of each type of assets 
 For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
 You do NOT know which state will become the true state during the trading period.
 At the end of the trading period, the true state of each asset will be randomly determined based on the probabilities of the two states.
-Since the system uses a 10-sided fair dice, then throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
+Since the system uses a 10-sided fair dice, throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
 If there are two assets, it is possible that Asset A is in state 1 and Asset B is in state 2.
 </p>
 {% else %}
 <p>
-During each trading period, you trade assets with the computer investor but do NOT know the true state of the assets.
+During each trading period, you trade assets with the computer investor but you do NOT know the true state of the assets.
 <b>The assets share the same state.</b>
 At the end of the trading period, the system tosses a 10-sided dice, and randomly assigns the true state of the assets depending on the probability of each state.
 Your payoff in each trading period depends on the number of each type of assets you own and the true state of the assets.
@@ -51,20 +51,20 @@ Since the system uses a 10-sided fair dice, then throwing 1-4 means state 1 is c
 <p>
 At the beginning of the trading period, you are endowed with some cash and some assets.
 FOR EACH ASSET, you need to set up a bid (the price you are willing to buy) and an ask (the price you are willing to sell).
-Your bid should not be higher than your ask, since you do not want to buy with a high price but sell with a low price.
+Your bid should not be higher than your ask, because you do not want to buy with a high price but sell with a low price.
 The computer investor then comes to the market with a random price for each asset you trade.
 The random price is a random integer between the maximum possible and the minimum possible return of the assets.
-The actual trade depends on the investor's random price, and your bid and ask.
+The actual trade depends on the investor's random price, your bid and your ask.
 </p>
 
 <p>
 For example, the investor comes with a price X for Asset A.
 <ul>
-  <li>If X is not higher than your bid, then you will buy 1 unit of Asset A from the investor and lose X cash.</li>
-  <li>If X is not lower than your ask, then you will sell 1 unit of your Asset A to the investor and gain X cash.</li>
+  <li>If X is not higher than your bid, then you will buy 1 unit of Asset A from the investor and lose X amount of cash.</li>
+  <li>If X is not lower than your ask, then you will sell 1 unit of your Asset A to the investor and gain X amount of cash.</li>
   <li>If X is between your bid and ask, no trade will happen.</li>
 </ul>
-The trade for other assets work in the same manner.
+The trade for all assets work in the same manner.
 </p>
 
 <p>
@@ -74,12 +74,12 @@ In this case,
 <ul>
   <li>The investor's random price X is an interger between 0 and 200.</li>
   <li>You should not bid below 0 since 0 is your minimum possible return.</li>
-  <li>You should not ask above 200 since 200 is your maximum possible return.</li>
+  <li>You should neither ask above 200 since 200 is your maximum possible return.</li>
 </ul>
 </p>
 
 <p>
-<b>When you enter your bids and asks, be sure to manually press next.
+<b>When you enter your bids and asks, be sure to manually press the "next" button.
 Otherwise the system will not record your inputs.</b>
 </p>
 
@@ -99,7 +99,7 @@ The figure below shows an example of the result page.
   <li>Asset A's state is 3, while Asset B's state is 1.
     The assets will be paid based on their returns at the true states.</li>
   <li>The player bids 80 and asks 120 for Asset A. The investor's price for Asset A is 175.
-    Since 175 is larger than 120, the player sells 1 unit of Asset A and gains 175.</li>
+    Since 175 is higher than 120, the player sells 1 unit of Asset A and gains 175.</li>
   <li>The player bids 60 and asks 100 for Asset B. The investor's price for Asset B is 54.
     Since 54 is less than 60, the player buys 1 unit of Asset B and loses 54.</li>
   <li>After the trade, the player possesses 0 unit of Asset A, 2 units of Asset B, and 421 cash.
@@ -110,12 +110,12 @@ The figure below shows an example of the result page.
 <img src="{% static 'bdm_market/ui_result.PNG' %}" width="80%" height="auto"/>
 
 <p>
-After the result page, all traders go on together to the next trading period.
+After the result page, all traders will move on together to the next trading period.
 </p>
 
 <p>
-At the end of the experiment, one non-practice trading period will be randomly chosen by the system,
-and your final payoff from this experiment is your payoff at that trading period (after converted to US dollar), plus your show-up fee.
+At the end of the experiment, the system will randomly choose a nonpractice trading period,
+and your final payoff from this experiment is your payoff of that trading period (converted to US dollar), plus your show-up fee.
 So your objective is to try to maximize your payoff at every non-practice trading period.
 </p>
 
