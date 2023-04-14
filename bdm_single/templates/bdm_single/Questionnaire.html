@@ -1,0 +1,47 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+Survey 1/2
+{% endblock %}
+{% block content %}
+
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+
+<p>
+  You have completed the main part of the experiment.
+  Before the session ends, please answer the following questions.
+</p>
+
+<p>Consider the following two assets.</p>
+
+<table>
+    <tr>
+        <th>State</th>
+        <th>Probability</th>
+        <th>Asset A Return</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>0.2</td>
+        <td>180</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>0.8</td>
+        <td>80</td>
+    </tr>
+</table>
+
+{% formfields %}
+
+{% next_button %}
+
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+Results
+{% endblock %}
+{% block content %}
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+
+<table>
+    States of the assets
+    {% if state_independent %}
+    {% if num_assets > 1 %}
+    <tr>
+        <th>Asset A's State</th>
+        <td>{{state_a}}</td>
+        <th>Asset B's State</th>
+        <td>{{state_b}}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <th>Asset A's State</th>
+        <td colspan="3">{{state_a}}</td>
+    </tr>
+    {% endif %}
+    {% else %}
+    <tr>
+        <th>Assets' State</th>
+        <td colspan="3">{{state_a}}</td>
+    </tr>
+    {% endif %}
+</table>
+
+
+<table>
+    Trade Info
+    <tr>
+        <th>Your Asset A bid</th>
+        <td>{{player.asset_a_bid}}</td>
+    </tr>
+    <tr>
+      <th>Your Asset A ask</th>
+      <td>{{player.asset_a_ask}}</td>
+    </tr>
+    <tr>
+        <th>Investor Asset A price</th>
+        <td>{{investor_a}}</td>
+    </tr>
+</table>
+
+
+<table>
+    Your final assets and cash holding
+    <tr>
+        <th>Your remaining cash</th>
+        <td colspan="3">{{settled_cash}}</td>
+    </tr>
+    <tr>
+        <th>Asset</th>
+        <th>Unit you own</th>
+        <th>Per-unit return</th>
+        <th>Total return</th>
+    </tr>
+    <tr>
+        <td>A</td>
+        <td>{{asset_a_unit}}</td>
+        <td>{{asset_a_return}}</td>
+        <td>{{asset_a_total_return}}</td>
+    </tr>
+    {% if num_assets > 1 %}
+    <tr>
+        <td>B</td>
+        <td>{{asset_b_unit}}</td>
+        <td>{{asset_b_return}}</td>
+        <td>{{asset_b_total_return}}</td>
+    </tr>
+    {% endif %}
+</table>
+
+{% if num_assets > 1 %}
+Your payoff in this trading period is {{asset_a_total_return}} (Asset A total return) +
+{{asset_b_total_return}} (Asset B total return) + {{settled_cash}} (remaining cash) = {{payoff}}
+{% else %}
+Your payoff in this trading period is {{asset_a_total_return}} (Asset A total return)
++ {{settled_cash}} (remaining cash) = {{payoff}}
+{% endif %}
+
+{%next_button%}
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Experimental Instruction
+{% endblock %}
+
+{% block content %}
+
+<h4>Basic Idea</h4>
+<p>
+In the main part of the experiment, you will play 30 trading periods of an investment game.
+In each trading period, you will trade {{ num_assets }} risky asset with a computer investor.
+The return of the asset depends on its state. There are {{ num_states }} possible states.
+At the beginning of each trading period, you are informed of the number of all possible states,
+the probability of each state, and the return of the asset at each state.
+</p>
+
+<p>
+During each trading period, you trade asset with the computer investor but do NOT know the true state of the asset.
+At the end of the trading period, the system tosses a 10-sided dice, and randomly assigns the true state of the asset depending on the probability of each state.
+Your payoff in each trading period depends on the number of assets you own and the true state of the asset.
+</p>
+<p>
+For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
+You do NOT know which state will become the true state during the trading period.
+At the end of the trading period, the true state of each asset will be randomly determined based on the probabilities of the two states.
+Since the system uses a 10-sided fair dice, then throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
+</p>
+
+
+
+
+<h4>How to Trade</h4>
+<p>
+At the beginning of the trading period, you are endowed with some cash and some assets.
+You need to set up a bid (the price you are willing to buy) and an ask (the price you are willing to sell).
+Your bid should not be higher than your ask, since you do not want to buy with a high price but sell with a low price.
+The computer investor then comes to the market with a random price for the asset you trade.
+The random price is a random integer between the maximum possible and the minimum possible return of the asset.
+The actual trade depends on the investor's random price, and your bid and ask.
+</p>
+
+<p>
+For example, the investor comes with a price X for Asset A.
+<ul>
+  <li>If X is not higher than your bid, then you will buy 1 unit of Asset A from the investor and lose X cash.</li>
+  <li>If X is not lower than your ask, then you will sell 1 unit of your Asset A to the investor and gain X cash.</li>
+  <li>If X is between your bid and ask, no trade will happen.</li>
+</ul>
+</p>
+
+<p>
+Suppose Asset A provides a 50% chance to get 200 and a 50% chance to get 0,
+then 0 is Asset A's minimum possible return and 200 is Asset A's maximum possible return.
+In this case,
+<ul>
+  <li>The investor's random price X is an interger between 0 and 200.</li>
+  <li>You should not bid below 0 since 0 is your minimum possible return.</li>
+  <li>You should not ask above 200 since 200 is your maximum possible return.</li>
+</ul>
+</p>
+
+<p>
+<b>When you enter your bids and asks, be sure to manually press next.
+Otherwise the system will not record your inputs.</b>
+</p>
+
+
+
+<h4>Payment</h4>
+<p>
+At the end of the trading period, you will see a result page that summarizes your actions and performance.
+The result page reveals the true state of the assets, your final asset holding, your choices, and your payoff.
+Your total payoff will be your remaining cash + your earnings from your final asset holding.
+You can think of the cash as a risk-free asset which provides you a guaranteed 1:1 return, while the tradable asset are risky.
+</p>
+
+<p>
+The figure below shows an example of the result page.
+<ul>
+  <li>Asset A's state is 3, while Asset B's state is 1.
+    The assets will be paid based on their returns at the true states.</li>
+  <li>The player bids 80 and asks 120 for Asset A. The investor's price for Asset A is 175.
+    Since 175 is larger than 120, the player sells 1 unit of Asset A and gains 175.</li>
+  <li>The player bids 60 and asks 100 for Asset B. The investor's price for Asset B is 54.
+    Since 54 is less than 60, the player buys 1 unit of Asset B and loses 54.</li>
+  <li>After the trade, the player possesses 0 unit of Asset A, 2 units of Asset B, and 421 cash.
+    So the final payoff is 0+20*2+421=461.</li>
+</ul>
+</p>
+
+<img src="{% static 'bdm_single/ui_result.PNG' %}" width="80%" height="auto"/>
+
+<p>
+After the result page, all traders go on together to the next trading period.
+</p>
+
+<p>
+At the end of the experiment, one non-practice trading period will be randomly chosen by the system,
+and your final payoff from this experiment is your payoff at that trading period (after converted to US dollar), plus your show-up fee.
+So your objective is to try to maximize your payoff at every non-practice trading period.
+</p>
+
+<p>
+If you are ready for the experiment, please raise your hand. The experiment starts when everyone is ready.
+</p>
+
+
+{% endblock %}
