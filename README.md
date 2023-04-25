@@ -39,7 +39,6 @@ Go to the project's root directory and run:
 ### 1. Logging in to the Google Cloud machine
 
 ### 2. Switch to the Super User
-The password is `1234`
 ```console
 YOUR_NAME@instance-2:/path$ su
 ```
