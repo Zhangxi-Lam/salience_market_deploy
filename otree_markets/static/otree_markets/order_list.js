@@ -17,7 +17,7 @@ export class OrderList extends PolymerElement {
             assetName: String,
             displayFormat: {
                 type: Object,
-                value: function() {
+                value: function () {
                     return order => `${order.volume} @ $${order.price}`;
                 },
             },
@@ -54,6 +54,12 @@ export class OrderList extends PolymerElement {
                 .other-order .cancel-button {
                     display: none;
                 }
+                .my-bid {
+                    background-color: Bisque
+                }
+                .my-ask {
+                    background-color: DeepSkyBlue
+                }
             </style>
 
             <otree-constants
@@ -77,29 +83,29 @@ export class OrderList extends PolymerElement {
     }
 
     _getAssetFilterFunc(assetName) {
-        if(!assetName) {
+        if (!assetName) {
             return null;
         }
-        return function(order) {
+        return function (order) {
             return order.asset_name == assetName;
         }
     }
 
     _getOrderClass(order) {
-        if (order.pcode == this.pcode)
-            return 'my-order';
-        else
-            return 'other-order';
+        if (order.pcode == this.pcode) {
+            return order.is_bid ? 'my-bid' : 'my-ask';
+        }
+        return 'other-order';
     }
 
     _cancelOrder(event) {
         const order = event.model.item;
-        this.dispatchEvent(new CustomEvent('order-canceled', {detail: order, bubbles: true, composed: true}));
+        this.dispatchEvent(new CustomEvent('order-canceled', { detail: order, bubbles: true, composed: true }));
     }
 
     _acceptOrder(event) {
         const order = event.model.item;
-        this.dispatchEvent(new CustomEvent('order-accepted', {detail: order, bubbles: true, composed: true}));
+        this.dispatchEvent(new CustomEvent('order-accepted', { detail: order, bubbles: true, composed: true }));
     }
 
 }
