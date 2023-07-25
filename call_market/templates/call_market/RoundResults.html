@@ -1,0 +1,216 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+Results
+{% endblock %}
+
+{% block content %}
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+
+<table>
+    States of the assets
+    {% if state_independent %}
+    {% if num_assets > 1 %}
+    <tr>
+        <th>Asset A's State</th>
+        <td>{{state_a}}</td>
+        <th>Asset B's State</th>
+        <td>{{state_b}}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <th>Asset A's State</th>
+        <td colspan="3">{{state_a}}</td>
+    </tr>
+    {% endif %}
+    {% else %}
+    <tr>
+        <th>Assets' State</th>
+        <td colspan="3">{{state_a}}</td>
+    </tr>
+    {% endif %}
+</table>
+
+
+<table>
+    Trade Info
+    <tr>
+        <th>Your Asset A bid</th>
+        <td>{{player.asset_a_bid}}</td>
+        <th>Your Asset B bid</th>
+        <td>{{player.asset_b_bid}}</td>
+    </tr>
+    <tr>
+      <th>Your Asset A ask</th>
+      <td>{{player.asset_a_ask}}</td>
+      <th>Your Asset B ask</th>
+      <td>{{player.asset_b_ask}}</td>
+    </tr>
+    <tr>
+        <th>Market Asset A price</th>
+        <td>{{market_a}}</td>
+        <th>Market Asset B price</th>
+        <td>{{market_b}}</td>
+    </tr>
+</table>
+
+
+<table>
+    Your final assets and cash holding
+    <tr>
+        <th>Your remaining cash</th>
+        <td colspan="3">{{settled_cash}}</td>
+    </tr>
+    <tr>
+        <th>Asset</th>
+        <th>Unit you own</th>
+        <th>Per-unit return</th>
+        <th>Total return</th>
+    </tr>
+    <tr>
+        <td>A</td>
+        <td>{{asset_a_unit}}</td>
+        <td>{{asset_a_return}}</td>
+        <td>{{asset_a_total_return}}</td>
+    </tr>
+    {% if num_assets > 1 %}
+    <tr>
+        <td>B</td>
+        <td>{{asset_b_unit}}</td>
+        <td>{{asset_b_return}}</td>
+        <td>{{asset_b_total_return}}</td>
+    </tr>
+    {% endif %}
+</table>
+
+{% if num_assets > 1 %}
+Your payoff in this trading period is {{asset_a_total_return}} (Asset A total return) +
+{{asset_b_total_return}} (Asset B total return) + {{settled_cash}} (remaining cash) = {{payoff}}
+{% else %}
+Your payoff in this trading period is {{asset_a_total_return}} (Asset A total return)
++ {{settled_cash}} (remaining cash) = {{payoff}}
+{% endif %}
+
+
+    <div style="display: flex; justify-content: space-between;">
+        <div id="step-chart-A" style="width: 45%;"></div>
+        <div id="step-chart-B" style="width: 45%;"></div>
+    </div>
+
+    <script src="{% static 'call_market/plotly-2.24.1.min.js' %}"></script>
+    <script>
+        var total_a_bid = {{ total_a_bid|json }};
+        var total_a_ask = {{ total_a_ask|json }};
+        var total_b_bid = {{ total_b_bid|json }};
+        var total_b_ask = {{ total_b_ask|json }};
+        var market_price_a = {{ market_a }};
+        var market_price_b = {{ market_b }};
+
+        var trace_a_bid = {
+            x: Array.from({ length: total_a_bid.length }, (_, i) => i + 1),
+            y: total_a_bid,
+            type: 'scatter',
+            mode: 'steps',
+            name: 'Asset A bids',
+            line: {color: 'red'}
+        };
+
+        var trace_a_ask = {
+            x: Array.from({ length: total_a_ask.length }, (_, i) => i + 1),
+            y: total_a_ask,
+            type: 'scatter',
+            mode: 'steps',
+            name: 'Asset A asks',
+            line: {color: 'red', dash: 'dash'}
+        };
+
+        var trace_b_bid = {
+            x: Array.from({ length: total_b_bid.length }, (_, i) => i + 1),
+            y: total_b_bid,
+            type: 'scatter',
+            mode: 'steps',
+            name: 'Asset B bids',
+            line: {color: 'blue'}
+        };
+
+        var trace_b_ask = {
+            x: Array.from({ length: total_b_ask.length }, (_, i) => i + 1),
+            y: total_b_ask,
+            type: 'scatter',
+            mode: 'steps',
+            name: 'Asset B asks',
+            line: {color: 'blue', dash: 'dash'}
+        };
+
+        // Add horizontal market price lines
+        var horizontal_A = {
+            x: [0, total_a_bid.length],
+            y: [market_price_a, market_price_a],  // Y-coordinate of the horizontal line for Choice A
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Asset A market price',
+            line: {color: 'black', dash: 'dot'}  // Set the line style for the horizontal line
+        };
+
+        var horizontal_B = {
+            x: [0, total_b_bid.length],
+            y: [market_price_b, market_price_b],  // Y-coordinate of the horizontal line for Choice B
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Asset B market price',
+            line: {color: 'black', dash: 'dot'}  // Set the line style for the horizontal line
+        };
+
+        var data_A = [trace_a_bid, trace_a_ask, horizontal_A];
+        var data_B = [trace_b_bid, trace_b_ask, horizontal_B];
+
+        var layout_A = {
+            title: 'Asset A Market Status',
+            xaxis: {
+                title: 'Quantities',
+                type: 'linear',
+                showline: true,  // Hide x-axis line
+                // showticklabels: false,  // Hide x-axis tick labels
+            },
+            yaxis: {
+                title: 'Prices',
+                type: 'linear',
+                showline: true,  // Hide x-axis line
+                // showticklabels: false,  // Hide x-axis tick labels
+            },
+        };
+
+        var layout_B = {
+            title: 'Asset B Market Status',
+            xaxis: {
+                title: 'Quantities',
+                type: 'linear',
+                showline: true,  // Hide x-axis line
+                // showticklabels: false,  // Hide x-axis tick labels
+            },
+            yaxis: {
+                title: 'Prices',
+                type: 'linear',
+                showline: true,  // Hide x-axis line
+                // showticklabels: false,  // Hide x-axis tick labels
+            },
+        };
+
+        var config = {
+            displayModeBar: false,  // Remove the toolbar
+        };
+
+        Plotly.newPlot('step-chart-A', data_A, layout_A, config);
+        Plotly.newPlot('step-chart-B', data_B, layout_B, config);
+
+    </script>
+
+{%next_button%}
+{% endblock %}

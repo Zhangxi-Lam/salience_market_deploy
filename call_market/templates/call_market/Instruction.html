@@ -1,0 +1,146 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Experimental Instruction
+{% endblock %}
+
+{% block content %}
+
+<h4>Basic Idea</h4>
+<p>
+In the main part of the experiment, you will interact with other traders in 24 trading periods.
+The traders remain the same in each trading period, but are randomly regrouped between trading periods.
+In each trading period, you will simultaneously trade {{ num_assets }} risky assets (labelled from A to Z, depending on the number of assets) with other traders.
+The return of the assets depends on the state of the assets. There are {{ num_states }} possible states.
+In each trading period, traders are informed publicly of the number of assets, the number of all possible states,
+the probability of each state, and the return of the assets at each state.
+</p>
+
+{% if state_independent %}
+<p>
+During each trading period, you trade assets with other traders but you do NOT know the true state of the assets.
+<b>The state of each asset is drawn independently. That is, it is possible that the assets have different states.</b>
+At the end of the trading period, the system tosses a 10-sided dice FOR EACH ASSET, and randomly assigns the true states of the assets depending on the probability of each state.
+Your payoff in each trading period depends on the number of each type of assets you own and the true state of the assets.
+</p>
+<p>
+For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
+You do NOT know which state will become the true state during the trading period.
+At the end of the trading period, the true state of each asset will be randomly determined based on the probabilities of the two states.
+Since the system uses a 10-sided fair dice, throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
+If there are two assets, it is possible that Asset A is in state 1 and Asset B is in state 2.
+</p>
+{% else %}
+<p>
+During each trading period, you trade assets with other traders but you do NOT know the true state of the assets.
+<b>The assets share the same state.</b>
+At the end of the trading period, the system tosses a 10-sided dice, and randomly assigns the true state of the assets depending on the probability of each state.
+Your payoff in each trading period depends on the number of each type of assets you own and the true state of the assets.
+</p>
+<p>
+For example, suppose that there are two states: state 1 with probability 40% and state 2 with probability 60%.
+You do NOT know which state will become the true state during the trading period.
+At the end of the trading period, the true state will be randomly determined based on the probabilities of the two states.
+Since the system uses a 10-sided fair dice, then throwing 1-4 means state 1 is chosen, while throwing 5-10 means state 2 is chosen.
+</p>
+{% endif %}
+
+
+
+<h4>How to Trade</h4>
+<p>
+At the beginning of the trading period, you are endowed with some cash and some assets.
+FOR EACH ASSET, you need to set up a bid (the price you are willing to buy) and an ask (the price you are willing to sell).
+Your bid should not be higher than your ask, because you do not want to buy with a high price but sell with a low price.
+</p>
+
+<p>
+When every trader submits their bids and asks, the market price will be jointly determined.
+For each asset, the system sorts the bids from highest price to lowest as the demand schedule,
+and sorts the asks from lowest to highest as the supply schedule.
+The market price for the asset is found where the schedules cross so the number of assets bought equals to the number sold.
+In another word, the system computes the market price as the median of all bids and asks.
+Note that the market price of each asset is computed independently.
+</p>
+
+<p>
+For example, suppose there are four traders.
+Their bids for Asset A are 100,102,105,108.
+Their asks for Asset A are 120,110,104,100.
+The system first combines and sorts all the bids and asks as: 100,100,102,104,105,108,110,120.
+Then the market price for Asset A is the median number 104.5.
+</p>
+
+<p>
+The actual trade depends on the market price, your bid and your ask.
+For example, the market price for Asset A is X.
+<ul>
+  <li>If your bid is higher than X, then you will buy 1 unit of Asset A and lose X amount of cash.</li>
+  <li>If your ask is lower than X, then you will sell 1 unit of your Asset A and gain X amount of cash.</li>
+  <li>If X is between your bid and ask, no trade will happen.</li>
+  <li>If your bid or ask coincides exactly with X, then the trade depends on the market supply and demand.
+    If there exists excess demand(supply), buyers(sellers) with bid(ask) equal to X will be randomly selected to buy(sell) the asset.</li>
+</ul>
+The trade for all assets work in the same manner.
+</p>
+
+<p>
+Suppose Asset A provides a 50% chance to get 200 and a 50% chance to get 0,
+then 0 is Asset A's minimum possible return and 200 is Asset A's maximum possible return.
+In this case,
+<ul>
+  <li>You should not bid below 0 since 0 is your minimum possible return.</li>
+  <li>You should neither ask above 200 since 200 is your maximum possible return.</li>
+</ul>
+</p>
+
+<p>
+<b>When you enter your bids and asks, be sure to manually press the "next" button.
+Otherwise the system will not record your inputs.</b>
+</p>
+
+
+
+<h4>Payment</h4>
+<p>
+At the end of the trading period, you will see a result page that summarizes your actions and performance.
+The result page reveals the true state of the assets, your final asset holding, your choices, and your payoff.
+Your total payoff will be your remaining cash + your earnings from your final asset holding.
+You can think of the cash as a risk-free asset which provides you a guaranteed 1:1 return, while the tradable assets are risky.
+</p>
+
+<p>
+The figure below shows an example of the result page.
+<ul>
+  <li>Asset A's state is 1, while Asset B's state is 3.
+    The assets will be paid based on their returns at the true states.</li>
+  <li>The player bids 107 and asks 108 for Asset A. The market price for Asset A is 104.
+    Since 107 is higher than 104, the player buys 1 unit of Asset A and loses 104.
+    Since 108 is higher than 104, the player does not sell her Asset A.</li>
+  <li>The player bids 107 and asks 108 for Asset B. The market price for Asset B is 104.</li>
+  <li>After the trade, the player possesses 2 unit of Asset A, 2 units of Asset B, and 92 cash.
+    So the final payoff is 170*2+130*2+92=692.</li>
+  <li>The two charts below show the bids, asks, and market price for each asset, respectively.
+    You can move your mouse on the dot to check the exact price from other traders.</li>
+</ul>
+</p>
+
+<img src="{% static 'call_market/ui_result.PNG' %}" width="80%" height="auto"/>
+
+<p>
+After the result page, all traders will move on together to the next trading period.
+</p>
+
+<p>
+At the end of the experiment, the system will randomly choose a nonpractice trading period,
+and your final payoff from this experiment is your payoff of that trading period (converted to US dollar), plus your show-up fee.
+So your objective is to try to maximize your payoff at every non-practice trading period.
+</p>
+
+<p>
+If you are ready for the experiment, please raise your hand. The experiment starts when everyone is ready.
+</p>
+
+
+{% endblock %}
