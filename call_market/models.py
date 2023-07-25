@@ -205,8 +205,8 @@ class Group(BaseGroup):
                 b_demand -= 1
                 p.final_assetb -= 1
                 p.final_cash += rb
-        # update the assets and cash endowments for each player considering bid=p or ask=p
-        # randomize the player list
+        # randomize the player list, update the assets and cash endowments for each player considering bid=p or ask=p
+        # for asset A
         random.shuffle(players)
         for p in players:
             if ra == p.asset_a_bid and a_supply > 0:
@@ -217,6 +217,10 @@ class Group(BaseGroup):
                 a_demand -= 1
                 p.final_asseta -= 1
                 p.final_cash += ra
+        # randomize the player list, update the assets and cash endowments for each player considering bid=p or ask=p
+        # for asset B
+        random.shuffle(players)
+        for p in players:
             if rb == p.asset_b_bid and b_supply > 0:
                 b_supply -= 1
                 p.final_assetb += 1
