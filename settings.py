@@ -26,7 +26,7 @@ SESSION_CONFIGS = [
         name='call_market',
         display_name='Call Market',
         num_demo_participants=8,
-        app_sequence=['call_market'],
+        app_sequence=['mpl','call_market'],
         config_file='demo.csv'
     ),
 ]
