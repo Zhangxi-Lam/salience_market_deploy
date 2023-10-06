@@ -117,6 +117,16 @@ Market
     {% endif %}
 </div>
 
+<p>
+Rules:
+<ul>
+  <li>For Asset A, the bid and the ask must be between {{asset_a_return_3}} and {{asset_a_return_1}}</li>
+  <li>For Asset B, the bid and the ask must be between {{asset_b_return_1}} and {{asset_b_return_3}}.</li>
+  <li>For each asset, the bid must NOT be higher than the ask.</li>
+</ul>
+The trade for all assets work in the same manner.
+</p>
+
 {% formfields %}
 
 {% next_button %}
