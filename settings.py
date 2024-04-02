@@ -9,6 +9,13 @@ SESSION_CONFIGS = [
         config_file='demo.csv'
     ),
     dict(
+        name='salience_market_2p',
+        display_name='Salience Market Two Players',
+        num_demo_participants=2,
+        app_sequence=['mpl','salience_market_2p'],
+        config_file='demo.csv'
+    ),
+    dict(
         name='bdm_market',
         display_name='BDM Market',
         num_demo_participants=1,
