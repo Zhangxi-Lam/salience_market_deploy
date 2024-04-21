@@ -23,6 +23,13 @@ SESSION_CONFIGS = [
         config_file='demo.csv'
     ),
     dict(
+        name='salience_market_bdm',
+        display_name='Salience Market with BDM (DUFE)',
+        num_demo_participants=8,
+        app_sequence=['mpl','salience_market_bdm'],
+        config_file='demo.csv'
+    ),
+    dict(
         name='bdm_market',
         display_name='BDM Market',
         num_demo_participants=1,
