@@ -96,7 +96,8 @@
         </p>
         <p>
             {% blocktrans trimmed with payoff=payoff %}
-            Your payoff in this task equals <b>{{ payoff }} points</b>. The payoff will be added 1:1 to your final experimental payoff.
+            Your payoff in this task equals <b>{{ payoff }} points</b>. The payoff will be added to your final experimental payoff.
+            The instruction of the main task will inform you how your final payoff is calculated.
             {% endblocktrans %}
         </p>
         {% else %}
@@ -109,7 +110,8 @@
         </p>
         <p>
             {% blocktrans trimmed with payoff=payoff %}
-            Your payoff in this task equals <b>{{ payoff }} points</b>. The payoff will be added 1:1 to your final experimental payoff.
+            Your payoff in this task equals <b>{{ payoff }} points</b>. The payoff will be added to your final experimental payoff.
+            The instruction of the main task will inform you how your final payoff is calculated.
             {% endblocktrans %}
         </p>
         {% endif %}

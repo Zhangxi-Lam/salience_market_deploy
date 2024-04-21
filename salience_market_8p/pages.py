@@ -1,4 +1,4 @@
-from salience_market_2p.models import Constants
+from salience_market_8p.models import Constants
 from otree_markets.pages import BaseMarketPage
 from ._builtin import Page, WaitPage
 

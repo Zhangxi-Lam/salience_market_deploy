@@ -10,9 +10,16 @@ SESSION_CONFIGS = [
     ),
     dict(
         name='salience_market_2p',
-        display_name='Salience Market Two Players',
+        display_name='Salience Market 2 Players (DUFE)',
         num_demo_participants=2,
         app_sequence=['mpl','salience_market_2p'],
+        config_file='demo.csv'
+    ),
+    dict(
+        name='salience_market_8p',
+        display_name='Salience Market 8 Players (DUFE)',
+        num_demo_participants=8,
+        app_sequence=['mpl','salience_market_8p'],
         config_file='demo.csv'
     ),
     dict(
@@ -57,8 +64,8 @@ USE_POINTS = True
 
 ROOMS = [
     dict(
-        name='session_room',
-        display_name='Session Room',
+        name='dufe_iaer',
+        display_name='DUFE-IAER Lab Experiment',
         participant_label_file='_rooms/participant_label.txt',
         # use_secure_urls=True
     ),

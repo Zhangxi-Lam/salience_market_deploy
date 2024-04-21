@@ -9,8 +9,8 @@ import time
 
 
 class Constants(BaseConstants):
-    name_in_url = 'salience_market_2p'
-    players_per_group = 2
+    name_in_url = 'salience_market_8p'
+    players_per_group = 8
     # Otree requires this to be set. But it is not used.
     num_rounds = 100
     # Seed for the state random selection.
@@ -67,13 +67,13 @@ class Subsession(markets_models.Subsession):
         return Constants.asset_names[:self.num_assets]
 
     def creating_session(self):
-        config_addr = 'salience_market_2p/configs/' + \
+        config_addr = 'salience_market_8p/configs/' + \
             self.session.config['config_file']
         config_manager = ConfigManager(config_addr)
         self.num_rounds = config_manager.num_rounds
         if self.round_number > self.num_rounds:
             return
-        self.group_randomly()
+        #self.group_randomly()
         self.set_properties(config_manager.get_round_dict(
             self.round_number, Constants.config_fields))
         return super().creating_session()

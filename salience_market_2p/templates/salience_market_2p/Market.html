@@ -1,0 +1,131 @@
+{% extends "otree_markets/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+市场
+{% endblock %}
+
+{% block scripts %}
+<script type="module" src="/static/salience_market_2p/multiple_asset_text_interface.js"></script>
+<script type="module" src="/static/otree_markets/disable_interface_overlay.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+
+    .flex-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .info {
+        padding: 20px;
+        background-color: rgb(15, 171, 202);
+        color: white;
+    }
+</style>
+
+{% if is_practice %}
+<div class="info">
+    <strong>Info:</strong> this is a practice trading period.
+</div>
+{% endif %}
+
+{% if state_independent %}
+<div class="info">
+    <strong>Info:</strong> The state of the assets are drawn independently at the end of the trading period.
+</div>
+{% endif %}
+
+<div class="flex-container">
+    <div>
+        <div>
+            Trading period: {{round_number}}
+        </div>
+        <div>
+            Number of traders: {{number_of_player}}
+        </div>
+    </div>
+    <div>
+        <table>
+            Asset A Info
+            <tr>
+                <th>State</th>
+                <th>Probability</th>
+                <th>Asset A Return</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>{{p1}}%</td>
+                {% if asset_a_highlight == 1 %}
+                <td bgcolor="yellow"><b>{{asset_a_return_1}}</b></td>
+                {% else %}
+                <td>{{asset_a_return_1}}</td>
+                {% endif %}
+            </tr>
+            {% if num_states >= 3 %}
+            <tr>
+                <td>2</td>
+                <td>{{p2}}%</td>
+                <td>{{asset_a_return_2}}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>3</td>
+                <td>{{p3}}%</td>
+                {% if asset_a_highlight == 3 %}
+                <td bgcolor="yellow"><b>{{asset_a_return_3}}</b></td>
+                {% else %}
+                <td>{{asset_a_return_3}}</td>
+                {% endif %}
+            </tr>
+        </table>
+    </div>
+
+    {% if num_assets > 1 %}
+    <div>
+        <table>
+            Asset B Info
+            <tr>
+                <th>State</th>
+                <th>Probability</th>
+                <th>Asset B Return</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>{{p1}}%</td>
+                {% if asset_b_highlight == 1 %}
+                <td bgcolor="yellow"><b>{{asset_b_return_1}}</b></td>
+                {% else %}
+                <td>{{asset_b_return_1}}</td>
+                {% endif %}
+            </tr>
+            {% if num_states >= 3 %}
+            <tr>
+                <td>2</td>
+                <td>{{p2}}%</td>
+                <td>{{asset_b_return_2}}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>3</td>
+                <td>{{p3}}%</td>
+                {% if asset_b_highlight == 3 %}
+                <td bgcolor="yellow"><b>{{asset_b_return_3}}</b></td>
+                {% else %}
+                <td>{{asset_b_return_3}}</td>
+                {% endif %}
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+</div>
+<multiple-asset-text-interface></multiple-asset-text-interface>
+
+{% endblock %}

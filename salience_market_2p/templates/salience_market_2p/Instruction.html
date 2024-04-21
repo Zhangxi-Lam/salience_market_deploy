@@ -1,0 +1,12 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    欢迎来到市场资产交易游戏
+{% endblock %}
+
+{% block content %}
+
+<iframe src="{% include_static 'Instructions_A2S2_2p.pdf' %}" width="100%" height="1000px" style="border: none;"></iframe>
+
+{% endblock %}
