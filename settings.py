@@ -27,7 +27,10 @@ SESSION_CONFIGS = [
         display_name='Salience Market with BDM (DUFE)',
         num_demo_participants=8,
         app_sequence=['mpl','salience_market_bdm'],
-        config_file='demo.csv'
+        config_file='demo.csv',
+        bdm_a_endow=1,
+        bdm_b_endow=1,
+        bdm_cash_endow=300
     ),
     dict(
         name='bdm_market',

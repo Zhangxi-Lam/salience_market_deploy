@@ -50,9 +50,9 @@ class MarketBDM(Page):
             'num_assets': self.subsession.num_assets,
             'is_practice': self.subsession.practice,
             'state_independent': self.subsession.state_independent,
-            'asseta_endowments': self.constants.bdm_a_endow,
-            'assetb_endowments': self.constants.bdm_b_endow,
-            'cash_endowments': self.constants.bdm_cash_endow
+            'asseta_endowments': self.session.config['bdm_a_endow'],
+            'assetb_endowments': self.session.config['bdm_b_endow'],
+            'cash_endowments': self.session.config['bdm_cash_endow']
         }
 
 
