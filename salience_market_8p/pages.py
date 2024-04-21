@@ -125,7 +125,7 @@ class FinalResults(Page):
             'selected_round': r,
             'mpl_payoff': self.participant.vars['mpl_payoff'],
             'salience_payoff': player.compute_payoff(),
-            'total_payoff': total_payoff
+            'total_payoff': player.total_payoff
         }
 
 
