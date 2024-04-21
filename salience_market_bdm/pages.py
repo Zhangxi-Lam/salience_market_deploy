@@ -10,7 +10,7 @@ class WelcomePage(Page):
 
 class InstructionBDM(Page):
     def is_displayed(self):
-        return self.round_number == 1 and self.subsession.market_format == 'BDM'
+        return self.round_number <= 2 and self.subsession.market_format == 'BDM'
 
     def vars_for_template(self):
         return {
@@ -50,9 +50,9 @@ class MarketBDM(Page):
             'num_assets': self.subsession.num_assets,
             'is_practice': self.subsession.practice,
             'state_independent': self.subsession.state_independent,
-            'asseta_endowments': self.Constants.bdm_a_endow,
-            'assetb_endowments': self.Constants.bdm_b_endow,
-            'cash_endowments': self.Constants.bdm_cash_endow
+            'asseta_endowments': self.constants.bdm_a_endow,
+            'assetb_endowments': self.constants.bdm_b_endow,
+            'cash_endowments': self.constants.bdm_cash_endow
         }
 
 
@@ -98,7 +98,7 @@ class RoundResultsBDM(Page):
 
 class Instruction(Page):
     def is_displayed(self):
-        return self.round_number == 1 and self.subsession.market_format == 'A2S2'
+        return self.round_number <= 2 and self.subsession.market_format == 'A2S2'
 
     def vars_for_template(self):
         return {
@@ -232,6 +232,7 @@ class Demographic(Page):
 
 
 page_sequence = [#WelcomePage,
-                 InstructionBDM, WaitStart, MarketBDM, RoundResultsBDM,
-                 Instruction, WaitStart, Market, RoundResults,
+                 InstructionBDM, Instruction,
+                 WaitStart, MarketBDM, RoundResultsBDM,
+                 Market, RoundResults,
                  Questionnaire, Demographic, FinalResults]
