@@ -1,6 +1,7 @@
 from salience_market_bdm.models import Constants
 from otree_markets.pages import BaseMarketPage
 from ._builtin import Page, WaitPage
+from otree.api import Currency
 
 
 class WelcomePage(Page):
