@@ -15,26 +15,26 @@
     {% if state_independent %}
     {% if num_assets > 1 %}
     <tr>
-        <th>Asset A's State</th>
+        <th>资产A状态</th>
         <td>{{state_a}}</td>
-        <th>Asset B's State</th>
+        <th>资产B状态</th>
         <td>{{state_b}}</td>
     </tr>
     {% else %}
     <tr>
-        <th>Asset A's State</th>
+        <th>资产A状态</th>
         <td colspan="3">{{state_a}}</td>
     </tr>
     {% endif %}
     {% else %}
     <tr>
-        <th>Assets' State</th>
+        <th>资产状态</th>
         <td colspan="3">{{state_a}}</td>
     </tr>
     {% endif %}
 
     <tr>
-        <th>Your remaining cash</th>
+        <th>你的剩余现金</th>
         <td colspan="3">{{settled_cash}}</td>
     </tr>
     <!-- <tr>
@@ -42,10 +42,10 @@
         <td colspan="3">{{cash_endowment}}</td>
     </tr> -->
     <tr>
-        <th>Asset</th>
-        <th>Unit you own</th>
-        <th>Per-unit return</th>
-        <th>Total return</th>
+        <th>资产</th>
+        <th>拥有数量</th>
+        <th>单位回报</th>
+        <th>总回报</th>
     </tr>
     <tr>
         <td>A</td>
@@ -63,10 +63,10 @@
     {% endif %}
 </table>
 {% if num_assets > 1 %}
-Your payoff in this trading period is {{asset_a_total_return}} + {{asset_b_total_return}}
+你的本轮收益为 {{asset_a_total_return}} + {{asset_b_total_return}}
 + {{settled_cash}} = {{payoff}}
 {% else %}
-Your payoff in this trading period is {{asset_a_total_return}}
+你的本轮收益为 {{asset_a_total_return}}
 + {{settled_cash}} = {{payoff}}
 {% endif %}
 

@@ -1,6 +1,7 @@
 from salience_market_8p.models import Constants
 from otree_markets.pages import BaseMarketPage
 from ._builtin import Page, WaitPage
+from otree.api import Currency
 
 
 class WelcomePage(Page):
@@ -118,7 +119,7 @@ class FinalResults(Page):
         player = self.player.in_round(r)
 
         # Calculate the total payoff by summing up the payoffs from both apps
-        player.total_payoff = player.compute_payoff()/9 + self.participant.vars['mpl_payoff']*4 + 10
+        player.total_payoff = player.compute_payoff()/9 + Currency(self.participant.vars['mpl_payoff']*4) + 10
 
         return {
             'selected_round': r,

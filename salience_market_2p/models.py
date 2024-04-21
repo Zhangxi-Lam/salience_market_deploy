@@ -213,7 +213,7 @@ class Player(markets_models.Player):
     strategy = models.LongStringField(
         label='请简单介绍你在市场资产交易游戏中的交易策略')
 
-    total_payoff = models.IntegerField()
+    total_payoff = models.CurrencyField()
 
     def asset_endowment(self):
         asset_names = self.subsession.asset_names()

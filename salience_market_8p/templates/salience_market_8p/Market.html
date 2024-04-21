@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="module" src="/static/salience_market_8p/multiple_asset_text_interface.js"></script>
+<script type="module" src="/static/salience_market_2p/multiple_asset_text_interface.js"></script>
 <script type="module" src="/static/otree_markets/disable_interface_overlay.js"></script>
 {% endblock %}
 
@@ -33,32 +33,32 @@
 
 {% if is_practice %}
 <div class="info">
-    <strong>Info:</strong> this is a practice trading period.
+    <strong>Info:</strong> 这是一个练习轮。
 </div>
 {% endif %}
 
 {% if state_independent %}
 <div class="info">
-    <strong>Info:</strong> The state of the assets are drawn independently at the end of the trading period.
+    <strong>Info:</strong> 不同资产的状态独立抽取。
 </div>
 {% endif %}
 
 <div class="flex-container">
     <div>
         <div>
-            Trading period: {{round_number}}
+            交易轮次: {{round_number}}
         </div>
         <div>
-            Number of traders: {{number_of_player}}
+            参与交易人数: {{number_of_player}}
         </div>
     </div>
     <div>
         <table>
-            Asset A Info
+            资产A信息
             <tr>
-                <th>State</th>
-                <th>Probability</th>
-                <th>Asset A Return</th>
+                <th>状态</th>
+                <th>发生概率</th>
+                <th>资产A回报</th>
             </tr>
             <tr>
                 <td>1</td>
@@ -91,11 +91,11 @@
     {% if num_assets > 1 %}
     <div>
         <table>
-            Asset B Info
+            资产B信息
             <tr>
-                <th>State</th>
-                <th>Probability</th>
-                <th>Asset B Return</th>
+                <th>状态</th>
+                <th>发生概率</th>
+                <th>资产B回报</th>
             </tr>
             <tr>
                 <td>1</td>
