@@ -1,0 +1,101 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+Results
+{% endblock %}
+{% block content %}
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+
+<table>
+    资产状态
+    {% if state_independent %}
+    {% if num_assets > 1 %}
+    <tr>
+      <th>资产A状态</th>
+      <td>{{state_a}}</td>
+      <th>资产B状态</th>
+      <td>{{state_b}}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <th>资产A状态</th>
+        <td colspan="3">{{state_a}}</td>
+    </tr>
+    {% endif %}
+    {% else %}
+    <tr>
+        <th>资产状态</th>
+        <td colspan="3">{{state_a}}</td>
+    </tr>
+    {% endif %}
+</table>
+
+
+<table>
+    交易信息
+    <tr>
+        <th>你的资产A进价</th>
+        <td>{{player.asset_a_bid}}</td>
+        <th>你的资产B进价</th>
+        <td>{{player.asset_b_bid}}</td>
+    </tr>
+    <tr>
+      <th>你的资产A出价</th>
+      <td>{{player.asset_a_ask}}</td>
+      <th>你的资产B出价</th>
+      <td>{{player.asset_b_ask}}</td>
+    </tr>
+    <tr>
+        <th>资产A的随机市场价格</th>
+        <td>{{investor_a}}</td>
+        <th>资产B的随机市场价格</th>
+        <td>{{investor_b}}</td>
+    </tr>
+</table>
+
+
+<table>
+    你最终持有的资产和现金
+    <tr>
+        <th>Y你的剩余现金</th>
+        <td colspan="3">{{settled_cash}}</td>
+    </tr>
+    <tr>
+        <th>资产</th>
+        <th>拥有数量</th>
+        <th>单位回报</th>
+        <th>总回报</th>
+    </tr>
+    <tr>
+        <td>A</td>
+        <td>{{asset_a_unit}}</td>
+        <td>{{asset_a_return}}</td>
+        <td>{{asset_a_total_return}}</td>
+    </tr>
+    {% if num_assets > 1 %}
+    <tr>
+        <td>B</td>
+        <td>{{asset_b_unit}}</td>
+        <td>{{asset_b_return}}</td>
+        <td>{{asset_b_total_return}}</td>
+    </tr>
+    {% endif %}
+</table>
+
+{% if num_assets > 1 %}
+你的本轮收益为 {{asset_a_total_return}} (资产A总收益) +
+{{asset_b_total_return}} (资产B总收益) + {{settled_cash}} (剩余现金) = {{payoff}}
+{% else %}
+你的本轮收益为 {{asset_a_total_return}} (资产A总收益)
++ {{settled_cash}} (剩余现金) = {{payoff}}
+{% endif %}
+
+{%next_button%}
+{% endblock %}

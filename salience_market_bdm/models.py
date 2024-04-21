@@ -1,10 +1,12 @@
 import random
 from django.forms import IntegerField
 from otree.api import (
-    models, BaseConstants
+    models, BaseConstants, BaseGroup, widgets, BaseSubsession, BaseGroup, BasePlayer
 )
 from otree_markets import models as markets_models
+from otree.models import subsession
 from .configmanager import ConfigManager
+import csv
 import time
 
 
@@ -15,6 +17,11 @@ class Constants(BaseConstants):
     num_rounds = 100
     # Seed for the state random selection.
     random_seed = time.time()
+
+    # bdm endowment Info
+    bdm_a_endow = 1
+    bdm_b_endow = 1
+    bdm_cash_endow = 300
 
     # list of capital letters A..Z
     asset_names = [chr(i) for i in range(65, 91)]
@@ -38,6 +45,7 @@ class Constants(BaseConstants):
         'p3': float,
         'state_independent': bool,
         'salient_payoff': bool,
+        'market_format': str,
     }
 
 
@@ -62,6 +70,9 @@ class Subsession(markets_models.Subsession):
     salient_payoff = models.BooleanField()
     final_selected_round = models.IntegerField(initial=-1)
     num_rounds = models.IntegerField()
+    investor_price_a = models.IntegerField()
+    investor_price_b = models.IntegerField()
+    market_format = models.StringField()
 
     def asset_names(self):
         return Constants.asset_names[:self.num_assets]
@@ -97,6 +108,7 @@ class Subsession(markets_models.Subsession):
         self.p3 = round_dict['p3']
         self.state_independent = round_dict['state_independent']
         self.salient_payoff = round_dict['salient_payoff']
+        self.market_format = round_dict['market_format']
 
         # Use the current system time as the seed
         random.seed()
@@ -104,6 +116,8 @@ class Subsession(markets_models.Subsession):
         r2 = random.random() if self.state_independent else r1
         self.state_a = self.get_state(r1)
         self.state_b = self.get_state(r2)
+        self.investor_price_a = random.randint(self.x - self.L, self.x + self.G)
+        self.investor_price_b = random.randint(self.x - self.G, self.x + self.L)
 
     def get_state(self, r):
         if r < self.p1:
@@ -209,12 +223,43 @@ class Player(markets_models.Player):
         label='座位号')
     venmo_id = models.StringField(label='支付宝账号ID')
     comments = models.LongStringField(
-        label='实验的哪些部分让你感到困惑？请列举。')
+        label='实验的哪些部分让你感到困惑？请列举')
     strategy = models.LongStringField(
         label='请简单介绍你在市场资产交易游戏中的交易策略')
 
     total_payoff = models.CurrencyField()
 
+    # bid and ask fields for BDM rounds
+    asset_a_bid = models.FloatField(label='你对资产A的进价是多少？')
+    asset_a_ask = models.FloatField(label='你对资产A的出价是多少？')
+    asset_b_bid = models.FloatField(label='你对资产B的进价是多少？')
+    asset_b_ask = models.FloatField(label='你对资产B的出价是多少？')
+
+    def asset_a_bid_max(self):
+        return self.subsession.x + self.subsession.G
+
+    def asset_a_bid_min(self):
+        return self.subsession.x - self.subsession.L
+
+    def asset_a_ask_max(self):
+        return self.subsession.x + self.subsession.G
+
+    def asset_a_ask_min(self):
+        return self.subsession.x - self.subsession.L
+
+    def asset_b_bid_max(self):
+        return self.subsession.x + self.subsession.L
+
+    def asset_b_bid_min(self):
+        return self.subsession.x - self.subsession.G
+
+    def asset_b_ask_max(self):
+        return self.subsession.x + self.subsession.L
+
+    def asset_b_ask_min(self):
+        return self.subsession.x - self.subsession.G
+
+    # get assets and cash endowments
     def asset_endowment(self):
         asset_names = self.subsession.asset_names()
         pid = self.id_in_group
@@ -230,14 +275,45 @@ class Player(markets_models.Player):
             endowments), 'invalid config. num_assets and asset_endowments must match'
         return dict(zip(asset_names, endowments))
 
+    # trade rule in BDM rounds
+    def get_endowments(self):
+        endows = [self.Constants.bdm_a_endow, self.Constants.bdm_b_endow, self.Constants.bdm_cash_endow]
+        ra = self.subsession.investor_price_a
+        if ra <= self.asset_a_bid:
+            endows[0] = endows[0] + 1
+            endows[2] = endows[2] - ra
+        elif ra >= self.asset_a_ask:
+            endows[0] = endows[0] - 1
+            endows[2] = endows[2] + ra
+        if self.subsession.num_assets > 1:
+            rb = self.subsession.investor_price_b
+            if rb <= self.asset_b_bid:
+                endows[1] = endows[1] + 1
+                endows[2] = endows[2] - rb
+            elif rb >= self.asset_b_ask:
+                endows[1] = endows[1] - 1
+                endows[2] = endows[2] + rb
+        return endows
+
     def cash_endowment(self):
         return self.subsession.cash_endowment
 
     def compute_payoff(self):
-        if self.subsession.num_assets > 1:
-            self.payoff = self.settled_assets['A'] * self.subsession.get_asset_return(
-                'A') + self.settled_assets['B'] * self.subsession.get_asset_return('B') + self.settled_cash
-        else:
-            self.payoff = self.settled_assets['A'] * self.subsession.get_asset_return(
-                'A') + self.settled_cash
+        if self.subsession.market_format == 'A2S2':
+            if self.subsession.num_assets > 1:
+                self.payoff = self.settled_assets['A'] * self.subsession.get_asset_return(
+                    'A') + self.settled_assets['B'] * self.subsession.get_asset_return('B') + self.settled_cash
+            else:
+                self.payoff = self.settled_assets['A'] * self.subsession.get_asset_return(
+                    'A') + self.settled_cash
+        elif self.subsession.market_format == 'BDM':
+            endows = self.get_endowments()
+            if self.subsession.num_assets > 1:
+                self.payoff = endows[0] * self.subsession.get_asset_return('A') + endows[1] * self.subsession.get_asset_return('B') + endows[2]
+            else:
+                self.payoff = endows[0] * self.subsession.get_asset_return('A') + endows[2]
         return self.payoff
+
+    # page parameter
+    def asset_number(self):
+        return self.subsession.num_assets

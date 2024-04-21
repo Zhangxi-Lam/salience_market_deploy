@@ -209,7 +209,7 @@ class Player(markets_models.Player):
         label='座位号')
     venmo_id = models.StringField(label='支付宝账号ID')
     comments = models.LongStringField(
-        label='实验的哪些部分让你感到困惑？请列举。')
+        label='实验的哪些部分让你感到困惑？请列举')
     strategy = models.LongStringField(
         label='请简单介绍你在市场资产交易游戏中的交易策略')
 

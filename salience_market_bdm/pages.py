@@ -8,15 +8,101 @@ class WelcomePage(Page):
         return self.round_number == 1
 
 
-class Instruction(Page):
+class InstructionBDM(Page):
     def is_displayed(self):
-        return self.round_number == 1
+        return self.round_number == 1 and self.subsession.market_format == 'BDM'
 
     def vars_for_template(self):
         return {
             'state_independent': self.subsession.state_independent,
+        }
+
+
+class MarketBDM(Page):
+    timeout_seconds = 80
+    form_model = 'player'
+    form_fields = ['asset_a_bid','asset_a_ask','asset_b_bid','asset_b_ask']
+
+    @staticmethod
+    def error_message(values):
+        if values['asset_a_bid'] > values['asset_a_ask']:
+            return '对于资产A，你的进价必须小于你的出价。'
+        elif values['asset_b_bid'] > values['asset_b_ask']:
+            return '对于资产B，你的进价必须小于你的出价。'
+
+    def is_displayed(self):
+        return self.round_number <= self.subsession.num_rounds and self.subsession.market_format == 'BDM'
+
+    def vars_for_template(self):
+        return {
+            'round_number': self.round_number,
+            'number_of_player': len(self.group.get_players()),
+            'p1': self.subsession.p1 * 100,
+            'p2': self.subsession.p2 * 100,
+            'p3': self.subsession.p3 * 100,
+            'asset_a_return_1': self.subsession.x + self.subsession.G,
+            'asset_a_return_2': self.subsession.x,
+            'asset_a_return_3': self.subsession.x - self.subsession.L,
+            'asset_b_return_1': self.subsession.x - self.subsession.G,
+            'asset_b_return_2': self.subsession.x,
+            'asset_b_return_3': self.subsession.x + self.subsession.L,
             'num_states': self.subsession.num_states,
-            'num_assets': self.subsession.num_assets
+            'num_assets': self.subsession.num_assets,
+            'is_practice': self.subsession.practice,
+            'state_independent': self.subsession.state_independent,
+            'asseta_endowments': self.Constants.bdm_a_endow,
+            'assetb_endowments': self.Constants.bdm_b_endow,
+            'cash_endowments': self.Constants.bdm_cash_endow
+        }
+
+
+class RoundResultsBDM(Page):
+    timeout_seconds = 40
+
+    def is_displayed(self):
+        return self.round_number <= self.subsession.num_rounds and self.subsession.market_format == 'BDM'
+
+    def vars_for_template(self):
+        if self.subsession.num_assets > 1:
+            return {
+                'state_a': self.subsession.state_a,
+                'state_b': self.subsession.state_b,
+                'asset_a_unit': self.player.get_endowments()[0],
+                'asset_a_return': self.subsession.get_asset_return('A'),
+                'asset_a_total_return': self.player.get_endowments()[0] * self.subsession.get_asset_return('A'),
+                'asset_b_unit': self.player.get_endowments()[1],
+                'asset_b_return': self.subsession.get_asset_return('B'),
+                'asset_b_total_return': self.player.get_endowments()[1] * self.subsession.get_asset_return('B'),
+                'settled_cash': self.player.get_endowments()[2],
+                'payoff': self.player.compute_payoff(),
+                'state_independent': self.subsession.state_independent,
+                'num_assets': self.subsession.num_assets,
+                'investor_a': self.subsession.investor_price_a,
+                'investor_b': self.subsession.investor_price_b
+            }
+        else:
+            return {
+                'state_a': self.subsession.state_a,
+                'state_b': self.subsession.state_b,
+                'asset_a_unit': self.player.get_endowments()[0],
+                'asset_a_return': self.subsession.get_asset_return('A'),
+                'asset_a_total_return': self.player.get_endowments()[0] * self.subsession.get_asset_return('A'),
+                'settled_cash': self.player.get_endowments()[2],
+                'payoff': self.player.compute_payoff(),
+                'state_independent': self.subsession.state_independent,
+                'num_assets': self.subsession.num_assets,
+                'investor_a': self.subsession.investor_price_a,
+                'investor_b': self.subsession.investor_price_b
+            }
+
+
+class Instruction(Page):
+    def is_displayed(self):
+        return self.round_number == 1 and self.subsession.market_format == 'A2S2'
+
+    def vars_for_template(self):
+        return {
+            'state_independent': self.subsession.state_independent,
         }
 
 
@@ -33,7 +119,7 @@ class Market(BaseMarketPage):
         return self.group.period_length()
 
     def is_displayed(self):
-        return self.round_number <= self.subsession.num_rounds
+        return self.round_number <= self.subsession.num_rounds and self.subsession.market_format == 'A2S2'
 
     def salient_highlight(self, asset):
         if not self.subsession.salient_payoff:
@@ -72,7 +158,7 @@ class Market(BaseMarketPage):
 
 class RoundResults(Page):
     def is_displayed(self):
-        return self.round_number <= self.subsession.num_rounds
+        return self.round_number <= self.subsession.num_rounds and self.subsession.market_format == 'A2S2'
 
     def get_timeout_seconds(self):
         return 20
@@ -146,5 +232,6 @@ class Demographic(Page):
 
 
 page_sequence = [#WelcomePage,
-                 Instruction,
-                 WaitStart, Market, RoundResults, Questionnaire, Demographic, FinalResults]
+                 InstructionBDM, WaitStart, MarketBDM, RoundResultsBDM,
+                 Instruction, WaitStart, Market, RoundResults,
+                 Questionnaire, Demographic, FinalResults]
