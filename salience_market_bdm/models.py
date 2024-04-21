@@ -277,7 +277,7 @@ class Player(markets_models.Player):
 
     # trade rule in BDM rounds
     def get_endowments(self):
-        endows = [self.Constants.bdm_a_endow, self.Constants.bdm_b_endow, self.Constants.bdm_cash_endow]
+        endows = [Constants.bdm_a_endow, Constants.bdm_b_endow, Constants.bdm_cash_endow]
         ra = self.subsession.investor_price_a
         if ra <= self.asset_a_bid:
             endows[0] = endows[0] + 1
