@@ -10,7 +10,7 @@
 {# *** TITLE *** #}
 {# ****************************************************************************************************************** #}
 {% block title %}
-欢迎来到东北财经大学经济学实验室
+Welcome to IAER Online Laboratory!
 {% endblock %}
 
 
@@ -19,11 +19,14 @@
 {# ****************************************************************************************************************** #}
 {% block content %}
 <p>
-欢迎参加本场实验！首先，让我们完成一个小任务。
-在这个任务中，我们一共有十个问题，你需要在每个问题中的两个选项“Option A”或者“Option B”中选择一个。
-做出选择后你得到的报酬是由计算机根据选项中每个报酬对应的概率随机决定。
-下图提供了其中一个问题的示例：你可以选择“Option A”—“你有9/10的概率得到2点数的报酬，你有1/10的概率得到1.6点数的报酬”，
-你也可以选择“Option B”—“你有9/10的概率得到3.85点数的报酬，你有1/10的概率得到0.1点数的报酬”。
+    Welcome to our experiment! First, let us complete a quick task.
+    In the following, you will be making ten decisions between two lotteries, such as those represented as "Option A"
+    and "Option B" below.
+    The point prizes are determined by the computer equivalent of throwing a ten-sided die.
+    Each outcome, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, is equally likely.
+    The figure below shows an example of one decision.
+    Option A offers a 9 in 10 chance of getting {{ lottery_a_hi }} points and a 1 in 10 chance of getting {{ lottery_a_lo }} points.
+    Option B offers a 9 in 10 chance of getting {{ lottery_b_hi }} points and a 1 in 10 chance of getting {{ lottery_b_lo }} points.
 
 </p>
 <div class="wrapper">
@@ -80,31 +83,38 @@
 </div>
 <ul>
     <li>
-        决策表共十行，每行表示一个问题，每一行都有“Option A”和“Option B”这两个选择。你可以以任意顺序回答这十个问题；
+        Each row of the decision table contains a pair of choices between Option A and Option B.
     </li>
     <li>
-        你可以通过点击选项左边的按钮进行选择。每行只能选择一个选项，你可以通过点击另外一个选项的按钮来改变你的选择。
-        在点击“Next”结束任务之前，你都可以改变你做出的选择；
+        You make your choice by clicking on one of the radio buttons to the left of both options.
+        Only one option in each row can be selected, and you may change your decision as you wish.
     </li>
     <li>
-        在十个问题之间，两个选项中的报酬点数都是固定的，但是每个选项中得到两种结果的概率是变化的；
+        While the payoffs of the two options are fixed for all decisions, the chance of getting the two outcomes varies among the 10 decisions.
     </li>
     <li>
-        从第一行到最后一行，你会发现“Option A”与“Option B”中获得较大收益的概率在不断上升。
+        <font color="red">Note: </font>try clicking on one of the radio buttons, then change by clicking on the other
+        one.
     </li>
 </ul>
 <p>
-    任务结束之后，电脑会随机选择一个问题，根据你在该问题中做出的选择决定你的报酬点数。
-    电脑选择每个问题的概率是相等的。因为你事先无法获知电脑将会选择哪个问题决定你的报酬，所以请认真思考每个问题。
+    Even though you will make 10 decisions, only one of these will end up being used. The selection of the one
+    to be used depends on the "throw of the die" that is the determined by the computer's random number generator.
+    No decision is any more likely to be used than any other, and you will <font color="red">not</font> know in advance
+    which one will be selected,
+    so please think about each decision carefully.
+    This random selection of a decision fixes the row (i.e. the decision) that will be used.
 </p>
 <p>
-    下图为你提供了另一个示例。在你完成十个选择后，电脑通过投掷一个十面骰子选择一个问题决定你的报酬。
-    例如，如果骰子的点数是9，那么你在问题9中的选择会决定你的报酬。下图展示了问题9和问题10的选项。
+    The figure below shows you another example. Suppose that you make all ten decisions and the throw of the die is 9,
+    then your choice, A or B, for decision 9 below would be used
+    and the other decisions would not be used.
 </p>
 <p>
-    在随机骰子选中了某行问题之后，电脑会投掷骰子生成第二个随机数字决定你在那行做出的选择获得的报酬。
-    比如，在下图的问题9（倒数第二行），如果十面骰子的点数是1，2，3，4，5，6，7，8，9，无论你选择了“Option A”还是“Option B”，
-    你都会得到较高的报酬点数，如果骰子点数是10，你会得到较低的报酬点数。
+    After the random die throw fixes the Decision row that will be used, we need to obtain a second random number that
+    determines the earnings for the option you chose for that row.
+    In Decision 9, for example, a throw of 1, 2, 3, 4, 5, 6, 7, 8, or 9 will result in the higher payoff for Option A or B, and a throw of 10
+    will result in the lower payoff.
 </p>
 <div class="wrapper">
     <div class="card">
@@ -175,18 +185,43 @@
     </div>
 </div>
 <p>
-    如果电脑选中了问题10（倒数第一行），接下来就不需要再次投掷骰子了，
-    因为问题10中两个选择对应的报酬点数都是固定的：选择“Option A”得到两点报酬，选择“Option B”得到3.85点报酬。
+    For decision 10, the random die throw will not be needed, since the choice is between amounts of points that are
+    fixed: {{ lottery_a_hi }} points for Option A
+    and {{ lottery_b_hi }} points for Option B.
+</p>
+<ul>
+    <li>
+        <b>Making Ten Decisions:</b> After you finish these instructions, you will see a table with 10 decisions in 10
+        separate rows, and you choose by
+        clicking on the radio buttons on the left of option A or option B for each of the 10 rows. You may make these
+        choices in any order and change them
+        as much as you wish until you press the Next button at the bottom.
+    </li>
+    <li>
+        <b>The Relevant Decision:</b> One of the rows is then selected at random, and the Option (A or B) that you chose
+        in that row will be used to determine
+        your earnings. <font color="red">Note:</font> Please think about each decision carefully, since each row is
+        equally likely to end up being the one
+        that is used to determine payoffs.
+    </li>
+    <li>
+        <b>Determining the Payoff:</b> After one of the decisions has been randomly selected, the computer will generate
+        another random number that corresponds
+        to the throw of a ten sided die depending on the Option previously selected for the decision being used. The
+        number is equally likely to be 1, 2, 3, ... 10.
+        This random number determines your earnings if you chose Option B for that decision.
+    </li>
+</ul>
+
+<p>
+    To summarize: You will make 10 choices; for each decision you will have to choose between "Option A" and "Option B".
+    You may choose "Option A" for some decision rows and "Option B" for other rows. When you are finished, one of the
+    10 decisions will be randomly picked for your payoff. Then a random pick will determine your payment for the option
+    you chose in that decision.
 </p>
 
 <p>
-    总的来说：你将需要做出十个选择：每一个选择都有“Option A”和“Option B”两个选项。
-    你可能会在某些问题中选择“Option A”，某些问题中选择“Option B”。在你完成选择之后，电脑会抽取其中一个问题，
-    再根据你在该问题中所做选择（A或是B）中得到两个结果的概率，随机决定你的报酬。
-</p>
-
-<p>
-    请点击“Next”按钮开始任务。任务结束后，我们将正式进入实验。
+    Please click on <b>Next</b> button to start your second task.
 </p>
 
 {% next_button %}

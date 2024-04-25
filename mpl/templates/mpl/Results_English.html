@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block title %}
-{% 结果 %}
+{% trans "Results - MPL" %}
 {% endblock %}
 
 
@@ -17,7 +17,7 @@
 
     <div class="card info">
         {% blocktrans trimmed %}
-        实验随机地选择了如下的决策来决定你的任务报酬：
+        The following decision was randomly chosen for your payment:
         {% endblocktrans %}
     </div>
     <br />
@@ -89,27 +89,29 @@
         {% if option_to_pay == 'A' %}
         <p>
             {% blocktrans trimmed with option_to_pay=option_to_pay %}
-            如上所示，你在这个决策中选择了 <b>option {{ option_to_pay }}</b>。
-            根据你的选择和对应的概率，两个结果中的一个已经被随机选中。
+            As is indicated above, you decided to opt for <b>option {{ option_to_pay }}</b> in this decision.
+            For the chosen option, one of the two possible outcomes has been randomly realized based
+            on the corresponding probabilities.
             {% endblocktrans %}
         </p>
         <p>
             {% blocktrans trimmed with payoff=payoff %}
-            你在这个任务中的报酬等于 <b>{{ payoff }}点</b>。该报酬会在乘以4后加入你的总报酬中。
-            你的实验总报酬等于你的参与费，加上该任务的报酬，加上主实验的报酬。
+            Your payoff in this task equals <b>{{ payoff }} points</b>. The payoff will be added to your final experimental payoff.
+            The instruction of the main task will inform you how your final payoff is calculated.
             {% endblocktrans %}
         </p>
         {% else %}
         <p>
             {% blocktrans trimmed with option_to_pay=option_to_pay %}
-            如上所示，你在这个决策中选择了 <b>{{ option_to_pay }}</b>。
-            根据你的选择和对应的概率，两个结果中的一个已经被随机选中。
+            As is indicated above, you decided to opt for option <b>{{ option_to_pay }}</b> in this decision.
+            For the chosen option, one of the two possible outcomes has been randomly realized based
+            on the corresponding probabilities.
             {% endblocktrans %}
         </p>
         <p>
             {% blocktrans trimmed with payoff=payoff %}
-            你在这个任务中的报酬等于 <b>{{ payoff }}点</b>。该报酬会在乘以4后加入你的总报酬中。
-            你的实验总报酬等于你的参与费，加上该任务的报酬，加上主实验的报酬。
+            Your payoff in this task equals <b>{{ payoff }} points</b>. The payoff will be added to your final experimental payoff.
+            The instruction of the main task will inform you how your final payoff is calculated.
             {% endblocktrans %}
         </p>
         {% endif %}
@@ -117,7 +119,7 @@
 
 </div>
 <p>
-    请点击 <b>Next</b> 进入主实验。
+    Please press <b>Next</b> if you are ready to move forward.
 </p>
 
 {% next_button %}
