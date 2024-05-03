@@ -204,7 +204,7 @@ class Player(markets_models.Player):
         # widget=widgets.RadioSelect,
     )
     phone_id = models.IntegerField(
-        label='手机号', min=0000000, max=9999999)
+        label='手机号')
     part_id = models.StringField(
         label='座位号')
     venmo_id = models.StringField(label='支付宝账号ID')
