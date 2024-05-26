@@ -1,5 +1,6 @@
 from .models import Constants, Subsession
 from ._builtin import Page, WaitPage
+from otree.api import Currency
 
 
 class WelcomePage(Page):
