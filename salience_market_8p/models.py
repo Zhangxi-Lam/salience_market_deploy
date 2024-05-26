@@ -196,12 +196,22 @@ class Player(markets_models.Player):
         label="为购买额外一单位资产B，你最多愿意支付多少钱？")
     question_4 = models.IntegerField(
         label="为出售额外一单位资产A，你最少愿意接受多少钱？")
+    question_5 = models.IntegerField(
+        choices=[1, 2, 3, 4, 5, 6, 7],
+        label="你认为资产A的投资风险有多大？（7为极大风险，1为无风险）",
+        widget=widgets.RadioSelectHorizontal
+    )
+    question_6 = models.IntegerField(
+        choices=[1, 2, 3, 4, 5, 6, 7],
+        label="你认为资产B的投资风险有多大？（7为极大风险，1为无风险）",
+        widget=widgets.RadioSelectHorizontal
+    )
 
     name = models.StringField(label='姓名')
     gender = models.StringField(
         choices=[['男', '男'], ['女', '女'], ['其他', '其他']],
         label='性别',
-        # widget=widgets.RadioSelect,
+        widget=widgets.RadioSelectHorizontal
     )
     phone_id = models.IntegerField(
         label='手机号')

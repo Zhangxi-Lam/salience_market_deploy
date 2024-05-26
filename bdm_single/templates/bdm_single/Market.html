@@ -2,7 +2,7 @@
 {% load otree %}
 
 {% block title %}
-Market
+决策
 {% endblock %}
 
 {% block content %}
@@ -28,43 +28,37 @@ Market
 
 {% if is_practice %}
 <div class="info">
-    <strong>Info:</strong> this is a practice trading period.
-</div>
-{% endif %}
-
-{% if state_independent %}
-<div class="info">
-    <strong>Info:</strong> The state of the assets are drawn independently at the end of the trading period.
+    <strong>Info:</strong> 这是一个练习轮。
 </div>
 {% endif %}
 
 <div class="flex-container">
     <div>
         <div>
-            Trading period: {{round_number}}
+            交易轮次: {{round_number}}
         </div>
         <div>
-            Number of traders: {{number_of_player}}
+            参与交易人数: {{number_of_player}}
         </div>
         <div>
-            Your Asset A endowment: {{asseta_endowments}}
+            你的资产A的禀赋: {{asseta_endowments}}
         </div>
         {% if num_assets > 1 %}
         <div>
-            Your Asset B endowment: {{assetb_endowments}}
+            你的资产B的禀赋: {{assetb_endowments}}
         </div>
         {% endif %}
         <div>
-            Your cash endowment: {{cash_endowments}}
+            你的现金禀赋: {{cash_endowments}}
         </div>
     </div>
     <div>
         <table>
-            Asset A Info
+            资产A信息
             <tr>
-                <th>State</th>
-                <th>Probability</th>
-                <th>Asset A Return</th>
+                <th>状态</th>
+                <th>发生概率</th>
+                <th>资产A回报</th>
             </tr>
             <tr>
                 <td>1</td>
@@ -85,36 +79,6 @@ Market
             </tr>
         </table>
     </div>
-
-    {% if num_assets > 1 %}
-    <div>
-        <table>
-            Asset B Info
-            <tr>
-                <th>State</th>
-                <th>Probability</th>
-                <th>Asset B Return</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>{{p1}}%</td>
-                <td>{{asset_b_return_1}}</td>
-            </tr>
-            {% if num_states >= 3 %}
-            <tr>
-                <td>2</td>
-                <td>{{p2}}%</td>
-                <td>{{asset_b_return_2}}</td>
-            </tr>
-            {% endif %}
-            <tr>
-                <td>3</td>
-                <td>{{p3}}%</td>
-                <td>{{asset_b_return_3}}</td>
-            </tr>
-        </table>
-    </div>
-    {% endif %}
 </div>
 
 {% formfields %}

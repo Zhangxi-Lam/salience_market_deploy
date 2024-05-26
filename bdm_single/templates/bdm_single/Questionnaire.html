@@ -2,7 +2,7 @@
 {% load otree %}
 
 {% block title %}
-Survey 1/2
+问卷 1/2
 {% endblock %}
 {% block content %}
 
@@ -15,29 +15,33 @@ Survey 1/2
 </style>
 
 <p>
-  You have completed the main part of the experiment.
-  Before the session ends, please answer the following questions.
+  你已经完成了全部的资产交易游戏。
+  在实验结束前，请回答如下的问题。
 </p>
 
-<p>Consider the following two assets.</p>
+<p>考虑以下两种资产：</p>
 
 <table>
     <tr>
-        <th>State</th>
-        <th>Probability</th>
-        <th>Asset A Return</th>
+        <th>状态</th>
+        <th>发生概率</th>
+        <th>资产A回报</th>
+        <th>资产B回报</th>
     </tr>
     <tr>
         <td>1</td>
         <td>0.2</td>
         <td>180</td>
+        <td>20</td>
     </tr>
     <tr>
         <td>3</td>
         <td>0.8</td>
         <td>80</td>
+        <td>120</td>
     </tr>
 </table>
+
 
 {% formfields %}
 

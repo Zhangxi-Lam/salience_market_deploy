@@ -2,7 +2,7 @@
 {% load otree %}
 
 {% block title %}
-Results
+本轮结果
 {% endblock %}
 {% block content %}
 <style>
@@ -14,58 +14,56 @@ Results
 </style>
 
 <table>
-    States of the assets
+    资产状态
     {% if state_independent %}
     {% if num_assets > 1 %}
     <tr>
-        <th>Asset A's State</th>
-        <td>{{state_a}}</td>
-        <th>Asset B's State</th>
-        <td>{{state_b}}</td>
+      <th>资产A状态</th>
+      <td>{{state_a}}</td>
+      <th>资产B状态</th>
+      <td>{{state_b}}</td>
     </tr>
     {% else %}
     <tr>
-        <th>Asset A's State</th>
+        <th>资产A状态</th>
         <td colspan="3">{{state_a}}</td>
     </tr>
     {% endif %}
     {% else %}
     <tr>
-        <th>Assets' State</th>
+        <th>资产状态</th>
         <td colspan="3">{{state_a}}</td>
     </tr>
     {% endif %}
 </table>
 
-
 <table>
-    Trade Info
+    交易信息
     <tr>
-        <th>Your Asset A bid</th>
+        <th>你的资产A进价</th>
         <td>{{player.asset_a_bid}}</td>
     </tr>
     <tr>
-      <th>Your Asset A ask</th>
+      <th>你的资产A出价</th>
       <td>{{player.asset_a_ask}}</td>
     </tr>
     <tr>
-        <th>Investor Asset A price</th>
+        <th>资产A的随机市场价格</th>
         <td>{{investor_a}}</td>
     </tr>
 </table>
 
-
 <table>
-    Your final assets and cash holding
+    你最终持有的资产和现金
     <tr>
-        <th>Your remaining cash</th>
+        <th>你的剩余现金</th>
         <td colspan="3">{{settled_cash}}</td>
     </tr>
     <tr>
-        <th>Asset</th>
-        <th>Unit you own</th>
-        <th>Per-unit return</th>
-        <th>Total return</th>
+        <th>资产</th>
+        <th>拥有数量</th>
+        <th>单位回报</th>
+        <th>总回报</th>
     </tr>
     <tr>
         <td>A</td>
@@ -73,23 +71,10 @@ Results
         <td>{{asset_a_return}}</td>
         <td>{{asset_a_total_return}}</td>
     </tr>
-    {% if num_assets > 1 %}
-    <tr>
-        <td>B</td>
-        <td>{{asset_b_unit}}</td>
-        <td>{{asset_b_return}}</td>
-        <td>{{asset_b_total_return}}</td>
-    </tr>
-    {% endif %}
 </table>
 
-{% if num_assets > 1 %}
-Your payoff in this trading period is {{asset_a_total_return}} (Asset A total return) +
-{{asset_b_total_return}} (Asset B total return) + {{settled_cash}} (remaining cash) = {{payoff}}
-{% else %}
-Your payoff in this trading period is {{asset_a_total_return}} (Asset A total return)
-+ {{settled_cash}} (remaining cash) = {{payoff}}
-{% endif %}
+你的本轮收益为 {{asset_a_total_return}} (资产A总收益)
++ {{settled_cash}} (剩余现金) = {{payoff}}
 
 {%next_button%}
 {% endblock %}

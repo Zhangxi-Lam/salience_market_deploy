@@ -131,7 +131,8 @@ class FinalResults(Page):
 
 class Questionnaire(Page):
     form_model = 'player'
-    form_fields = ['question_1', 'question_2', 'question_3', 'question_4']
+    form_fields = ['question_1', 'question_2', 'question_3', 'question_4',
+                   'question_5', 'question_6']
 
     def is_displayed(self):
         return self.round_number == self.subsession.num_rounds

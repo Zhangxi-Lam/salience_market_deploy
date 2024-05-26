@@ -158,29 +158,41 @@ class Group(BaseGroup):
 class Player(BasePlayer):
 
     question_1 = models.IntegerField(
-        label="What is the highest price at which you are willing to buy a unit of Asset A?")
+        label="为购买额外一单位资产A，你最多愿意支付多少钱？")
     question_2 = models.IntegerField(
-        label="What is the lowest price at which you are willing to sell a unit of Asset A?")
+        label="为出售额外一单位资产A，你最少愿意接受多少钱？")
     question_3 = models.IntegerField(
-        label="What is the highest price at which you are willing to buy a unit of Asset B?")
+        label="为购买额外一单位资产B，你最多愿意支付多少钱？")
     question_4 = models.IntegerField(
-        label="What is the lowest price at which you are willing to sell a unit of Asset B?")
+        label="为出售额外一单位资产A，你最少愿意接受多少钱？")
+    question_5 = models.IntegerField(
+        choices=[1, 2, 3, 4, 5, 6, 7],
+        label="你认为资产A的投资风险有多大？（7为极大风险，1为无风险）",
+        widget=widgets.RadioSelectHorizontal
+    )
+    question_6 = models.IntegerField(
+        choices=[1, 2, 3, 4, 5, 6, 7],
+        label="你认为资产B的投资风险有多大？（7为极大风险，1为无风险）",
+        widget=widgets.RadioSelectHorizontal
+    )
 
-    first_name = models.StringField(label='What is your first name?')
-    last_name = models.StringField(label='What is your last name?')
+    name = models.StringField(label='姓名')
     gender = models.StringField(
-        choices=[['Male', 'Male'], ['Female', 'Female'], ['Other', 'Other']],
-        label='What is your gender?')
-    email = models.StringField(label='What is your university email address?')
-    student_id = models.IntegerField(
-        label='What is your university student ID number', min=0000000, max=9999999)
+        choices=[['男', '男'], ['女', '女'], ['其他', '其他']],
+        label='性别',
+        widget=widgets.RadioSelectHorizontal
+    )
+    phone_id = models.IntegerField(
+        label='手机号')
     part_id = models.StringField(
-        label='What is your participant ID?')
-    venmo_id = models.StringField(label='What is your Venmo account ID?')
+        label='座位号')
+    venmo_id = models.StringField(label='支付宝账号ID')
     comments = models.LongStringField(
-        label='Is there any part of the experiment that makes you confusing? Please give us some comments.')
+        label='实验的哪些部分让你感到困惑？请列举')
     strategy = models.LongStringField(
-        label='How do you play this game? Please describe your strategy.')
+        label='请简单介绍你在市场资产交易游戏中的交易策略')
+
+    total_payoff = models.CurrencyField()
 
     # bid and ask fields
     asset_a_bid = models.FloatField(label='What is your bid for Asset A?')

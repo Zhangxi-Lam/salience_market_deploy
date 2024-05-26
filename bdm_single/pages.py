@@ -91,15 +91,22 @@ class FinalResults(Page):
     def vars_for_template(self):
         r = self.subsession.get_selected_round()
         player = self.player.in_round(r)
+
+        # Calculate the total payoff by summing up the payoffs from both apps
+        player.total_payoff = player.compute_payoff()/9 + Currency(self.participant.vars['mpl_payoff']*4) + 10
+
         return {
             'selected_round': r,
-            'payoff': player.compute_payoff()
+            'mpl_payoff': self.participant.vars['mpl_payoff'],
+            'salience_payoff': player.compute_payoff(),
+            'total_payoff': player.total_payoff
         }
 
 
 class Questionnaire(Page):
     form_model = 'player'
-    form_fields = ['question_1', 'question_2']
+    form_fields = ['question_1', 'question_2', 'question_3', 'question_4',
+                   'question_5', 'question_6']
 
     def is_displayed(self):
         return self.round_number == self.subsession.num_rounds
@@ -107,12 +114,13 @@ class Questionnaire(Page):
 
 class Demographic(Page):
     form_model = 'player'
-    form_fields = ['first_name', 'last_name', 'gender', 'email', 'student_id', 'part_id',
+    form_fields = ['name', 'gender', 'phone_id', 'part_id',
                    'venmo_id', 'comments', 'strategy']
 
     def is_displayed(self):
         return self.round_number == self.subsession.num_rounds
 
 
-page_sequence = [WelcomePage, Instruction,
+page_sequence = [#WelcomePage,
+                 Instruction,
                  WaitStart, Market, RoundResults, Questionnaire, Demographic, FinalResults]
