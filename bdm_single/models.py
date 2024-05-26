@@ -168,19 +168,19 @@ class Player(BasePlayer):
     question_5 = models.IntegerField(
         choices=[1, 2, 3, 4, 5, 6, 7],
         label="你认为资产A的投资风险有多大？（7为极大风险，1为无风险）",
-        widget=widgets.RadioSelectHorizontal
+        #widget=widgets.RadioSelectHorizontal
     )
     question_6 = models.IntegerField(
         choices=[1, 2, 3, 4, 5, 6, 7],
         label="你认为资产B的投资风险有多大？（7为极大风险，1为无风险）",
-        widget=widgets.RadioSelectHorizontal
+        #widget=widgets.RadioSelectHorizontal
     )
 
     name = models.StringField(label='姓名')
     gender = models.StringField(
         choices=[['男', '男'], ['女', '女'], ['其他', '其他']],
         label='性别',
-        widget=widgets.RadioSelectHorizontal
+        #widget=widgets.RadioSelectHorizontal
     )
     phone_id = models.IntegerField(
         label='手机号')
