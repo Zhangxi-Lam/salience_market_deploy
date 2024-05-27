@@ -223,7 +223,7 @@ class Player(markets_models.Player):
 
     name = models.StringField(label='姓名')
     gender = models.StringField(
-        choices=[['男', '男'], ['女', '女'], ['其他', '其他']],
+        choices=[['Male', '男'], ['Female', '女'], ['Other', '其他']],
         label='性别',
         #widget=widgets.RadioSelectHorizontal
     )
