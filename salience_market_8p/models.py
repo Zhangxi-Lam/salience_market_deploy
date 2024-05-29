@@ -195,7 +195,7 @@ class Player(markets_models.Player):
     question_3 = models.IntegerField(
         label="为购买额外一单位资产B，你最多愿意支付多少钱？")
     question_4 = models.IntegerField(
-        label="为出售额外一单位资产A，你最少愿意接受多少钱？")
+        label="为出售额外一单位资产B，你最少愿意接受多少钱？")
     question_5 = models.IntegerField(
         choices=[1, 2, 3, 4, 5, 6, 7],
         label="你认为资产A的投资风险有多大？（7为极大风险，1为无风险）",
