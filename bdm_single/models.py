@@ -195,10 +195,10 @@ class Player(BasePlayer):
     total_payoff = models.CurrencyField()
 
     # bid and ask fields
-    asset_a_bid = models.FloatField(label='What is your bid for Asset A?')
-    asset_a_ask = models.FloatField(label='What is your ask for Asset A?')
-    asset_b_bid = models.FloatField(label='What is your bid for Asset B?')
-    asset_b_ask = models.FloatField(label='What is your ask for Asset B?')
+    asset_a_bid = models.FloatField(label='你对资产A的进价是多少？')
+    asset_a_ask = models.FloatField(label='你对资产A的出价是多少？')
+    asset_b_bid = models.FloatField(label='你对资产B的进价是多少？')
+    asset_b_ask = models.FloatField(label='你对资产B的出价是多少？')
 
     def asset_a_bid_max(self):
         return max(self.subsession.x + self.subsession.G, self.subsession.x - self.subsession.L)
