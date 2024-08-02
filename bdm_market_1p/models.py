@@ -9,7 +9,7 @@ import time
 
 
 class Constants(BaseConstants):
-    name_in_url = 'bdm_market'
+    name_in_url = 'bdm_market_1p'
     players_per_group = None
     num_rounds = 50
     random_seed = time.time()
