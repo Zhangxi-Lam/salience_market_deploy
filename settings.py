@@ -40,8 +40,15 @@ SESSION_CONFIGS = [
         config_file='demo.csv'
     ),
     dict(
+        name='bdm_market_1p',
+        display_name='BDM Market (DUFE)',
+        num_demo_participants=1,
+        app_sequence=['mpl','bdm_market_1p'],
+        config_file='demo.csv'
+    ),
+    dict(
         name='bdm_single',
-        display_name='BDM Single Asset',
+        display_name='BDM Single Asset (DUFE)',
         num_demo_participants=1,
         app_sequence=['mpl','bdm_single'],
         config_file='demo.csv'
