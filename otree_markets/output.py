@@ -152,7 +152,7 @@ class DefaultJSONMarketOutputGenerator(BaseJSONMarketOutputGenerator):
             'traded_volume': order.traded_volume,
             'id': order.id,
             'status': OrderStatusEnum(order.status).name,
-            'time_inactive': (order.time_inactive - start_time).total_seconds() if order.time_inactive else None,
+            'time_inactive': (order.time_inactive - start_time).total_seconds() if order.time_inactive and start_time else None,
         }
 
     def trade_to_output_dict(self, trade, start_time):
