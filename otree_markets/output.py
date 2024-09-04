@@ -33,7 +33,7 @@ class BaseMarketOutputGenerator():
         this should generally match with the file extension you give with the filename
         '''
         return 'text/plain'
-    
+
     def get_filename(self):
         '''return an appropriate filename for this download
 
@@ -84,7 +84,7 @@ class BaseCSVMarketOutputGenerator(BaseMarketOutputGenerator):
         '''this method should return a list of strings which will form the csv's header
         '''
         raise NotImplementedError()
-    
+
     def get_group_output(self, group):
         '''this method should be a generator which yields one list of values for each row in the csv
 
@@ -144,7 +144,7 @@ class DefaultJSONMarketOutputGenerator(BaseJSONMarketOutputGenerator):
 
     def order_to_output_dict(self, order, start_time):
         return {
-            'time_entered': (order.timestamp - start_time).total_seconds(),
+            'time_entered': (order.timestamp - start_time).total_seconds() if order.timestamp else None,
             'price': order.price,
             'volume': order.volume,
             'is_bid': order.is_bid,
@@ -154,14 +154,14 @@ class DefaultJSONMarketOutputGenerator(BaseJSONMarketOutputGenerator):
             'status': OrderStatusEnum(order.status).name,
             'time_inactive': (order.time_inactive - start_time).total_seconds() if order.time_inactive else None,
         }
-    
+
     def trade_to_output_dict(self, trade, start_time):
         return {
             'timestamp': (trade.timestamp - start_time).total_seconds(),
             'taking_order_id': trade.taking_order.id,
             'making_order_ids': [ o.id for o in trade.making_orders.all() ],
         }
-    
+
     def get_group_data(self, group):
         start_time = group.get_start_time()
 
