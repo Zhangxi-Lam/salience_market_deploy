@@ -144,7 +144,7 @@ class DefaultJSONMarketOutputGenerator(BaseJSONMarketOutputGenerator):
 
     def order_to_output_dict(self, order, start_time):
         return {
-            'time_entered': (order.timestamp - start_time).total_seconds() if order.timestamp else None,
+            'time_entered': (order.timestamp - start_time).total_seconds() if order.timestamp and start_time else None,
             'price': order.price,
             'volume': order.volume,
             'is_bid': order.is_bid,
