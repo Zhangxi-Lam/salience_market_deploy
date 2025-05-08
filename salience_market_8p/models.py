@@ -213,7 +213,7 @@ class Player(markets_models.Player):
         label='性别',
         #widget=widgets.RadioSelectHorizontal
     )
-    phone_id = models.IntegerField(
+    phone_id = models.StringField(
         label='手机号')
     part_id = models.StringField(
         label='座位号')
