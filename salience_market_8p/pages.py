@@ -119,7 +119,7 @@ class FinalResults(Page):
         player = self.player.in_round(r)
 
         # Calculate the total payoff by summing up the payoffs from both apps
-        player.total_payoff = player.compute_payoff()/9 + Currency(self.participant.vars['mpl_payoff']*4) + 10
+        player.total_payoff = player.compute_payoff()/14 + Currency(self.participant.vars['mpl_payoff']*4) + 10
 
         return {
             'selected_round': r,

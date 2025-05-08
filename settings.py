@@ -60,6 +60,13 @@ SESSION_CONFIGS = [
         app_sequence=['mpl','call_market'],
         config_file='demo.csv'
     ),
+    dict(
+        name='call_market_8p',
+        display_name='Call Market (DUFE)',
+        num_demo_participants=8,
+        app_sequence=['mpl','call_market_8p'],
+        config_file='demo.csv'
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

@@ -1,0 +1,216 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+本轮结果
+{% endblock %}
+
+{% block content %}
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+
+<table>
+    资产状态
+    {% if state_independent %}
+    {% if num_assets > 1 %}
+    <tr>
+        <th>资产A状态</th>
+        <td>{{state_a}}</td>
+        <th>资产B状态</th>
+        <td>{{state_b}}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <th>资产A状态</th>
+        <td colspan="3">{{state_a}}</td>
+    </tr>
+    {% endif %}
+    {% else %}
+    <tr>
+        <th>资产状态</th>
+        <td colspan="3">{{state_a}}</td>
+    </tr>
+    {% endif %}
+</table>
+
+
+<table>
+    交易信息
+    <tr>
+        <th>你的资产A进价</th>
+        <td>{{player.asset_a_bid}}</td>
+        <th>你的资产B进价</th>
+        <td>{{player.asset_b_bid}}</td>
+    </tr>
+    <tr>
+      <th>你的资产A出价</th>
+      <td>{{player.asset_a_ask}}</td>
+      <th>你的资产B出价</th>
+      <td>{{player.asset_b_ask}}</td>
+    </tr>
+    <tr>
+        <th>资产A的市场价格</th>
+        <td>{{market_a}}</td>
+        <th>资产B的市场价格</th>
+        <td>{{market_b}}</td>
+    </tr>
+</table>
+
+
+<table>
+    你最终持有的资产和现金
+    <tr>
+        <th>你的剩余现金</th>
+        <td colspan="3">{{settled_cash}}</td>
+    </tr>
+    <tr>
+        <th>资产</th>
+        <th>拥有数量</th>
+        <th>单位回报</th>
+        <th>总回报</th>
+    </tr>
+    <tr>
+        <td>A</td>
+        <td>{{asset_a_unit}}</td>
+        <td>{{asset_a_return}}</td>
+        <td>{{asset_a_total_return}}</td>
+    </tr>
+    {% if num_assets > 1 %}
+    <tr>
+        <td>B</td>
+        <td>{{asset_b_unit}}</td>
+        <td>{{asset_b_return}}</td>
+        <td>{{asset_b_total_return}}</td>
+    </tr>
+    {% endif %}
+</table>
+
+{% if num_assets > 1 %}
+你的本轮收益为 {{asset_a_total_return}} (资产A总收益) +
+{{asset_b_total_return}} (资产B总收益) + {{settled_cash}} (剩余现金) = {{payoff}}
+{% else %}
+你的本轮收益为 {{asset_a_total_return}} (资产A总收益)
++ {{settled_cash}} (剩余现金) = {{payoff}}
+{% endif %}
+
+
+    <div style="display: flex; justify-content: space-between;">
+        <div id="step-chart-A" style="width: 45%;"></div>
+        <div id="step-chart-B" style="width: 45%;"></div>
+    </div>
+
+    <script src="{% static 'call_market_8p/plotly-2.24.1.min.js' %}"></script>
+    <script>
+        var total_a_bid = {{ total_a_bid|json }};
+        var total_a_ask = {{ total_a_ask|json }};
+        var total_b_bid = {{ total_b_bid|json }};
+        var total_b_ask = {{ total_b_ask|json }};
+        var market_price_a = {{ market_a }};
+        var market_price_b = {{ market_b }};
+
+        var trace_a_bid = {
+            x: Array.from({ length: total_a_bid.length }, (_, i) => i + 1),
+            y: total_a_bid,
+            type: 'scatter',
+            mode: 'steps',
+            name: '资产A进价',
+            line: {color: 'red'}
+        };
+
+        var trace_a_ask = {
+            x: Array.from({ length: total_a_ask.length }, (_, i) => i + 1),
+            y: total_a_ask,
+            type: 'scatter',
+            mode: 'steps',
+            name: '资产A出价',
+            line: {color: 'red', dash: 'dash'}
+        };
+
+        var trace_b_bid = {
+            x: Array.from({ length: total_b_bid.length }, (_, i) => i + 1),
+            y: total_b_bid,
+            type: 'scatter',
+            mode: 'steps',
+            name: '资产B进价',
+            line: {color: 'blue'}
+        };
+
+        var trace_b_ask = {
+            x: Array.from({ length: total_b_ask.length }, (_, i) => i + 1),
+            y: total_b_ask,
+            type: 'scatter',
+            mode: 'steps',
+            name: '资产B出价',
+            line: {color: 'blue', dash: 'dash'}
+        };
+
+        // Add horizontal market price lines
+        var horizontal_A = {
+            x: [0, total_a_bid.length],
+            y: [market_price_a, market_price_a],  // Y-coordinate of the horizontal line for Choice A
+            type: 'scatter',
+            mode: 'lines',
+            name: '资产A市场价格',
+            line: {color: 'black', dash: 'dot'}  // Set the line style for the horizontal line
+        };
+
+        var horizontal_B = {
+            x: [0, total_b_bid.length],
+            y: [market_price_b, market_price_b],  // Y-coordinate of the horizontal line for Choice B
+            type: 'scatter',
+            mode: 'lines',
+            name: '资产B市场价格',
+            line: {color: 'black', dash: 'dot'}  // Set the line style for the horizontal line
+        };
+
+        var data_A = [trace_a_bid, trace_a_ask, horizontal_A];
+        var data_B = [trace_b_bid, trace_b_ask, horizontal_B];
+
+        var layout_A = {
+            title: '资产A市场状态',
+            xaxis: {
+                title: '数量',
+                type: 'linear',
+                showline: true,  // Hide x-axis line
+                // showticklabels: false,  // Hide x-axis tick labels
+            },
+            yaxis: {
+                title: '价格',
+                type: 'linear',
+                showline: true,  // Hide x-axis line
+                // showticklabels: false,  // Hide x-axis tick labels
+            },
+        };
+
+        var layout_B = {
+            title: '资产B市场状态',
+            xaxis: {
+                title: '数量',
+                type: 'linear',
+                showline: true,  // Hide x-axis line
+                // showticklabels: false,  // Hide x-axis tick labels
+            },
+            yaxis: {
+                title: '价格',
+                type: 'linear',
+                showline: true,  // Hide x-axis line
+                // showticklabels: false,  // Hide x-axis tick labels
+            },
+        };
+
+        var config = {
+            displayModeBar: false,  // Remove the toolbar
+        };
+
+        Plotly.newPlot('step-chart-A', data_A, layout_A, config);
+        Plotly.newPlot('step-chart-B', data_B, layout_B, config);
+
+    </script>
+
+{%next_button%}
+{% endblock %}

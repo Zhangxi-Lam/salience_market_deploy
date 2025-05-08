@@ -1,0 +1,134 @@
+{{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+市场决策
+{% endblock %}
+
+{% block content %}
+
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+
+    .flex-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .info {
+        padding: 20px;
+        background-color: rgb(15, 171, 202);
+        color: white;
+    }
+</style>
+
+{% if is_practice %}
+<div class="info">
+    <strong>Info:</strong> 这是一个练习轮。
+</div>
+{% endif %}
+
+{% if state_independent %}
+<div class="info">
+    <strong>Info:</strong> 不同资产的状态独立抽取。
+</div>
+{% endif %}
+
+<div class="flex-container">
+    <div>
+        <div>
+            交易轮次: {{round_number}}
+        </div>
+        <div>
+            参与交易人数: {{number_of_player}}
+        </div>
+        <div>
+            你的资产A的禀赋: {{asseta_endowments}}
+        </div>
+        {% if num_assets > 1 %}
+        <div>
+            你的资产B的禀赋: {{assetb_endowments}}
+        </div>
+        {% endif %}
+        <div>
+            你的现金禀赋: {{cash_endowments}}
+        </div>
+    </div>
+    <div>
+        <table>
+            资产A信息
+            <tr>
+                <th>状态</th>
+                <th>发生概率</th>
+                <th>资产A回报</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>{{p1}}%</td>
+                <td>{{asset_a_return_1}}</td>
+            </tr>
+            {% if num_states >= 3 %}
+            <tr>
+                <td>2</td>
+                <td>{{p2}}%</td>
+                <td>{{asset_a_return_2}}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>3</td>
+                <td>{{p3}}%</td>
+                <td>{{asset_a_return_3}}</td>
+            </tr>
+        </table>
+    </div>
+
+    {% if num_assets > 1 %}
+    <div>
+        <table>
+            资产B信息
+            <tr>
+                <th>状态</th>
+                <th>发生概率</th>
+                <th>资产B回报</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>{{p1}}%</td>
+                <td>{{asset_b_return_1}}</td>
+            </tr>
+            {% if num_states >= 3 %}
+            <tr>
+                <td>2</td>
+                <td>{{p2}}%</td>
+                <td>{{asset_b_return_2}}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>3</td>
+                <td>{{p3}}%</td>
+                <td>{{asset_b_return_3}}</td>
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+</div>
+
+<p>
+决策规则：
+<ul>
+  <li>对资产A，进价和出价需位于 {{asset_a_return_3}} 与 {{asset_a_return_1}}之间。</li>
+  <li>对资产B，进价和出价需位于 {{asset_b_return_1}} 与 {{asset_b_return_3}}之间。</li>
+  <li>For each asset, the bid must NOT be higher than the ask.</li>
+</ul>
+所有资产均需遵守上述规则。
+</p>
+
+{% formfields %}
+
+{% next_button %}
+
+{% endblock %}

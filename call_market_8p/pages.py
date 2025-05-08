@@ -29,7 +29,7 @@ class WaitStart(WaitPage):
 
 
 class Market(Page):
-    timeout_seconds = 80
+    timeout_seconds = 100
     form_model = 'player'
     form_fields = ['asset_a_bid','asset_a_ask','asset_b_bid','asset_b_ask']
 
@@ -66,44 +66,49 @@ class Market(Page):
         }
 
 
+class ResultWait(WaitPage):
+    body_text = 'Waiting for all players to submit decisions'
+
+    def after_all_players_arrive(self):
+        self.group.set_payoffs()
+
+    def is_displayed(self):
+        return self.round_number <= self.subsession.num_rounds
+
+
 class RoundResults(Page):
-    timeout_seconds = 40
+    timeout_seconds = 50
 
     def is_displayed(self):
         return self.round_number <= self.subsession.num_rounds
 
     def vars_for_template(self):
-        if self.subsession.num_assets > 1:
-            return {
-                'state_a': self.subsession.state_a,
-                'state_b': self.subsession.state_b,
-                'asset_a_unit': self.player.get_endowments()[0],
-                'asset_a_return': self.subsession.get_asset_return('A'),
-                'asset_a_total_return': self.player.get_endowments()[0] * self.subsession.get_asset_return('A'),
-                'asset_b_unit': self.player.get_endowments()[1],
-                'asset_b_return': self.subsession.get_asset_return('B'),
-                'asset_b_total_return': self.player.get_endowments()[1] * self.subsession.get_asset_return('B'),
-                'settled_cash': self.player.get_endowments()[2],
-                'payoff': self.player.compute_payoff(),
-                'state_independent': self.subsession.state_independent,
-                'num_assets': self.subsession.num_assets,
-                'investor_a': self.subsession.investor_price_a,
-                'investor_b': self.subsession.investor_price_b
-            }
-        else:
-            return {
-                'state_a': self.subsession.state_a,
-                'state_b': self.subsession.state_b,
-                'asset_a_unit': self.player.get_endowments()[0],
-                'asset_a_return': self.subsession.get_asset_return('A'),
-                'asset_a_total_return': self.player.get_endowments()[0] * self.subsession.get_asset_return('A'),
-                'settled_cash': self.player.get_endowments()[2],
-                'payoff': self.player.compute_payoff(),
-                'state_independent': self.subsession.state_independent,
-                'num_assets': self.subsession.num_assets,
-                'investor_a': self.subsession.investor_price_a,
-                'investor_b': self.subsession.investor_price_b
-            }
+        players = self.group.get_players()
+        # sort the bids and asks in orders
+        total_a_bid = sorted([p.asset_a_bid for p in players], reverse=True)
+        total_a_ask = sorted([p.asset_a_ask for p in players])
+        total_b_bid = sorted([p.asset_b_bid for p in players], reverse=True)
+        total_b_ask = sorted([p.asset_b_ask for p in players])
+        return {
+            'state_a': self.subsession.state_a,
+            'state_b': self.subsession.state_b,
+            'asset_a_unit': self.player.final_asseta,
+            'asset_a_return': self.subsession.get_asset_return('A'),
+            'asset_a_total_return': self.player.final_asseta * self.subsession.get_asset_return('A'),
+            'asset_b_unit': self.player.final_assetb,
+            'asset_b_return': self.subsession.get_asset_return('B'),
+            'asset_b_total_return': self.player.final_assetb * self.subsession.get_asset_return('B'),
+            'settled_cash': self.player.final_cash,
+            'payoff': self.player.payoff,
+            'state_independent': self.subsession.state_independent,
+            'num_assets': self.subsession.num_assets,
+            'market_a': self.group.market_price_a,
+            'market_b': self.group.market_price_b,
+            'total_a_bid': total_a_bid,
+            'total_a_ask': total_a_ask,
+            'total_b_bid': total_b_bid,
+            'total_b_ask': total_b_ask
+        }
 
 
 class FinalResults(Page):
@@ -115,14 +120,15 @@ class FinalResults(Page):
         player = self.player.in_round(r)
 
         # Calculate the total payoff by summing up the payoffs from both apps
-        player.total_payoff = player.compute_payoff()/10 + Currency(self.participant.vars['mpl_payoff']*4) + 10
+        player.total_payoff = player.payoff/14 + Currency(self.participant.vars['mpl_payoff']*4) + 10
 
         return {
             'selected_round': r,
             'mpl_payoff': self.participant.vars['mpl_payoff'],
-            'salience_payoff': player.compute_payoff(),
+            'salience_payoff': player.payoff,
             'total_payoff': player.total_payoff
         }
+
 
 
 class Questionnaire(Page):
@@ -145,4 +151,5 @@ class Demographic(Page):
 
 page_sequence = [#WelcomePage,
                  Instruction,
-                 WaitStart, Market, RoundResults, Questionnaire, Demographic, FinalResults]
+                 WaitStart, Market, ResultWait, RoundResults,
+                 Questionnaire, Demographic, FinalResults]
